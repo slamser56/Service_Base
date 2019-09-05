@@ -1,4 +1,32 @@
 <resources>
     <string name="app_name">Service_Base</string>
     <string name="sign_up_rus">Войти</string>
+
+
+    <!--activity_order_activity RUS-->
+<string name="order">Заказ-наряд</string>
+    <string name="status">Состояние</string>
+<string name="serial_number">Серийный номер</string>
+    <string name="imei">IMEI</string>
+    <string name="unique_number">Уникальный номер</string>
+    <string name="product">Изделие</string>
+    <string name="malfunction">Неисправность</string>
+    <string name="additional_description">Доп. описание</string>
+    <string name="appearance">Внешний вид</string>
+    <string name="type_of_repair">Вид ремонта</string>
+    <string name="data_of_warranty">Дата.гар. талона</string>
+    <string name="description">Описание</string>
+    <string name="contact_info">Контактная Информация</string>
+    <string name="contractor">Контрагент</string>
+    <string name="contact_person">Конт. лицо</string>
+    <string name="phone">Телефон</string>
+    <string name="mail">E-mail</string>
+    <string name="adress">Адрес</string>
+    <string name="comments">Комментарии ремонта</string>
+    <string name="completed_work">Выполненные работы</string>
+    <string name="edit">Редактировать</string>
+    <string name="delete">Удалить</string>
+    <string name="select_work">Подбор работ</string>
+    <string name="cost">Итоговая сумма</string>
+    <!--activity_order_activity RUS-->
 </resources>
