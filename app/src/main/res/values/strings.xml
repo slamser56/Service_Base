@@ -28,5 +28,6 @@
     <string name="delete">Удалить</string>
     <string name="select_work">Подбор работ</string>
     <string name="cost">Итоговая сумма</string>
+    <string name="part">Запчасти</string>
     <!--activity_order_activity RUS-->
 </resources>
