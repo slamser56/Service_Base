@@ -4,6 +4,8 @@
 
 
     <!--activity_order_activity RUS-->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 <string name="order">Заказ-наряд</string>
     <string name="status">Состояние</string>
 <string name="serial_number">Серийный номер</string>
