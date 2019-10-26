@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -33,31 +34,51 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.naw_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+
+        if(savedInstanceState == null)
+        {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_find()).commit();
+            navigationView.setCheckedItem(R.id.find);
+        }
+
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 // Handle navigation view item clicks here.
-        int id = item.getItemId();
 
-        if (id == R.id.find) {
-            Toast.makeText(getApplicationContext(),"Поиск",Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.news) {
-            Toast.makeText(getApplicationContext(),"Новости",Toast.LENGTH_SHORT).show();
+        Fragment fragment = null;
+        Class fragmentClass;
 
-        } else if (id == R.id.scaner) {
-            Toast.makeText(getApplicationContext(),"Сканер",Toast.LENGTH_SHORT).show();
+        switch (item.getItemId())
+        {
+            case R.id.find:
+                Toast.makeText(getApplicationContext(),"Поиск",Toast.LENGTH_SHORT).show();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_find()).commit();
+                break;
+            case R.id.news:
+                Toast.makeText(getApplicationContext(),"Новости",Toast.LENGTH_SHORT).show();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_news()).commit();
+                break;
+            case  R.id.scaner:
+                Toast.makeText(getApplicationContext(),"Сканер",Toast.LENGTH_SHORT).show();
+                break;
+            case  R.id.send_request:
+                Toast.makeText(getApplicationContext(),"Написать заявку",Toast.LENGTH_SHORT).show();
+                break;
+            case  R.id.price:
+                Toast.makeText(getApplicationContext(),"Цены",Toast.LENGTH_SHORT).show();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_price()).commit();
+                break;
+            case R.id.about_us:
+                Toast.makeText(getApplicationContext(),"О нас",Toast.LENGTH_SHORT).show();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_about_us()).commit();
+                break;
 
-        } else if (id == R.id.send_request) {
-            Toast.makeText(getApplicationContext(),"Написать заявку",Toast.LENGTH_SHORT).show();
-
-        } else if (id == R.id.price) {
-            Toast.makeText(getApplicationContext(),"Цены",Toast.LENGTH_SHORT).show();
-
-        } else if (id == R.id.about_us) {
-            Toast.makeText(getApplicationContext(),"О нас",Toast.LENGTH_SHORT).show();
-
+            default:
+                break;
         }
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

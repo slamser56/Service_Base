@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
  <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:showIn="navigation_view">
+>
 
 
     <group android:checkableBehavior="single">
@@ -9,16 +8,22 @@
             android:title="Поиск заказа"/>
         <item android:id="@+id/news"
             android:title="Новости"/>
-        <item android:id="@+id/scaner"
-            android:title="Сканер заявки"/>
-        <item android:id="@+id/send_request"
-            android:title="Отправить заявку"/>
         <item android:id="@+id/price"
             android:title="Цены"/>
         <item android:id="@+id/about_us"
             android:title="О нас"/>
     </group>
 
+    <item android:title="Функции">
+        <menu>
+            <item
+            android:id="@+id/send_request"
+            android:title="Отправить запрос" />
+            <item
+                android:id="@+id/scaner"
+                android:title="Сканер" />
+        </menu>
+    </item>
 
 
 </menu>
