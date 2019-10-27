@@ -10,7 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="60dp"
         android:layout_alignParentTop="true">
 
         <EditText
@@ -20,7 +19,7 @@
             android:layout_weight="1"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Заказ-Наряд" />
+            android:hint="Заказ-Наряд"/>
 
         <Button
             android:id="@+id/button4"
