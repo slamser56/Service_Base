@@ -32,6 +32,7 @@
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycleView_repair"
         android:layout_alignTop="@id/linearLayout"
         android:layout_marginTop="60dp"
         android:layout_width="match_parent"

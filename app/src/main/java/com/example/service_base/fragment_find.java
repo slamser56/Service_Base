@@ -11,12 +11,25 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class fragment_find extends Fragment {
+
+    private RecyclerView repairView;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_find, container, false);
+
+        View v = inflater.inflate(R.layout.fragment_find, container, false);
+
+        repairView = v.findViewById(R.id.recycleView_repair);
+
+
+        repairView.setLayoutManager(new LinearLayoutManager(v.getContext()));
+
+
+        return v;
     }
 }
