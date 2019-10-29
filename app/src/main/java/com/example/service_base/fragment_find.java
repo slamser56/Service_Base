@@ -14,9 +14,12 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.service_base.adapter.RepairAdapter;
+
 public class fragment_find extends Fragment {
 
     private RecyclerView repairView;
+    private RepairAdapter repairAdapter;
 
     @Nullable
     @Override
@@ -29,6 +32,9 @@ public class fragment_find extends Fragment {
 
         repairView.setLayoutManager(new LinearLayoutManager(v.getContext()));
 
+
+        repairAdapter = new RepairAdapter(50);
+        repairView.setAdapter(repairAdapter);
 
         return v;
     }
