@@ -2,6 +2,12 @@ package com.example.service_base.Repair_item;
 
 public class Repair_item {
 
+    //TAG
+    public static final String TAG_REPAIR = "repair";
+    public static final String TAG_ID = "id";
+    public static final String TAG_DATE = "date";
+    public static final String TAG_STATUS = "status";
+
     private int id;
     private String date;
     private String status;

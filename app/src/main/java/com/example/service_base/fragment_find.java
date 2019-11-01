@@ -117,75 +117,20 @@ public class fragment_find extends Fragment {
          * */
         protected String doInBackground(String... args) {
 
-            /*
-
-            String json_obj_string = "";
-            HttpURLConnection data_con = null;
-            try {
-                URL myUrl = new URL("http://s55111.hostru05.fornex.org/db_read_main_list.php");
-                data_con = (HttpURLConnection) myUrl.openConnection();
-                data_con.setRequestMethod("GET");
-                data_con.setRequestProperty("Content-length", "0");
-                data_con.setUseCaches(false);
-                data_con.setAllowUserInteraction(false);
-                data_con.setConnectTimeout(1500);
-                data_con.setReadTimeout(1500);
-                data_con.connect();
-                int status = data_con.getResponseCode();
-
-                switch (status) {
-                    case 200:
-                    case 201:
-                        BufferedReader br = new BufferedReader(new InputStreamReader(data_con.getInputStream()));
-                        StringBuilder sb = new StringBuilder();
-                        String line;
-                        while ((line = br.readLine()) != null) {
-                            sb.append(line+"\n");
-                        }
-                        br.close();
-                        //return sb.toString();
-                        json_obj_string = sb.toString();
-                }
-
-            } catch (MalformedURLException e) {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, e);
-            } catch (IOException e) {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, e);
-            }finally {
-                if (data_con != null) {
-                    try {
-                        data_con.disconnect();
-                    } catch (Exception ex) {
-                        Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-            }
-
-            Log.d("BACK", json_obj_string);
-        */
-
-            StringBuilder result = new StringBuilder();
+            JSONParser jsonParser = new JSONParser();
+            JSONArray repairs;
 
             try {
-                URL url = new URL("http://s55111.hostru05.fornex.org/db_read_main_list.php");
-                urlConnection = (HttpURLConnection) url.openConnection();
-                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+                JSONObject json = jsonParser.makeHttpRequest("http://s55111.hostru05.fornex.org/db_read_main_list.php",JSONParser.GET);
+                repairs = json.getJSONArray("repair");
 
-                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    result.append(line);
-                }
 
-            }catch( Exception e) {
+            } catch (JSONException e) {
                 e.printStackTrace();
             }
-            finally {
-                urlConnection.disconnect();
-            }
 
-            Log.d("BACKCKKKKK", result.toString());
+
 
 
             return null;

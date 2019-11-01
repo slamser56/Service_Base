@@ -1,100 +1,87 @@
 package com.example.service_base;
 
 import android.util.Log;
-
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLEncoder;
-import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 class JSONParser {
 
-    static InputStream is = null;
-    static JSONObject jObj = null;
-    static String json = "";
+    //main code
+    public static final int GET = 300;
+    public static final int POST = 301;
+    private static final int TIMEOUT = 1000;
 
-    /*
+    static JSONObject jObj = null;
+
+
     // constructor
-    public JSONParser() {
+    public JSONParser()  {
 
     }
 
-    // function get json from url
-// by making HTTP POST or GET method
-    public JSONObject makeHttpRequest(String url, String method, List<NameValuePair> params) throws IOException {
 
-        // Making HTTP request
-        try {
+    public JSONObject makeHttpRequest(String url, int method) throws JSONException {
 
-            // check for request method
-            if(method == "POST"){
-                // request method is POST
-                // defaultHttpClient
-                DefaultHttpClient httpClient = new DefaultHttpClient();
-                HttpPost httpPost = new HttpPost(url);
-                httpPost.setEntity(new UrlEncodedFormEntity(params));
+        String json_obj_string = null;
+        HttpURLConnection data_con = null;
 
-                HttpResponse httpResponse = httpClient.execute(httpPost);
 
-                HttpEntity httpEntity = httpResponse.getEntity();
-                is = httpEntity.getContent();
+        if (method == GET)
+        {
+            try {
+                URL myUrl = new URL(url);
+                data_con = (HttpURLConnection) myUrl.openConnection();
+                data_con.setRequestMethod("GET");
+                data_con.setRequestProperty("Content-length", "0");
+                data_con.setUseCaches(false);
+                data_con.setAllowUserInteraction(false);
+                data_con.setConnectTimeout(TIMEOUT);
+                data_con.setReadTimeout(TIMEOUT);
+                data_con.connect();
+                int status = data_con.getResponseCode();
+                if (data_con.getResponseCode() == HttpURLConnection.HTTP_CREATED || data_con.getResponseCode() == HttpURLConnection.HTTP_OK){
+                    BufferedReader br = new BufferedReader(new InputStreamReader(data_con.getInputStream()));
+                    StringBuilder sb = new StringBuilder();
+                    String line;
+                    while ((line = br.readLine()) != null) {
+                        sb.append(line+"\n");
+                    }
+                    br.close();
+                    //return sb.toString();
+                    json_obj_string = sb.toString();
+                }
 
-            }else if(method == "GET"){
-                // request method is GET
-                DefaultHttpClient httpClient = new DefaultHttpClient(httpParameters);
-                String paramString = URLEncodedUtils.format(params, "utf-8");
-                url += "?" + paramString;
-                HttpGet httpGet = new HttpGet(url);
-
-                HttpResponse httpResponse = httpClient.execute(httpGet);
-                HttpEntity httpEntity = httpResponse.getEntity();
-                is = httpEntity.getContent();
+            } catch (MalformedURLException e) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, e);
+            } catch (IOException e) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, e);
+            }finally {
+                if (data_con != null) {
+                    try {
+                        data_con.disconnect();
+                    } catch (Exception ex) {
+                        Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
             }
 
-
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (ClientProtocolException e) {
-            e.printStackTrace();
-        } catch (Exception ex) {
-            Log.d("Networking", ex.getLocalizedMessage());
-            throw new IOException("Error connecting");
+            Log.d("JSONParcer GET", json_obj_string);
         }
 
-        try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(
-                    is, "iso-8859-1"), 8);
-            StringBuilder sb = new StringBuilder();
-            String line = null;
-            while ((line = reader.readLine()) != null) {
-                sb.append(line + "\n");
-            }
-            is.close();
-            json = sb.toString();
-        } catch (Exception e) {
-            Log.e("Buffer Error", "Error converting result " + e.toString());
-        }
 
-        // try parse the string to a JSON object
-        try {
-            jObj = new JSONObject(json);
-        } catch (JSONException e) {
-            Log.e("JSON Parser", "Error parsing data " + e.toString());
-        }
+        jObj = new JSONObject(json_obj_string);
 
-        // return JSON String
         return jObj;
-*/
+    }
+
+
     }
 
