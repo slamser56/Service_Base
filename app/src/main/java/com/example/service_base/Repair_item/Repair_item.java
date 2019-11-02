@@ -7,6 +7,9 @@ public class Repair_item {
     public static final String TAG_ID = "id";
     public static final String TAG_DATE = "date";
     public static final String TAG_STATUS = "status";
+    public static final String TAG_ERROR = "error";
+    public static final String TAG_SUCCESS = "success";
+    public static final String TAG_NOT_FOUND_REPAIR = "repair_not_found";
 
     private int id;
     private String date;

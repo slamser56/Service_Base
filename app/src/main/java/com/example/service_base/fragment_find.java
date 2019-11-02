@@ -44,11 +44,6 @@ public class fragment_find extends Fragment {
     private List<Repair_item> repair_items = new ArrayList<>();
     private ProgressDialog pDialog;
 
-    //url
-    private static String url_all_repair_list = "http://s55111.hostru05.fornex.org/db_read_main_list.php";
-    HttpURLConnection urlConnection;
-    //array
-    JSONArray repair = null;
 
     // JSON Node names
     private static final String TAG_SUCCESS = "success";
@@ -63,10 +58,6 @@ public class fragment_find extends Fragment {
         View v = inflater.inflate(R.layout.fragment_find, container, false);
 
 
-        // Загружаем продукты в фоновом потоке
-        new LoadAllProducts().execute();
-
-        setInitialData();
 
         repairView = v.findViewById(R.id.recycleView_repair);
 
@@ -79,16 +70,14 @@ public class fragment_find extends Fragment {
 
         repairView.setAdapter(repairAdapter);
 
+        // Загружаем продукты в фоновом потоке
+        new LoadAllProducts().execute();
+
+
+
         return v;
     }
 
-    private void setInitialData(){
-
-        repair_items.add(new Repair_item (1, "22.02", "Open"));
-        repair_items.add(new Repair_item (2, "21.02", "Open"));
-        repair_items.add(new Repair_item (3, "20.02", "Open"));
-        repair_items.add(new Repair_item (4, "10.02", "Close"));
-    }
 
 
 
@@ -118,19 +107,44 @@ public class fragment_find extends Fragment {
         protected String doInBackground(String... args) {
 
             JSONParser jsonParser = new JSONParser();
-            JSONArray repairs;
+            JSONArray JSON_array_repairs = null;
 
             try {
                 JSONObject json = jsonParser.makeHttpRequest("http://s55111.hostru05.fornex.org/db_read_main_list.php",JSONParser.GET);
-                repairs = json.getJSONArray("repair");
 
 
+                if (!json.has(Repair_item.TAG_ERROR)) {
+                int success = json.getInt(Repair_item.TAG_SUCCESS);
+                if (success == 1) {
+                    // ремонт найден
+                    // Получаем масив из Ремонтов
+                    JSON_array_repairs = json.getJSONArray(Repair_item.TAG_REPAIR);
 
-            } catch (JSONException e) {
+                    // перебор всех ремонтов
+                    for (int i = 0; i < JSON_array_repairs.length(); i++) {
+                        JSONObject c = JSON_array_repairs.getJSONObject(i);
+
+                        // Сохраняем каждый json елемент в переменную
+                        int id = c.getInt(Repair_item.TAG_ID);
+                        String date = c.getString(Repair_item.TAG_DATE);
+                        String status = c.getString(Repair_item.TAG_STATUS);
+                        // Создаем новый List
+                       repair_items.add(new Repair_item (id, date, status));
+                    }
+                    return Repair_item.TAG_SUCCESS;
+                } else {
+                    // продукт не найден
+                    return Repair_item.TAG_NOT_FOUND_REPAIR;
+                }
+                }
+                else {
+                    return Repair_item.TAG_ERROR;
+                }
+
+                }
+            catch (JSONException e) {
                 e.printStackTrace();
             }
-
-
 
 
             return null;
@@ -139,9 +153,23 @@ public class fragment_find extends Fragment {
         /**
          * После завершения фоновой задачи закрываем прогрес диалог
          * **/
-        protected void onPostExecute(String file_url) {
+        protected void onPostExecute(String result) {
             // закрываем прогресс диалог после получение все продуктов
             pDialog.dismiss();
+
+            if (result == Repair_item.TAG_NOT_FOUND_REPAIR)
+            {
+                Toast.makeText(getActivity(),"REPAIR NOT FOUND",Toast.LENGTH_LONG).show();
+            }
+            else if (result == Repair_item.TAG_ERROR)
+            {
+                Toast.makeText(getActivity(),"BAD CONNECT TO SERVER",Toast.LENGTH_LONG).show();
+            }
+            else if (result == Repair_item.TAG_SUCCESS)
+            {
+                repairAdapter.notifyDataSetChanged();
+                Toast.makeText(getActivity(),"FOUND",Toast.LENGTH_LONG).show();
+            }
 
 
         }
