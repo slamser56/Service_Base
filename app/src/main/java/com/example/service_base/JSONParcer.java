@@ -17,7 +17,7 @@ class JSONParser {
     //main code
     public static final int GET = 300;
     public static final int POST = 301;
-    private static final int TIMEOUT = 1000;
+    private static final int TIMEOUT = 2000;
 
     static JSONObject jObj = null;
 

@@ -3,12 +3,9 @@ package com.example.service_base;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.JsonReader;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -24,20 +21,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-public class fragment_find extends Fragment {
+public class
+fragment_find extends Fragment {
 
     private RecyclerView repairView;
     private RepairAdapter repairAdapter;
@@ -45,11 +33,6 @@ public class fragment_find extends Fragment {
     private ProgressDialog pDialog;
 
 
-    // JSON Node names
-    private static final String TAG_SUCCESS = "success";
-    private static final String TAG_DATE = "date";
-    private static final String TAG_ID = "id";
-    private static final String TAG_STATUS = "status";
 
 
     @Nullable
@@ -66,7 +49,7 @@ public class fragment_find extends Fragment {
 
         repairView.setHasFixedSize(true);
 
-        repairAdapter = new RepairAdapter(repair_items);
+        repairAdapter = new RepairAdapter(repair_items,getActivity());
 
         repairView.setAdapter(repairAdapter);
 
