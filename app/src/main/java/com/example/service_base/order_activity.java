@@ -3,6 +3,7 @@ package com.example.service_base;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -97,9 +98,13 @@ public class order_activity extends AppCompatActivity {
 
             JSONParser jsonParser = new JSONParser();
             JSONArray JSON_array_repairs = null;
+            ContentValues param=new ContentValues();
+            param.put("user","s55111_standart");
+            param.put("pass","5tva3ijjcxjh5w5het");
 
             try {
-                JSONObject json = jsonParser.makeHttpRequest("http://s55111.hostru05.fornex.org/db_read_repair.php",JSONParser.GET);
+
+                JSONObject json = jsonParser.makeHttpRequest("http://s55111.hostru05.fornex.org/db_read_repair.php",JSONParser.GET, param);
 
 
                 if (!json.has(Repair_item.TAG_ERROR)) {

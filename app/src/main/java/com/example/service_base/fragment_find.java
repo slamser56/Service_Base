@@ -1,6 +1,7 @@
 package com.example.service_base;
 
 import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -92,8 +93,13 @@ fragment_find extends Fragment {
             JSONParser jsonParser = new JSONParser();
             JSONArray JSON_array_repairs = null;
 
+            ContentValues param=new ContentValues();
+            param.put("user","s55111_standart");
+            param.put("pass","5tva3ijjcxjh5w5het");
+
+
             try {
-                JSONObject json = jsonParser.makeHttpRequest("http://s55111.hostru05.fornex.org/db_read_main_list.php",JSONParser.GET);
+                JSONObject json = jsonParser.makeHttpRequest("http://s55111.hostru05.fornex.org/db_read_main_list.php",JSONParser.GET, param);
 
 
                 if (!json.has(Repair_item.TAG_ERROR)) {
