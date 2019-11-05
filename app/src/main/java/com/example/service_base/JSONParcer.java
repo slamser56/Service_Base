@@ -57,18 +57,14 @@ class JSONParser {
                 data_con.connect();
             } else if (method == POST) {
                 URL myUrl = new URL(url);
-                data_con = (HttpsURLConnection) myUrl.openConnection();
+                data_con = (HttpURLConnection) myUrl.openConnection();
                 data_con.setReadTimeout(TIMEOUT_READ);
                 data_con.setConnectTimeout(TIMEOUT_CONNECT);
                 data_con.setRequestMethod("POST");
                 data_con.setDoInput(true);
                 data_con.setDoOutput(true);
-
                 OutputStream os = data_con.getOutputStream();
-                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
-                writer.write(getQuery(param));
-                writer.flush();
-                writer.close();
+                os.write(getQuery(param).getBytes("UTF-8"));
                 os.close();
                 data_con.connect();
             }
@@ -84,7 +80,6 @@ class JSONParser {
 
 
         try {
-        int status = data_con.getResponseCode();
         if (data_con.getResponseCode() == HttpURLConnection.HTTP_CREATED || data_con.getResponseCode() == HttpURLConnection.HTTP_OK) {
             BufferedReader br = new BufferedReader(new InputStreamReader(data_con.getInputStream()));
             StringBuilder sb = new StringBuilder();

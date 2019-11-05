@@ -95,16 +95,17 @@ public class order_activity extends AppCompatActivity {
 
 
         protected String doInBackground(String... args) {
-
+            Bundle arguments = getIntent().getExtras();
             JSONParser jsonParser = new JSONParser();
             JSONArray JSON_array_repairs = null;
             ContentValues param=new ContentValues();
             param.put("user","s55111_standart");
             param.put("pass","5tva3ijjcxjh5w5het");
+            param.put("id", arguments.get("id").toString());
 
             try {
 
-                JSONObject json = jsonParser.makeHttpRequest("http://s55111.hostru05.fornex.org/db_read_repair.php",JSONParser.GET, param);
+                JSONObject json = jsonParser.makeHttpRequest("http://s55111.hostru05.fornex.org/db_read_repair.php",JSONParser.POST, param);
 
 
                 if (!json.has(Repair_item.TAG_ERROR)) {

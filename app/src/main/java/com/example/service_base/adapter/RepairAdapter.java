@@ -70,6 +70,7 @@ public class RepairAdapter extends RecyclerView.Adapter<RepairAdapter.RepairView
                     // on click action here
                     //-- use context to start the new Activity
                     Intent mediaStreamIntent = new Intent(ctx, order_activity.class);
+                    mediaStreamIntent.putExtra("id", repair_item.getId());
                     ctx.startActivity(mediaStreamIntent);
                 }
             });
