@@ -28,11 +28,18 @@ public class Repair_item {
     public static final String TAG_MAIL = "mail";
     public static final String TAG_ADRESS = "adress";
 
+    //DATA COMMENT
+    public static final String TAG_ID_COMMENT = "id_c";
+    public static final String TAG_COMMENT = "Comment";
+    public static final String TAG_WORKER = "Worler";
+    public static final String TAG_DATE_COMMENT = "date_c";
 
+//first data
     private int id;
     private String date;
     private String status;
 
+    //all data
     private String date_complete;
     private String type_of_repair;
     private String sn;
@@ -48,6 +55,13 @@ public class Repair_item {
     private String phone;
     private String mail;
     private String adress;
+
+
+    //comment data
+    private int id_c;
+    private String Comment;
+    private String worker;
+    private String date_c;
 
     public Repair_item(int id, String date, String status)
     {
@@ -75,6 +89,38 @@ public class Repair_item {
         this.phone = phone;
         this.mail = mail;
         this.adress = adress;
+    }
+
+    public int getId_c() {
+        return id_c;
+    }
+
+    public void setId_c(int id_c) {
+        this.id_c = id_c;
+    }
+
+    public String getComment() {
+        return Comment;
+    }
+
+    public void setComment(String comment) {
+        Comment = comment;
+    }
+
+    public String getWorker() {
+        return worker;
+    }
+
+    public void setWorker(String worker) {
+        this.worker = worker;
+    }
+
+    public String getDate_c() {
+        return date_c;
+    }
+
+    public void setDate_c(String date_c) {
+        this.date_c = date_c;
     }
 
     public int getId() {
