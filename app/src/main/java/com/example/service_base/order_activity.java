@@ -1,22 +1,29 @@
 package com.example.service_base;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.service_base.Repair_item.Comment;
 import com.example.service_base.Repair_item.Repair_item;
+import com.example.service_base.adapter.CommentAdapter;
+import com.example.service_base.adapter.RepairAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +31,7 @@ public class order_activity extends AppCompatActivity {
 
     private ProgressDialog pDialog;
     private Repair_item repair_item;
+    private List<Comment> comments = new ArrayList<>();
     Context context = this;
 
     EditText Tdate;
@@ -45,13 +53,25 @@ public class order_activity extends AppCompatActivity {
     EditText Tadress;
 
 
+    private RecyclerView commentView;
+    private CommentAdapter commentAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_activity);
         init_all();
+        commentView = findViewById(R.id.comment_rv);
 
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        commentView.setLayoutManager(layoutManager);
+
+        commentView.setHasFixedSize(true);
+
+        commentAdapter = new CommentAdapter(comments , context);
+
+        commentView.setAdapter(commentAdapter);
 
         new LoadAllProducts().execute();
     }
@@ -98,6 +118,7 @@ public class order_activity extends AppCompatActivity {
             Bundle arguments = getIntent().getExtras();
             JSONParser jsonParser = new JSONParser();
             JSONArray JSON_array_repairs = null;
+            JSONArray JSON_array_comment = null;
             ContentValues param=new ContentValues();
             param.put("user","s55111_standart");
             param.put("pass","5tva3ijjcxjh5w5het");
@@ -141,6 +162,21 @@ public class order_activity extends AppCompatActivity {
 
 
                             repair_item = new Repair_item(id, date, status, date_complete, type_of_repair, sn, imei, unique_number, product, date_of_warranty, appearance, additional_description, malfunction, contractor, contact_person, phone, mail, adress);
+
+
+                        JSON_array_comment = json.getJSONArray(Comment.TAG_COMMENT);
+
+                        // перебор всех комментов
+                        for (int i = 0; i < JSON_array_comment.length(); i++) {
+                            JSONObject a = JSON_array_comment.getJSONObject(i);
+                            // Сохраняем каждый json елемент в переменную
+                            int id_c = a.getInt(Comment.TAG_ID_COMMENT);
+                            String date_c = a.getString(Comment.TAG_DATE_COMMENT);
+                           String comment_c = a.getString(Comment.TAG_COMMENT);
+                           String worker = a.getString(Comment.TAG_WORKER);
+                            // Создаем новый List
+                            comments.add(new Comment (id_c, comment_c, worker, date_c));
+                        }
 
                         return Repair_item.TAG_SUCCESS;
                     } else {
@@ -193,6 +229,9 @@ public class order_activity extends AppCompatActivity {
                 Tphone.setText(repair_item.getPhone());
                 Tmail.setText(repair_item.getMail());
                 Tadress.setText(repair_item.getAdress());
+
+
+                commentAdapter.notifyDataSetChanged();
 
                 Toast.makeText(context,"FOUND",Toast.LENGTH_LONG).show();
             }

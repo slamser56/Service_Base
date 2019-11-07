@@ -1,31 +1,27 @@
 package com.example.service_base.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.service_base.R;
-import com.example.service_base.Repair_item.Repair_item;
-import com.example.service_base.order_activity;
+import com.example.service_base.Repair_item.Comment;
 
 import java.util.List;
 
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentViewHolder> {
 
-    private List<Repair_item> repair_items;
+    private List<Comment> comment;
     private Context ctx;
 
-    public CommentAdapter(List<Repair_item> repair_items, Context ctx)
+    public CommentAdapter(List<Comment> comment, Context ctx)
     {
-        this.repair_items = repair_items;
+        this.comment = comment;
         this.ctx = ctx;
     }
 
@@ -42,22 +38,22 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
 
     @Override
     public void onBindViewHolder(@NonNull CommentAdapter.CommentViewHolder holder, int position) {
-        holder.bind(repair_items.get(position));
+        holder.bind(comment.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return repair_items.size();
+        return comment.size();
     }
 
     class CommentViewHolder extends RecyclerView.ViewHolder {
 
-        public void bind(final Repair_item repair_item) {
+        public void bind(final Comment comment) {
 
 
-            TextCommentId.setText(String.valueOf(repair_item.getId_c()));
-            TextCommentDate.setText(repair_item.getDate_c().toString());
-            TextComment.setText(repair_item.getComment().toString());
+            TextCommentId.setText(String.valueOf(comment.getId_c()));
+            TextCommentDate.setText(comment.getDate_c().toString());
+            TextComment.setText(comment.getComment().toString());
         }
 
         TextView TextCommentId;
