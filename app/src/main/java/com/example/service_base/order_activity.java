@@ -40,6 +40,7 @@ public class order_activity extends AppCompatActivity {
     private List<Parts> parts = new ArrayList<>();
     Context context = this;
 
+
     EditText Tdate;
     EditText Tid;
     EditText Tstatus;
