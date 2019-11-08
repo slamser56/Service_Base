@@ -15,9 +15,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.service_base.Repair_item.Comment;
+import com.example.service_base.Repair_item.Parts;
 import com.example.service_base.Repair_item.Repair_item;
+import com.example.service_base.Repair_item.Repair_work;
 import com.example.service_base.adapter.CommentAdapter;
+import com.example.service_base.adapter.PartsAdapter;
 import com.example.service_base.adapter.RepairAdapter;
+import com.example.service_base.adapter.RepairWorkAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,6 +36,8 @@ public class order_activity extends AppCompatActivity {
     private ProgressDialog pDialog;
     private Repair_item repair_item;
     private List<Comment> comments = new ArrayList<>();
+    private List<Repair_work> repair_works = new ArrayList<>();
+    private List<Parts> parts = new ArrayList<>();
     Context context = this;
 
     EditText Tdate;
@@ -54,7 +60,11 @@ public class order_activity extends AppCompatActivity {
 
 
     private RecyclerView commentView;
+    private RecyclerView repairworkView;
+    private  RecyclerView partsView;
     private CommentAdapter commentAdapter;
+    private RepairWorkAdapter repairWorkAdapter;
+    private PartsAdapter partsAdapter;
 
 
     @Override
@@ -63,17 +73,32 @@ public class order_activity extends AppCompatActivity {
         setContentView(R.layout.activity_order_activity);
         init_all();
         commentView = findViewById(R.id.comment_rv);
+        repairworkView = findViewById(R.id.repair_view);
+        partsView = findViewById(R.id.parts_view);
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(context);
         commentView.setLayoutManager(layoutManager);
-
         commentView.setHasFixedSize(true);
-
         commentAdapter = new CommentAdapter(comments , context);
-
         commentView.setAdapter(commentAdapter);
 
+        LinearLayoutManager layoutManagerRepair = new LinearLayoutManager(context);
+        repairworkView.setLayoutManager(layoutManagerRepair);
+        repairworkView.setHasFixedSize(true);
+        repairWorkAdapter = new RepairWorkAdapter(repair_works , context);
+        repairworkView.setAdapter(repairWorkAdapter);
+
+
+        LinearLayoutManager layoutManagerParts = new LinearLayoutManager(context);
+        partsView.setLayoutManager(layoutManagerParts);
+        partsView.setHasFixedSize(true);
+        partsAdapter = new PartsAdapter(parts , context);
+        partsView.setAdapter(partsAdapter);
+
+
         new LoadAllProducts().execute();
+
     }
 
 
@@ -119,6 +144,8 @@ public class order_activity extends AppCompatActivity {
             JSONParser jsonParser = new JSONParser();
             JSONArray JSON_array_repairs = null;
             JSONArray JSON_array_comment = null;
+            JSONArray JSON_array_repair_work = null;
+            JSONArray JSON_array_parts = null;
             ContentValues param=new ContentValues();
             param.put("user","s55111_standart");
             param.put("pass","5tva3ijjcxjh5w5het");
@@ -178,6 +205,40 @@ public class order_activity extends AppCompatActivity {
                             comments.add(new Comment (id_c, comment_c, worker, date_c));
                         }
 
+                        JSON_array_repair_work = json.getJSONArray(Repair_work.TAG_REPAIR_WORK);
+
+                        // перебор всех работ
+                        for (int i = 0; i < JSON_array_repair_work.length(); i++) {
+                            JSONObject w = JSON_array_repair_work.getJSONObject(i);
+                            // Сохраняем каждый json елемент в переменную
+                            int id_w = w.getInt(Repair_work.TAG_ID);
+                            int price_w = w.getInt(Repair_work.TAG_COST);
+                            int time = w.getInt(Repair_work.TAG_TIME);
+                            String date_w = w.getString(Repair_work.TAG_DATE);
+                            String repair_work = w.getString(Repair_work.TAG_WORK_NAME);
+                            String worker_w = w.getString(Repair_work.TAG_WORKER);
+                            // Создаем новый List
+                            repair_works.add(new Repair_work (id_w, price_w, time, repair_work, worker_w, date_w ));
+                        }
+
+
+                        JSON_array_parts = json.getJSONArray(Parts.TAG_PARTS);
+
+                        // перебор всех работ
+                        for (int i = 0; i < JSON_array_parts.length(); i++) {
+                            JSONObject p = JSON_array_parts.getJSONObject(i);
+                            // Сохраняем каждый json елемент в переменную
+                            int id_p = p.getInt(Parts.TAG_ID);
+                            int cost_p = p.getInt(Parts.TAG_COST);
+                            String name_p = p.getString(Parts.TAG_NAME);
+                            String date_p = p.getString(Parts.TAG_DATE);
+                            String sn_p = p.getString(Parts.TAG_SN);
+                            String pn_p = p.getString(Parts.TAG_PN);
+                            String description_p = p.getString(Parts.TAG_DESCRIPTION);
+                            // Создаем новый List
+                            parts.add(new Parts (id_p, name_p, date_p, sn_p, pn_p, description_p, cost_p));
+                        }
+
                         return Repair_item.TAG_SUCCESS;
                     } else {
                         // продукт не найден
@@ -231,8 +292,9 @@ public class order_activity extends AppCompatActivity {
                 Tadress.setText(repair_item.getAdress());
 
 
+                partsAdapter.notifyDataSetChanged();
+                repairWorkAdapter.notifyDataSetChanged();
                 commentAdapter.notifyDataSetChanged();
-
                 Toast.makeText(context,"FOUND",Toast.LENGTH_LONG).show();
             }
 

@@ -3,25 +3,24 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/comment_fr"
     android:padding="16dp">
 
     <TextView
-        android:id="@+id/text_comment_id"
+        android:id="@+id/text_parts_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|start"
         />
 
     <TextView
-        android:id="@+id/text_comment"
+        android:id="@+id/text_parts"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|center"
         />
 
     <TextView
-        android:id="@+id/text_comment_date"
+        android:id="@+id/text__parts_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|end"

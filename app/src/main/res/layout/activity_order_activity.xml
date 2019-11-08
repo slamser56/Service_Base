@@ -528,7 +528,8 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
-                    android:layout_height="500px" />
+                    android:layout_height="500px"
+                    android:id="@+id/repair_view"/>
 
             </LinearLayout>
 
@@ -599,7 +600,8 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
-                    android:layout_height="500px" />
+                    android:layout_height="500px"
+                    android:id="@+id/parts_view"/>
 
             </LinearLayout>
 
