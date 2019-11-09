@@ -25,13 +25,14 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class
-fragment_find extends Fragment {
+public class fragment_find extends Fragment {
 
     private RecyclerView repairView;
     private RepairAdapter repairAdapter;
     private List<Repair_item> repair_items = new ArrayList<>();
     private ProgressDialog pDialog;
+    private boolean firstVisit;
+
 
 
 
@@ -40,7 +41,6 @@ fragment_find extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_find, container, false);
-
 
 
         repairView = v.findViewById(R.id.recycleView_repair);
@@ -58,19 +58,32 @@ fragment_find extends Fragment {
         new LoadAllProducts().execute();
 
 
-
+        firstVisit = true;
         return v;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (firstVisit) {
+            //do stuff for first visit only
+
+            firstVisit = false;
+        }
+        else {
+            repair_items.clear();
+            // Загружаем продукты в фоновом потоке
+            new LoadAllProducts().execute();
+        }
 
 
-
-
+    }
 
     /**
      * Фоновый Async Task для загрузки всех продуктов по HTTP запросу
      * */
-    class LoadAllProducts extends AsyncTask<String, String, String> {
+    public class LoadAllProducts extends AsyncTask<String, String, String> {
 
         /**
          * Перед началом фонового потока Show Progress Dialog

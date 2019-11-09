@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -43,6 +44,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
+
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 // Handle navigation view item clicks here.
@@ -74,6 +77,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Toast.makeText(getApplicationContext(),"О нас",Toast.LENGTH_SHORT).show();
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_about_us()).commit();
                 break;
+            case R.id.new_repair:
+                Toast.makeText(getApplicationContext(),"Новый заказ",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, new_repair.class);
+                this.startActivity(intent);
+                break;
 
             default:
                 break;
@@ -85,6 +93,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         return true;
     }
+
+
 
 
     @Override
