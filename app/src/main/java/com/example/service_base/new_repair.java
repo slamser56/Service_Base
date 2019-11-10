@@ -60,7 +60,7 @@ public class new_repair extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             Toast.makeText(context, "Загрузка", Toast.LENGTH_SHORT).show();
-            new LoadAllProducts().execute();
+            new AddProduct().execute();
         }
     };
 
@@ -90,7 +90,7 @@ public class new_repair extends AppCompatActivity {
     /**
      * Фоновый Async Task для загрузки всех продуктов по HTTP запросу
      * */
-    public class LoadAllProducts extends AsyncTask<String, String, String> {
+    public class AddProduct extends AsyncTask<String, String, String> {
 
         /**
          * Перед началом фонового потока Show Progress Dialog

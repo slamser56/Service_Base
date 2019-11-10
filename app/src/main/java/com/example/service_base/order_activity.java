@@ -4,12 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -59,6 +62,10 @@ public class order_activity extends AppCompatActivity {
     EditText Tmail;
     EditText Tadress;
 
+    EditText Tcomment;
+
+    Button btncomment;
+
 
     private RecyclerView commentView;
     private RecyclerView repairworkView;
@@ -100,8 +107,21 @@ public class order_activity extends AppCompatActivity {
 
         new LoadAllProducts().execute();
 
+
+        btncomment.setOnClickListener(Onbutton);
+
+
+
     }
 
+
+    private View.OnClickListener Onbutton = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Toast.makeText(context, "Загрузка", Toast.LENGTH_SHORT).show();
+            new AddComment().execute();
+        }
+    };
 
 
     void init_all()
@@ -123,7 +143,12 @@ public class order_activity extends AppCompatActivity {
         Tphone = findViewById(R.id.phone);
         Tmail = findViewById(R.id.mail);
         Tadress = findViewById(R.id.adress);
+
+        Tcomment =findViewById(R.id.comments);
+        btncomment =findViewById(R.id.comments_button);
     }
+
+
 
 
     class LoadAllProducts extends AsyncTask<String, String, String> {
@@ -133,7 +158,7 @@ public class order_activity extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             pDialog = new ProgressDialog(context);
-            pDialog.setMessage("Загрузка продуктов. Подождите...");
+            pDialog.setMessage("Загрузка. Подождите...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(false);
             pDialog.show();
@@ -266,11 +291,11 @@ public class order_activity extends AppCompatActivity {
 
             if (result == Repair_item.TAG_NOT_FOUND_REPAIR)
             {
-                Toast.makeText(context,"REPAIR NOT FOUND",Toast.LENGTH_LONG).show();
+                Toast.makeText(context,"REPAIR NOT FOUND",Toast.LENGTH_SHORT).show();
             }
             else if (result == Repair_item.TAG_ERROR)
             {
-                Toast.makeText(context,"BAD CONNECT TO SERVER",Toast.LENGTH_LONG).show();
+                Toast.makeText(context,"BAD CONNECT TO SERVER",Toast.LENGTH_SHORT).show();
             }
             else if (result == Repair_item.TAG_SUCCESS)
             {
@@ -296,7 +321,78 @@ public class order_activity extends AppCompatActivity {
                 partsAdapter.notifyDataSetChanged();
                 repairWorkAdapter.notifyDataSetChanged();
                 commentAdapter.notifyDataSetChanged();
-                Toast.makeText(context,"FOUND",Toast.LENGTH_LONG).show();
+                Toast.makeText(context,"FOUND",Toast.LENGTH_SHORT).show();
+            }
+
+
+        }
+
+    }
+
+    class AddComment extends AsyncTask<String, String, String> {
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(context);
+            pDialog.setMessage("Загрузка. Подождите...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(false);
+            pDialog.show();
+        }
+
+
+        @SuppressLint("WrongThread")
+        protected String doInBackground(String... args) {
+            Bundle arguments = getIntent().getExtras();
+            JSONParser jsonParser = new JSONParser();
+            ContentValues param=new ContentValues();
+            param.put("user","s55111_standart");
+            param.put("pass","5tva3ijjcxjh5w5het");
+            param.put("id_comment", arguments.get("id").toString());
+            param.put("worker","admin");
+            param.put("comment", Tcomment.getText().toString());
+
+            try {
+                JSONObject json = jsonParser.makeHttpRequest("http://s55111.hostru05.fornex.org/db_write_comment.php",JSONParser.POST, param);
+                if (!json.has(Repair_item.TAG_ERROR)) {
+                    int success = json.getInt(Repair_item.TAG_SUCCESS);
+                    if (success == 1) {
+                        return Repair_item.TAG_SUCCESS;
+                    } else {
+                        // продукт не найден
+                        return Repair_item.TAG_NOT_FOUND_REPAIR;
+                    }
+                }
+                else {
+                    return Repair_item.TAG_ERROR;
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+
+        protected void onPostExecute(String result) {
+            // закрываем прогресс диалог после получение все продуктов
+            pDialog.dismiss();
+
+            if (result == Repair_item.TAG_NOT_FOUND_REPAIR)
+            {
+                Toast.makeText(context,"REPAIR NOT FOUND",Toast.LENGTH_SHORT).show();
+            }
+            else if (result == Repair_item.TAG_ERROR)
+            {
+                Toast.makeText(context,"BAD CONNECT TO SERVER",Toast.LENGTH_SHORT).show();
+            }
+            else if (result == Repair_item.TAG_SUCCESS)
+            {
+                Toast.makeText(context,"update",Toast.LENGTH_SHORT).show();
+                Tcomment.setText("");
+                comments.clear();
+                new LoadAllProducts().execute();
             }
 
 

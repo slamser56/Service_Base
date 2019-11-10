@@ -91,6 +91,9 @@ class JSONParser {
             //return sb.toString();
             json_obj_string = sb.toString();
         }
+        else {
+            json_obj_string = String.valueOf("\"success\":0");
+        }
         } catch (IOException e) {
             e.printStackTrace();
         } finally {

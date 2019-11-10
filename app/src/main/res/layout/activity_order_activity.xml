@@ -34,7 +34,11 @@
                     android:id="@+id/status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:longClickable="false"
+                    />
             </LinearLayout>
 
             <LinearLayout
@@ -55,7 +59,10 @@
                     android:id="@+id/date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:longClickable="false"/>
             </LinearLayout>
 
             <LinearLayout
@@ -78,7 +85,10 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    android:text="" />
+                    android:text=""
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:longClickable="false"/>
             </LinearLayout>
 
             <LinearLayout
@@ -115,7 +125,10 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    android:text="" />
+                    android:text=""
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:longClickable="false"/>
             </LinearLayout>
 
 
@@ -139,7 +152,10 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    android:text="" />
+                    android:text=""
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:longClickable="false"/>
             </LinearLayout>
 
             <LinearLayout
@@ -162,7 +178,10 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    android:text="" />
+                    android:text=""
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:longClickable="false"/>
             </LinearLayout>
 
             <LinearLayout
@@ -185,7 +204,10 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    android:text="" />
+                    android:text=""
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:longClickable="false"/>
             </LinearLayout>
 
             <LinearLayout
@@ -208,7 +230,10 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    android:text="" />
+                    android:text=""
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:longClickable="false"/>
             </LinearLayout>
 
             <LinearLayout
@@ -231,7 +256,10 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    android:text="" />
+                    android:text=""
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:longClickable="false"/>
             </LinearLayout>
 
 
@@ -255,7 +283,10 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    android:text="" />
+                    android:text=""
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:longClickable="false"/>
             </LinearLayout>
 
             <LinearLayout
@@ -278,7 +309,10 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    android:text="" />
+                    android:text=""
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:longClickable="false"/>
             </LinearLayout>
 
             <LinearLayout
@@ -301,7 +335,10 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    android:text="" />
+                    android:text=""
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:longClickable="false"/>
             </LinearLayout>
 
             <LinearLayout
@@ -338,7 +375,10 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    android:text="" />
+                    android:text=""
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:longClickable="false"/>
             </LinearLayout>
 
             <LinearLayout
@@ -361,7 +401,10 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    android:text="" />
+                    android:text=""
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:longClickable="false"/>
             </LinearLayout>
 
             <LinearLayout
@@ -384,7 +427,10 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    android:text="" />
+                    android:text=""
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:longClickable="false"/>
             </LinearLayout>
 
             <LinearLayout
@@ -407,7 +453,10 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    android:text="" />
+                    android:text=""
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:longClickable="false"/>
             </LinearLayout>
 
             <LinearLayout
@@ -430,7 +479,10 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    android:text="" />
+                    android:text=""
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:longClickable="false"/>
             </LinearLayout>
 
             <LinearLayout

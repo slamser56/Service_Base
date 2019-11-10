@@ -92,7 +92,7 @@ public class fragment_find extends Fragment {
         protected void onPreExecute() {
             super.onPreExecute();
             pDialog = new ProgressDialog(getContext());
-            pDialog.setMessage("Загрузка продуктов. Подождите...");
+            pDialog.setMessage("Загрузка. Подождите...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(false);
             pDialog.show();
