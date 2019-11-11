@@ -63,8 +63,12 @@ public class order_activity extends AppCompatActivity {
     EditText Tadress;
 
     EditText Tcomment;
+    EditText Twork;
+    EditText Tparts;
 
     Button btncomment;
+    Button btnwork;
+    Button btnparts;
 
 
     private RecyclerView commentView;
@@ -109,7 +113,8 @@ public class order_activity extends AppCompatActivity {
 
 
         btncomment.setOnClickListener(Onbutton);
-
+        btnwork.setOnClickListener(Onbuttonwork);
+        btnparts.setOnClickListener(Onbuttonparts);
 
 
     }
@@ -123,6 +128,21 @@ public class order_activity extends AppCompatActivity {
         }
     };
 
+    private View.OnClickListener Onbuttonwork = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Toast.makeText(context, "Загрузка", Toast.LENGTH_SHORT).show();
+            new AddWork().execute();
+        }
+    };
+
+    private View.OnClickListener Onbuttonparts = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Toast.makeText(context, "Загрузка", Toast.LENGTH_SHORT).show();
+            new AddParts().execute();
+        }
+    };
 
     void init_all()
     {
@@ -146,6 +166,10 @@ public class order_activity extends AppCompatActivity {
 
         Tcomment =findViewById(R.id.comments);
         btncomment =findViewById(R.id.comments_button);
+        Twork = findViewById(R.id.work);
+        btnwork = findViewById(R.id.button);
+        Tparts = findViewById(R.id.part);
+        btnparts = findViewById(R.id.button27);
     }
 
 
@@ -166,6 +190,14 @@ public class order_activity extends AppCompatActivity {
 
 
         protected String doInBackground(String... args) {
+
+
+            comments.clear();
+            repair_works.clear();
+            parts.clear();
+
+
+
             Bundle arguments = getIntent().getExtras();
             JSONParser jsonParser = new JSONParser();
             JSONArray JSON_array_repairs = null;
@@ -391,7 +423,150 @@ public class order_activity extends AppCompatActivity {
             {
                 Toast.makeText(context,"update",Toast.LENGTH_SHORT).show();
                 Tcomment.setText("");
-                comments.clear();
+                new LoadAllProducts().execute();
+            }
+
+
+        }
+
+    }
+
+    class AddWork extends AsyncTask<String, String, String> {
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(context);
+            pDialog.setMessage("Загрузка. Подождите...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(false);
+            pDialog.show();
+        }
+
+
+        @SuppressLint("WrongThread")
+        protected String doInBackground(String... args) {
+            Bundle arguments = getIntent().getExtras();
+            JSONParser jsonParser = new JSONParser();
+            ContentValues param=new ContentValues();
+            param.put("user","s55111_standart");
+            param.put("pass","5tva3ijjcxjh5w5het");
+            param.put("id_work", arguments.get("id").toString());
+            param.put("worker_w","admin");
+            param.put("work_name", Twork.getText().toString());
+            param.put("cost","");
+
+            try {
+                JSONObject json = jsonParser.makeHttpRequest("http://s55111.hostru05.fornex.org/db_write_work.php",JSONParser.POST, param);
+                if (!json.has(Repair_item.TAG_ERROR)) {
+                    int success = json.getInt(Repair_item.TAG_SUCCESS);
+                    if (success == 1) {
+                        return Repair_item.TAG_SUCCESS;
+                    } else {
+                        // продукт не найден
+                        return Repair_item.TAG_NOT_FOUND_REPAIR;
+                    }
+                }
+                else {
+                    return Repair_item.TAG_ERROR;
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+
+        protected void onPostExecute(String result) {
+            // закрываем прогресс диалог после получение все продуктов
+            pDialog.dismiss();
+
+            if (result == Repair_item.TAG_NOT_FOUND_REPAIR)
+            {
+                Toast.makeText(context,"REPAIR NOT FOUND",Toast.LENGTH_SHORT).show();
+            }
+            else if (result == Repair_item.TAG_ERROR)
+            {
+                Toast.makeText(context,"BAD CONNECT TO SERVER",Toast.LENGTH_SHORT).show();
+            }
+            else if (result == Repair_item.TAG_SUCCESS)
+            {
+                Toast.makeText(context,"update",Toast.LENGTH_SHORT).show();
+                Twork.setText("");
+                new LoadAllProducts().execute();
+            }
+
+
+        }
+
+    }
+
+    class AddParts extends AsyncTask<String, String, String> {
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(context);
+            pDialog.setMessage("Загрузка. Подождите...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(false);
+            pDialog.show();
+        }
+
+
+        @SuppressLint("WrongThread")
+        protected String doInBackground(String... args) {
+            Bundle arguments = getIntent().getExtras();
+            JSONParser jsonParser = new JSONParser();
+            ContentValues param=new ContentValues();
+            param.put("user","s55111_standart");
+            param.put("pass","5tva3ijjcxjh5w5het");
+            param.put("id_part", arguments.get("id").toString());
+            param.put("name_p", Tparts.getText().toString());
+            param.put("sn_p", "");
+            param.put("pn_p","");
+            param.put("description_p","");
+            param.put("cost_p","");
+
+            try {
+                JSONObject json = jsonParser.makeHttpRequest("http://s55111.hostru05.fornex.org/db_write_parts.php",JSONParser.POST, param);
+                if (!json.has(Repair_item.TAG_ERROR)) {
+                    int success = json.getInt(Repair_item.TAG_SUCCESS);
+                    if (success == 1) {
+                        return Repair_item.TAG_SUCCESS;
+                    } else {
+                        // продукт не найден
+                        return Repair_item.TAG_NOT_FOUND_REPAIR;
+                    }
+                }
+                else {
+                    return Repair_item.TAG_ERROR;
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+
+        protected void onPostExecute(String result) {
+            // закрываем прогресс диалог после получение все продуктов
+            pDialog.dismiss();
+
+            if (result == Repair_item.TAG_NOT_FOUND_REPAIR)
+            {
+                Toast.makeText(context,"REPAIR NOT FOUND",Toast.LENGTH_SHORT).show();
+            }
+            else if (result == Repair_item.TAG_ERROR)
+            {
+                Toast.makeText(context,"BAD CONNECT TO SERVER",Toast.LENGTH_SHORT).show();
+            }
+            else if (result == Repair_item.TAG_SUCCESS)
+            {
+                Toast.makeText(context,"update",Toast.LENGTH_SHORT).show();
+                Tparts.setText("");
                 new LoadAllProducts().execute();
             }
 

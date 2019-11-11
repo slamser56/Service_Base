@@ -3,27 +3,33 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="16dp">
+    android:padding="5dp">
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
     <TextView
         android:id="@+id/text_repair_work_id"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical|start"
+        android:layout_weight="2.5"
         />
 
     <TextView
         android:id="@+id/text_repair_work"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical|center"
+        android:layout_weight="1"
         />
 
     <TextView
         android:id="@+id/text_repair_work_date"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical|end"
+        android:layout_weight="2"
         />
+    </LinearLayout>
 
 </FrameLayout>

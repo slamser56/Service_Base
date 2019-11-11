@@ -596,10 +596,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20px"
                     android:layout_marginRight="20px"
-                    android:text="@string/cost" />
+                    android:text="Работа" />
 
                 <EditText
-                    android:id="@+id/cost"
+                    android:id="@+id/work"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -633,6 +633,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
+                    <Button
+                        android:id="@+id/button27"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Добавить" />
 
                     <Button
                         android:id="@+id/button23"
@@ -655,6 +661,29 @@
                     android:layout_height="500px"
                     android:id="@+id/parts_view"/>
 
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView23"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20px"
+                    android:layout_marginRight="20px"
+                    android:text="@string/cost" />
+
+                <EditText
+                    android:id="@+id/part"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:text="" />
             </LinearLayout>
 
 
