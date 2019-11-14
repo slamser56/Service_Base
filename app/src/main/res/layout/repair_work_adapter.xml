@@ -10,6 +10,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/work_checkbox"
+            ></CheckBox>
     <TextView
         android:id="@+id/text_repair_work_id"
         android:layout_width="match_parent"

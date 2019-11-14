@@ -4,7 +4,10 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.service_base.R;
@@ -16,18 +19,18 @@ public class RepairWorkAdapter extends RecyclerView.Adapter<RepairWorkAdapter.Re
 
     private List<Repair_work> repair_work;
     private Context ctx;
+    boolean[] checked;
 
-    public RepairWorkAdapter(List<Repair_work> repair_work, Context ctx)
-    {
-        this.repair_work = repair_work;
-        this.ctx = ctx;
-    }
+
+
+
 
 
     @NonNull
     @Override
     public RepairWorkAdapter.RepairWorkAdapterViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
+        checked = new boolean[repair_work.size()];
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.repair_work_adapter, parent,false);
 
@@ -35,13 +38,27 @@ public class RepairWorkAdapter extends RecyclerView.Adapter<RepairWorkAdapter.Re
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RepairWorkAdapter.RepairWorkAdapterViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RepairWorkAdapter.RepairWorkAdapterViewHolder holder, final int position) {
         holder.bind(repair_work.get(position));
+        holder.checkBox.setChecked(checked[position]);
+        holder.checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checked[position] = !checked[position];
+            }
+        });
     }
+
+
 
     @Override
     public int getItemCount() {
+
         return repair_work.size();
+    }
+
+    public boolean[] getChecked(){
+        return checked;
     }
 
     class RepairWorkAdapterViewHolder extends RecyclerView.ViewHolder {
@@ -57,16 +74,24 @@ public class RepairWorkAdapter extends RecyclerView.Adapter<RepairWorkAdapter.Re
         TextView TextRepairWorkId;
         TextView TextRepairWorkDate;
         TextView TextRepairWork;
+        CheckBox checkBox;
 
         public RepairWorkAdapterViewHolder(@NonNull View itemView) {
             super(itemView);
-
+            checkBox = itemView.findViewById(R.id.work_checkbox);
             TextRepairWorkId = itemView.findViewById(R.id.text_repair_work_id);
             TextRepairWorkDate = itemView.findViewById(R.id.text_repair_work_date);
             TextRepairWork = itemView.findViewById(R.id.text_repair_work);
-
         }
 
 
     }
+
+    public RepairWorkAdapter(List<Repair_work> repair_work, Context ctx)
+    {
+        this.repair_work = repair_work;
+        this.ctx = ctx;
+    }
+
+
 }

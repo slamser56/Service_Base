@@ -69,6 +69,7 @@ public class order_activity extends AppCompatActivity {
     Button btncomment;
     Button btnwork;
     Button btnparts;
+    Button btnworkdelete;
 
 
     private RecyclerView commentView;
@@ -101,7 +102,6 @@ public class order_activity extends AppCompatActivity {
         repairWorkAdapter = new RepairWorkAdapter(repair_works , context);
         repairworkView.setAdapter(repairWorkAdapter);
 
-
         LinearLayoutManager layoutManagerParts = new LinearLayoutManager(context);
         partsView.setLayoutManager(layoutManagerParts);
         partsView.setHasFixedSize(true);
@@ -115,7 +115,7 @@ public class order_activity extends AppCompatActivity {
         btncomment.setOnClickListener(Onbutton);
         btnwork.setOnClickListener(Onbuttonwork);
         btnparts.setOnClickListener(Onbuttonparts);
-
+        btnworkdelete.setOnClickListener(Onbuttondeletework);
 
     }
 
@@ -144,6 +144,23 @@ public class order_activity extends AppCompatActivity {
         }
     };
 
+    private View.OnClickListener Onbuttondeletework = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+
+            boolean[] checked = repairWorkAdapter.getChecked();
+            String c = null;
+            for (int i = 0; i < checked.length; i++){
+
+            }
+
+
+        }
+    };
+
+
+
     void init_all()
     {
         Tid = findViewById(R.id.order);
@@ -170,6 +187,7 @@ public class order_activity extends AppCompatActivity {
         btnwork = findViewById(R.id.button);
         Tparts = findViewById(R.id.part);
         btnparts = findViewById(R.id.button27);
+        btnworkdelete = findViewById(R.id.button3);
     }
 
 
