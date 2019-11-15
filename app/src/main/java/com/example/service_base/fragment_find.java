@@ -77,6 +77,7 @@ public class fragment_find extends Fragment {
         }
 
 
+
     }
 
     /**
