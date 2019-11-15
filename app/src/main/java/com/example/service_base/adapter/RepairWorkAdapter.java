@@ -1,6 +1,7 @@
 package com.example.service_base.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,8 +31,6 @@ public class RepairWorkAdapter extends RecyclerView.Adapter<RepairWorkAdapter.Re
     @Override
     public RepairWorkAdapter.RepairWorkAdapterViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        checked = new boolean[repair_work.size()];
-
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.repair_work_adapter, parent,false);
 
         return new RepairWorkAdapter.RepairWorkAdapterViewHolder(view);
@@ -53,7 +52,7 @@ public class RepairWorkAdapter extends RecyclerView.Adapter<RepairWorkAdapter.Re
 
     @Override
     public int getItemCount() {
-
+        checked = new boolean[repair_work.size()];
         return repair_work.size();
     }
 
@@ -91,6 +90,7 @@ public class RepairWorkAdapter extends RecyclerView.Adapter<RepairWorkAdapter.Re
     {
         this.repair_work = repair_work;
         this.ctx = ctx;
+
     }
 
 

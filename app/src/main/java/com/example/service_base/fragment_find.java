@@ -72,7 +72,6 @@ public class fragment_find extends Fragment {
             firstVisit = false;
         }
         else {
-            repair_items.clear();
             // Загружаем продукты в фоновом потоке
             new LoadAllProducts().execute();
         }
@@ -103,6 +102,7 @@ public class fragment_find extends Fragment {
          * */
         protected String doInBackground(String... args) {
 
+            repair_items.clear();
             JSONParser jsonParser = new JSONParser();
             JSONArray JSON_array_repairs = null;
 

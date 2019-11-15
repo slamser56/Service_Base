@@ -68,18 +68,29 @@ class JSONParser {
                 os.close();
                 data_con.connect();
             }
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+        } catch (java.net.SocketTimeoutException e){
+            json_obj_string = String.valueOf("{\"error\":0}");
+            Log.d("JSONParcer GET", json_obj_string);
+            jObj = new JSONObject(json_obj_string);
+            return jObj;
+        }
+        catch (UnsupportedEncodingException e) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, e);
         } catch (ProtocolException e) {
-            e.printStackTrace();
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, e);
         } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, e);
+        }
+        catch (IOException e) {
+            json_obj_string = String.valueOf("{\"error\":0}");
+            Log.d("JSONParcer", json_obj_string);
+            jObj = new JSONObject(json_obj_string);
+            return jObj;
         }
 
 
         try {
+
         if (data_con.getResponseCode() == HttpURLConnection.HTTP_CREATED || data_con.getResponseCode() == HttpURLConnection.HTTP_OK) {
             BufferedReader br = new BufferedReader(new InputStreamReader(data_con.getInputStream()));
             StringBuilder sb = new StringBuilder();
@@ -92,10 +103,17 @@ class JSONParser {
             json_obj_string = sb.toString();
         }
         else {
-            json_obj_string = String.valueOf("\"success\":0");
+            json_obj_string = String.valueOf("{\"error\":0}");
+            Log.d("JSONParcer", json_obj_string);
+            jObj = new JSONObject(json_obj_string);
+            return jObj;
         }
         } catch (IOException e) {
-            e.printStackTrace();
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, e);
+            json_obj_string = String.valueOf("{\"error\":0}");
+            Log.d("JSONParcer", json_obj_string);
+            jObj = new JSONObject(json_obj_string);
+            return jObj;
         } finally {
         if (data_con != null) {
             try {
@@ -106,7 +124,7 @@ class JSONParser {
         }
     }
 
-        Log.d("JSONParcer GET", json_obj_string);
+        Log.d("JSONParcer", json_obj_string);
 
         jObj = new JSONObject(json_obj_string);
 

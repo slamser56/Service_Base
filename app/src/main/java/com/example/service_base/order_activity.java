@@ -119,6 +119,8 @@ public class order_activity extends AppCompatActivity {
 
     }
 
+    //Button
+
 
     private View.OnClickListener Onbutton = new View.OnClickListener() {
         @Override
@@ -148,14 +150,7 @@ public class order_activity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
 
-
-            boolean[] checked = repairWorkAdapter.getChecked();
-            String c = null;
-            for (int i = 0; i < checked.length; i++){
-
-            }
-
-
+            new DeleteWork().execute();
         }
     };
 
@@ -588,6 +583,89 @@ public class order_activity extends AppCompatActivity {
                 new LoadAllProducts().execute();
             }
 
+
+        }
+
+    }
+
+
+
+
+    class DeleteWork extends AsyncTask<String, String, String> {
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(context);
+            pDialog.setMessage("Загрузка. Подождите...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(false);
+            pDialog.show();
+        }
+
+
+        @SuppressLint("WrongThread")
+        protected String doInBackground(String... args) {
+            Bundle arguments = getIntent().getExtras();
+            JSONParser jsonParser = new JSONParser();
+            ContentValues param=new ContentValues();
+            param.put("user","s55111_standart");
+            param.put("pass","5tva3ijjcxjh5w5het");
+
+
+            boolean[] checked = repairWorkAdapter.getChecked();
+            String work_d = new String();
+            for (int i = 0; i < checked.length; i++){
+                if (checked[i] == true)
+                    work_d += ","+ repair_works.get(i).getId_w();
+            }
+
+            if (work_d.length() > 0)
+               work_d = work_d.substring(1);
+
+            param.put("id_w", work_d);
+
+
+            try {
+                JSONObject json = jsonParser.makeHttpRequest("http://s55111.hostru05.fornex.org/db_delete_work.php",JSONParser.POST, param);
+                if (!json.has(Repair_item.TAG_ERROR)) {
+                    int success = json.getInt(Repair_item.TAG_SUCCESS);
+                    if (success == 1) {
+                        return Repair_item.TAG_SUCCESS;
+                    } else {
+                        // продукт не найден
+                        return Repair_item.TAG_NOT_FOUND_REPAIR;
+                    }
+                }
+                else {
+                    return Repair_item.TAG_ERROR;
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+
+        protected void onPostExecute(String result) {
+            // закрываем прогресс диалог после получение все продуктов
+            pDialog.dismiss();
+
+            if (result == Repair_item.TAG_NOT_FOUND_REPAIR)
+            {
+                Toast.makeText(context,"REPAIR NOT FOUND",Toast.LENGTH_SHORT).show();
+            }
+            else if (result == Repair_item.TAG_ERROR)
+            {
+                Toast.makeText(context,"BAD CONNECT TO SERVER",Toast.LENGTH_SHORT).show();
+            }
+            else if (result == Repair_item.TAG_SUCCESS)
+            {
+                Toast.makeText(context,"update",Toast.LENGTH_SHORT).show();
+                new LoadAllProducts().execute();
+            }
 
         }
 
