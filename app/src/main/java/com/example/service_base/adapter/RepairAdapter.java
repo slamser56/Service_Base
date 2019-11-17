@@ -26,8 +26,7 @@ public class RepairAdapter extends RecyclerView.Adapter<RepairAdapter.RepairView
     private List<Repair_item> repair_items;
     private Context ctx;
 
-    public RepairAdapter(List<Repair_item> repair_items, Context ctx)
-    {
+    public RepairAdapter(List<Repair_item> repair_items, Context ctx) {
         this.repair_items = repair_items;
         this.ctx = ctx;
     }
@@ -38,7 +37,7 @@ public class RepairAdapter extends RecyclerView.Adapter<RepairAdapter.RepairView
     public RepairViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_repair, parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_repair, parent, false);
 
         return new RepairViewHolder(view);
     }
@@ -63,10 +62,10 @@ public class RepairAdapter extends RecyclerView.Adapter<RepairAdapter.RepairView
             TextViewId.setText(String.valueOf(repair_item.getId()));
             TextViewDate.setText(repair_item.getDate().toString());
             TextViewStatus.setText(repair_item.getStatus().toString());
-            Frmlayout.setOnClickListener(new View.OnClickListener(){
+            Frmlayout.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    String title = "ID"+repair_item.getId();
-                    Toast.makeText(ctx,title,Toast.LENGTH_SHORT).show();
+                    String title = "ID" + repair_item.getId();
+                    Toast.makeText(ctx, title, Toast.LENGTH_SHORT).show();
                     // on click action here
                     //-- use context to start the new Activity
                     Intent mediaStreamIntent = new Intent(ctx, order_activity.class);
@@ -89,8 +88,6 @@ public class RepairAdapter extends RecyclerView.Adapter<RepairAdapter.RepairView
             TextViewDate = itemView.findViewById(R.id.text_view_date);
             TextViewStatus = itemView.findViewById(R.id.text_view_status);
             Frmlayout = itemView.findViewById(R.id.lnrlayout);
-
-
 
 
         }

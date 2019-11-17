@@ -19,8 +19,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
     private List<Comment> comment;
     private Context ctx;
 
-    public CommentAdapter(List<Comment> comment, Context ctx)
-    {
+    public CommentAdapter(List<Comment> comment, Context ctx) {
         this.comment = comment;
         this.ctx = ctx;
     }
@@ -31,7 +30,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
     public CommentAdapter.CommentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.comment_adapter, parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.comment_adapter, parent, false);
 
         return new CommentAdapter.CommentViewHolder(view);
     }

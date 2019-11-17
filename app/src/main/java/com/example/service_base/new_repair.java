@@ -55,7 +55,6 @@ public class new_repair extends AppCompatActivity {
     }
 
 
-
     private View.OnClickListener Onbutton = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -65,9 +64,7 @@ public class new_repair extends AppCompatActivity {
     };
 
 
-
-    private void initAll()
-    {
+    private void initAll() {
         Tstatus = findViewById(R.id.status);
         Ttype_of_repair = findViewById(R.id.type_of_repair);
         Tsn = findViewById(R.id.serial_number);
@@ -89,12 +86,12 @@ public class new_repair extends AppCompatActivity {
 
     /**
      * Фоновый Async Task для загрузки всех продуктов по HTTP запросу
-     * */
+     */
     public class AddProduct extends AsyncTask<String, String, String> {
 
         /**
          * Перед началом фонового потока Show Progress Dialog
-         * */
+         */
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -107,33 +104,33 @@ public class new_repair extends AppCompatActivity {
 
         /**
          * Получаем все продукт из url
-         * */
+         */
         @SuppressLint("WrongThread")
         protected String doInBackground(String... args) {
 
             JSONParser jsonParser = new JSONParser();
 
-            ContentValues param=new ContentValues();
-            param.put("user","s55111_standart");
-            param.put("pass","5tva3ijjcxjh5w5het");
+            ContentValues param = new ContentValues();
+            param.put("user", "s55111_standart");
+            param.put("pass", "5tva3ijjcxjh5w5het");
             param.put("status", Tstatus.getText().toString());
-            param.put("type_of_repair",Ttype_of_repair.getText().toString());
-            param.put("sn",Tsn.getText().toString());
-            param.put("imei",Timei.getText().toString());
-            param.put("unique_number",Tunique_number.getText().toString());
-            param.put("product",Tproduct.getText().toString());
-            param.put("date_of_warranty",Tdate_of_warranty.getText().toString());
-            param.put("appearance",Tappearance.getText().toString());
-            param.put("additional_description",Tadditional_description.getText().toString());
-            param.put("malfunction",Tmalfunction.getText().toString());
-            param.put("contractor",Tcontractor.getText().toString());
-            param.put("contact_person",Tcontact_person.getText().toString());
-            param.put("phone",Tphone.getText().toString());
-            param.put("mail",Tmail.getText().toString());
-            param.put("adress",Tadress.getText().toString());
+            param.put("type_of_repair", Ttype_of_repair.getText().toString());
+            param.put("sn", Tsn.getText().toString());
+            param.put("imei", Timei.getText().toString());
+            param.put("unique_number", Tunique_number.getText().toString());
+            param.put("product", Tproduct.getText().toString());
+            param.put("date_of_warranty", Tdate_of_warranty.getText().toString());
+            param.put("appearance", Tappearance.getText().toString());
+            param.put("additional_description", Tadditional_description.getText().toString());
+            param.put("malfunction", Tmalfunction.getText().toString());
+            param.put("contractor", Tcontractor.getText().toString());
+            param.put("contact_person", Tcontact_person.getText().toString());
+            param.put("phone", Tphone.getText().toString());
+            param.put("mail", Tmail.getText().toString());
+            param.put("adress", Tadress.getText().toString());
 
             try {
-                JSONObject json = jsonParser.makeHttpRequest("http://s55111.hostru05.fornex.org/db_write_order.php",JSONParser.POST, param);
+                JSONObject json = jsonParser.makeHttpRequest("http://s55111.hostru05.fornex.org/db_write_order.php", JSONParser.POST, param);
                 if (!json.has(Repair_item.TAG_ERROR)) {
                     int success = json.getInt(Repair_item.TAG_SUCCESS);
                     if (success == 1) {
@@ -142,8 +139,7 @@ public class new_repair extends AppCompatActivity {
                         // продукт не найден
                         return Repair_item.TAG_NOT_FOUND_REPAIR;
                     }
-                }
-                else {
+                } else {
                     return Repair_item.TAG_ERROR;
                 }
             } catch (JSONException e) {
@@ -156,22 +152,17 @@ public class new_repair extends AppCompatActivity {
 
         /**
          * После завершения фоновой задачи закрываем прогрес диалог
-         * **/
+         **/
         protected void onPostExecute(String result) {
             // закрываем прогресс диалог после получение все продуктов
             pDialog.dismiss();
 
-            if (result == Repair_item.TAG_NOT_FOUND_REPAIR)
-            {
-                Toast.makeText(context,"REPAIR NOT FOUND",Toast.LENGTH_SHORT).show();
-            }
-            else if (result == Repair_item.TAG_ERROR)
-            {
-                Toast.makeText(context,"BAD CONNECT TO SERVER",Toast.LENGTH_SHORT).show();
-            }
-            else if (result == Repair_item.TAG_SUCCESS)
-            {
-                Toast.makeText(context,"FOUND",Toast.LENGTH_SHORT).show();
+            if (result == Repair_item.TAG_NOT_FOUND_REPAIR) {
+                Toast.makeText(context, "REPAIR NOT FOUND", Toast.LENGTH_SHORT).show();
+            } else if (result == Repair_item.TAG_ERROR) {
+                Toast.makeText(context, "BAD CONNECT TO SERVER", Toast.LENGTH_SHORT).show();
+            } else if (result == Repair_item.TAG_SUCCESS) {
+                Toast.makeText(context, "FOUND", Toast.LENGTH_SHORT).show();
                 finish();
             }
 

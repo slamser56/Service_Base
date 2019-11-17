@@ -8,10 +8,9 @@ public class Parts {
     public static final String TAG_NAME = "name_p";
     public static final String TAG_DATE = "date_p";
     public static final String TAG_SN = "sn_p";
-    public static final String TAG_PN= "pn_p";
+    public static final String TAG_PN = "pn_p";
     public static final String TAG_DESCRIPTION = "description_p";
     public static final String TAG_COST = "cost_p";
-
 
 
     private int id_p;

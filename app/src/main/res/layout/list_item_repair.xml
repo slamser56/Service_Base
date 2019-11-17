@@ -1,30 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    android:id="@+id/lnrlayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/lnrlayout"
+    android:orientation="vertical"
     android:padding="16dp">
 
     <TextView
         android:id="@+id/text_view_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical|start"
-        />
+        android:layout_gravity="center_vertical|start" />
 
     <TextView
         android:id="@+id/text_view_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical|center"
-        />
+        android:layout_gravity="center_vertical|center" />
 
     <TextView
         android:id="@+id/text_view_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical|end"
-        />
+        android:layout_gravity="center_vertical|end" />
 
 </FrameLayout>

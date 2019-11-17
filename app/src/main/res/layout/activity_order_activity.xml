@@ -37,8 +37,7 @@
                     android:layout_weight="1"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
-                    android:longClickable="false"
-                    />
+                    android:longClickable="false" />
             </LinearLayout>
 
             <LinearLayout
@@ -62,7 +61,7 @@
                     android:layout_weight="1"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
-                    android:longClickable="false"/>
+                    android:longClickable="false" />
             </LinearLayout>
 
             <LinearLayout
@@ -84,11 +83,11 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text=""
                     android:focusable="false"
                     android:focusableInTouchMode="false"
-                    android:longClickable="false"/>
+                    android:inputType="textPersonName"
+                    android:longClickable="false"
+                    android:text="" />
             </LinearLayout>
 
             <LinearLayout
@@ -124,11 +123,11 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text=""
                     android:focusable="false"
                     android:focusableInTouchMode="false"
-                    android:longClickable="false"/>
+                    android:inputType="textPersonName"
+                    android:longClickable="false"
+                    android:text="" />
             </LinearLayout>
 
 
@@ -151,11 +150,11 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text=""
                     android:focusable="false"
                     android:focusableInTouchMode="false"
-                    android:longClickable="false"/>
+                    android:inputType="textPersonName"
+                    android:longClickable="false"
+                    android:text="" />
             </LinearLayout>
 
             <LinearLayout
@@ -177,11 +176,11 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text=""
                     android:focusable="false"
                     android:focusableInTouchMode="false"
-                    android:longClickable="false"/>
+                    android:inputType="textPersonName"
+                    android:longClickable="false"
+                    android:text="" />
             </LinearLayout>
 
             <LinearLayout
@@ -203,11 +202,11 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text=""
                     android:focusable="false"
                     android:focusableInTouchMode="false"
-                    android:longClickable="false"/>
+                    android:inputType="textPersonName"
+                    android:longClickable="false"
+                    android:text="" />
             </LinearLayout>
 
             <LinearLayout
@@ -229,11 +228,11 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text=""
                     android:focusable="false"
                     android:focusableInTouchMode="false"
-                    android:longClickable="false"/>
+                    android:inputType="textPersonName"
+                    android:longClickable="false"
+                    android:text="" />
             </LinearLayout>
 
             <LinearLayout
@@ -255,11 +254,11 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text=""
                     android:focusable="false"
                     android:focusableInTouchMode="false"
-                    android:longClickable="false"/>
+                    android:inputType="textPersonName"
+                    android:longClickable="false"
+                    android:text="" />
             </LinearLayout>
 
 
@@ -282,11 +281,11 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text=""
                     android:focusable="false"
                     android:focusableInTouchMode="false"
-                    android:longClickable="false"/>
+                    android:inputType="textPersonName"
+                    android:longClickable="false"
+                    android:text="" />
             </LinearLayout>
 
             <LinearLayout
@@ -308,11 +307,11 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text=""
                     android:focusable="false"
                     android:focusableInTouchMode="false"
-                    android:longClickable="false"/>
+                    android:inputType="textPersonName"
+                    android:longClickable="false"
+                    android:text="" />
             </LinearLayout>
 
             <LinearLayout
@@ -334,11 +333,11 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text=""
                     android:focusable="false"
                     android:focusableInTouchMode="false"
-                    android:longClickable="false"/>
+                    android:inputType="textPersonName"
+                    android:longClickable="false"
+                    android:text="" />
             </LinearLayout>
 
             <LinearLayout
@@ -374,11 +373,11 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text=""
                     android:focusable="false"
                     android:focusableInTouchMode="false"
-                    android:longClickable="false"/>
+                    android:inputType="textPersonName"
+                    android:longClickable="false"
+                    android:text="" />
             </LinearLayout>
 
             <LinearLayout
@@ -400,11 +399,11 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text=""
                     android:focusable="false"
                     android:focusableInTouchMode="false"
-                    android:longClickable="false"/>
+                    android:inputType="textPersonName"
+                    android:longClickable="false"
+                    android:text="" />
             </LinearLayout>
 
             <LinearLayout
@@ -426,11 +425,11 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text=""
                     android:focusable="false"
                     android:focusableInTouchMode="false"
-                    android:longClickable="false"/>
+                    android:inputType="textPersonName"
+                    android:longClickable="false"
+                    android:text="" />
             </LinearLayout>
 
             <LinearLayout
@@ -452,11 +451,11 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text=""
                     android:focusable="false"
                     android:focusableInTouchMode="false"
-                    android:longClickable="false"/>
+                    android:inputType="textPersonName"
+                    android:longClickable="false"
+                    android:text="" />
             </LinearLayout>
 
             <LinearLayout
@@ -478,11 +477,11 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text=""
                     android:focusable="false"
                     android:focusableInTouchMode="false"
-                    android:longClickable="false"/>
+                    android:inputType="textPersonName"
+                    android:longClickable="false"
+                    android:text="" />
             </LinearLayout>
 
             <LinearLayout
@@ -505,27 +504,29 @@
                 android:orientation="vertical">
 
                 <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/comment_rv"
                     android:layout_width="match_parent"
-                    android:layout_height="500px"
-                    android:id="@+id/comment_rv"/>
+                    android:layout_height="500px" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/comments"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="20"
-                    android:inputType="textPersonName"
-                    android:text="" />
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="OK"
-                    android:id="@+id/comments_button"/>
+                    <EditText
+                        android:id="@+id/comments"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="20"
+                        android:inputType="textPersonName"
+                        android:text="" />
+
+                    <Button
+                        android:id="@+id/comments_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="OK" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -579,9 +580,9 @@
                 </LinearLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/repair_view"
                     android:layout_width="match_parent"
-                    android:layout_height="500px"
-                    android:id="@+id/repair_view"/>
+                    android:layout_height="500px" />
 
             </LinearLayout>
 
@@ -633,6 +634,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
+
                     <Button
                         android:id="@+id/button27"
                         android:layout_width="wrap_content"
@@ -657,9 +659,9 @@
                 </LinearLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/parts_view"
                     android:layout_width="match_parent"
-                    android:layout_height="500px"
-                    android:id="@+id/parts_view"/>
+                    android:layout_height="500px" />
 
             </LinearLayout>
 
@@ -690,6 +692,6 @@
         </LinearLayout>
 
 
-</ScrollView>
+    </ScrollView>
 
-    </RelativeLayout>
+</RelativeLayout>

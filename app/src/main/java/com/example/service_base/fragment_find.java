@@ -34,9 +34,6 @@ public class fragment_find extends Fragment {
     private boolean firstVisit;
 
 
-
-
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -50,7 +47,7 @@ public class fragment_find extends Fragment {
 
         repairView.setHasFixedSize(true);
 
-        repairAdapter = new RepairAdapter(repair_items,getActivity());
+        repairAdapter = new RepairAdapter(repair_items, getActivity());
 
         repairView.setAdapter(repairAdapter);
 
@@ -70,24 +67,22 @@ public class fragment_find extends Fragment {
             //do stuff for first visit only
 
             firstVisit = false;
-        }
-        else {
+        } else {
             // Загружаем продукты в фоновом потоке
             new LoadAllProducts().execute();
         }
-
 
 
     }
 
     /**
      * Фоновый Async Task для загрузки всех продуктов по HTTP запросу
-     * */
+     */
     public class LoadAllProducts extends AsyncTask<String, String, String> {
 
         /**
          * Перед началом фонового потока Show Progress Dialog
-         * */
+         */
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -100,52 +95,50 @@ public class fragment_find extends Fragment {
 
         /**
          * Получаем все продукт из url
-         * */
+         */
         protected String doInBackground(String... args) {
 
             repair_items.clear();
             JSONParser jsonParser = new JSONParser();
             JSONArray JSON_array_repairs = null;
 
-            ContentValues param=new ContentValues();
-            param.put("user","s55111_standart");
-            param.put("pass","5tva3ijjcxjh5w5het");
+            ContentValues param = new ContentValues();
+            param.put("user", "s55111_standart");
+            param.put("pass", "5tva3ijjcxjh5w5het");
 
 
             try {
-                JSONObject json = jsonParser.makeHttpRequest("http://s55111.hostru05.fornex.org/db_read_main_list.php",JSONParser.GET, param);
+                JSONObject json = jsonParser.makeHttpRequest("http://s55111.hostru05.fornex.org/db_read_main_list.php", JSONParser.GET, param);
 
 
                 if (!json.has(Repair_item.TAG_ERROR)) {
-                int success = json.getInt(Repair_item.TAG_SUCCESS);
-                if (success == 1) {
-                    // ремонт найден
-                    // Получаем масив из Ремонтов
-                    JSON_array_repairs = json.getJSONArray(Repair_item.TAG_REPAIR);
+                    int success = json.getInt(Repair_item.TAG_SUCCESS);
+                    if (success == 1) {
+                        // ремонт найден
+                        // Получаем масив из Ремонтов
+                        JSON_array_repairs = json.getJSONArray(Repair_item.TAG_REPAIR);
 
-                    // перебор всех ремонтов
-                    for (int i = 0; i < JSON_array_repairs.length(); i++) {
-                        JSONObject c = JSON_array_repairs.getJSONObject(i);
+                        // перебор всех ремонтов
+                        for (int i = 0; i < JSON_array_repairs.length(); i++) {
+                            JSONObject c = JSON_array_repairs.getJSONObject(i);
 
-                        // Сохраняем каждый json елемент в переменную
-                        int id = c.getInt(Repair_item.TAG_ID);
-                        String date = c.getString(Repair_item.TAG_DATE);
-                        String status = c.getString(Repair_item.TAG_STATUS);
-                        // Создаем новый List
-                       repair_items.add(new Repair_item (id, date, status));
+                            // Сохраняем каждый json елемент в переменную
+                            int id = c.getInt(Repair_item.TAG_ID);
+                            String date = c.getString(Repair_item.TAG_DATE);
+                            String status = c.getString(Repair_item.TAG_STATUS);
+                            // Создаем новый List
+                            repair_items.add(new Repair_item(id, date, status));
+                        }
+                        return Repair_item.TAG_SUCCESS;
+                    } else {
+                        // продукт не найден
+                        return Repair_item.TAG_NOT_FOUND_REPAIR;
                     }
-                    return Repair_item.TAG_SUCCESS;
                 } else {
-                    // продукт не найден
-                    return Repair_item.TAG_NOT_FOUND_REPAIR;
-                }
-                }
-                else {
                     return Repair_item.TAG_ERROR;
                 }
 
-                }
-            catch (JSONException e) {
+            } catch (JSONException e) {
                 e.printStackTrace();
             }
 
@@ -155,23 +148,18 @@ public class fragment_find extends Fragment {
 
         /**
          * После завершения фоновой задачи закрываем прогрес диалог
-         * **/
+         **/
         protected void onPostExecute(String result) {
             // закрываем прогресс диалог после получение все продуктов
             pDialog.dismiss();
 
-            if (result == Repair_item.TAG_NOT_FOUND_REPAIR)
-            {
-                Toast.makeText(getActivity(),"REPAIR NOT FOUND",Toast.LENGTH_LONG).show();
-            }
-            else if (result == Repair_item.TAG_ERROR)
-            {
-                Toast.makeText(getActivity(),"BAD CONNECT TO SERVER",Toast.LENGTH_LONG).show();
-            }
-            else if (result == Repair_item.TAG_SUCCESS)
-            {
+            if (result == Repair_item.TAG_NOT_FOUND_REPAIR) {
+                Toast.makeText(getActivity(), "REPAIR NOT FOUND", Toast.LENGTH_LONG).show();
+            } else if (result == Repair_item.TAG_ERROR) {
+                Toast.makeText(getActivity(), "BAD CONNECT TO SERVER", Toast.LENGTH_LONG).show();
+            } else if (result == Repair_item.TAG_SUCCESS) {
                 repairAdapter.notifyDataSetChanged();
-                Toast.makeText(getActivity(),"FOUND",Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "FOUND", Toast.LENGTH_LONG).show();
             }
 
 

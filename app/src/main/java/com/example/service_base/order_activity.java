@@ -70,11 +70,12 @@ public class order_activity extends AppCompatActivity {
     Button btnwork;
     Button btnparts;
     Button btnworkdelete;
+    Button btnpartsdelete;
 
 
     private RecyclerView commentView;
     private RecyclerView repairworkView;
-    private  RecyclerView partsView;
+    private RecyclerView partsView;
     private CommentAdapter commentAdapter;
     private RepairWorkAdapter repairWorkAdapter;
     private PartsAdapter partsAdapter;
@@ -93,19 +94,19 @@ public class order_activity extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
         commentView.setLayoutManager(layoutManager);
         commentView.setHasFixedSize(true);
-        commentAdapter = new CommentAdapter(comments , context);
+        commentAdapter = new CommentAdapter(comments, context);
         commentView.setAdapter(commentAdapter);
 
         LinearLayoutManager layoutManagerRepair = new LinearLayoutManager(context);
         repairworkView.setLayoutManager(layoutManagerRepair);
         repairworkView.setHasFixedSize(true);
-        repairWorkAdapter = new RepairWorkAdapter(repair_works , context);
+        repairWorkAdapter = new RepairWorkAdapter(repair_works, context);
         repairworkView.setAdapter(repairWorkAdapter);
 
         LinearLayoutManager layoutManagerParts = new LinearLayoutManager(context);
         partsView.setLayoutManager(layoutManagerParts);
         partsView.setHasFixedSize(true);
-        partsAdapter = new PartsAdapter(parts , context);
+        partsAdapter = new PartsAdapter(parts, context);
         partsView.setAdapter(partsAdapter);
 
 
@@ -116,10 +117,13 @@ public class order_activity extends AppCompatActivity {
         btnwork.setOnClickListener(Onbuttonwork);
         btnparts.setOnClickListener(Onbuttonparts);
         btnworkdelete.setOnClickListener(Onbuttondeletework);
+        btnpartsdelete.setOnClickListener(Onbuttondeleteparts);
 
     }
 
-    //Button
+    /*
+     * Button listener
+     */
 
 
     private View.OnClickListener Onbutton = new View.OnClickListener() {
@@ -153,14 +157,22 @@ public class order_activity extends AppCompatActivity {
             new DeleteWork().execute();
         }
     };
+    private View.OnClickListener Onbuttondeleteparts = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
 
+            new DeleteParts().execute();
+        }
+    };
 
+    /*
+     * Initial all element;
+     */
 
-    void init_all()
-    {
+    void init_all() {
         Tid = findViewById(R.id.order);
         Tdate = findViewById(R.id.date);
-        Tstatus= findViewById(R.id.status);
+        Tstatus = findViewById(R.id.status);
         Ttype_of_repair = findViewById(R.id.type_of_repair);
         Tsn = findViewById(R.id.serial_number);
         Timei = findViewById(R.id.imei);
@@ -176,17 +188,20 @@ public class order_activity extends AppCompatActivity {
         Tmail = findViewById(R.id.mail);
         Tadress = findViewById(R.id.adress);
 
-        Tcomment =findViewById(R.id.comments);
-        btncomment =findViewById(R.id.comments_button);
+        Tcomment = findViewById(R.id.comments);
+        btncomment = findViewById(R.id.comments_button);
         Twork = findViewById(R.id.work);
         btnwork = findViewById(R.id.button);
         Tparts = findViewById(R.id.part);
         btnparts = findViewById(R.id.button27);
         btnworkdelete = findViewById(R.id.button3);
+        btnpartsdelete = findViewById(R.id.button24);
     }
 
 
-
+    /*
+     * Dialog AsyncTask
+     */
 
     class LoadAllProducts extends AsyncTask<String, String, String> {
 
@@ -210,21 +225,20 @@ public class order_activity extends AppCompatActivity {
             parts.clear();
 
 
-
             Bundle arguments = getIntent().getExtras();
             JSONParser jsonParser = new JSONParser();
             JSONArray JSON_array_repairs = null;
             JSONArray JSON_array_comment = null;
             JSONArray JSON_array_repair_work = null;
             JSONArray JSON_array_parts = null;
-            ContentValues param=new ContentValues();
-            param.put("user","s55111_standart");
-            param.put("pass","5tva3ijjcxjh5w5het");
+            ContentValues param = new ContentValues();
+            param.put("user", "s55111_standart");
+            param.put("pass", "5tva3ijjcxjh5w5het");
             param.put("id", arguments.get("id").toString());
 
             try {
 
-                JSONObject json = jsonParser.makeHttpRequest("http://s55111.hostru05.fornex.org/db_read_repair.php",JSONParser.POST, param);
+                JSONObject json = jsonParser.makeHttpRequest("http://s55111.hostru05.fornex.org/db_read_repair.php", JSONParser.POST, param);
 
 
                 if (!json.has(Repair_item.TAG_ERROR)) {
@@ -235,31 +249,31 @@ public class order_activity extends AppCompatActivity {
                         JSON_array_repairs = json.getJSONArray(Repair_item.TAG_REPAIR);
 
 
-                            JSONObject c = JSON_array_repairs.getJSONObject(0);
+                        JSONObject c = JSON_array_repairs.getJSONObject(0);
 
-                            // Сохраняем каждый json елемент в переменную
-                            int id = c.getInt(Repair_item.TAG_ID);
-                            String date = c.getString(Repair_item.TAG_DATE);
-                            String status = c.getString(Repair_item.TAG_STATUS);
+                        // Сохраняем каждый json елемент в переменную
+                        int id = c.getInt(Repair_item.TAG_ID);
+                        String date = c.getString(Repair_item.TAG_DATE);
+                        String status = c.getString(Repair_item.TAG_STATUS);
 
-                            String date_complete = c.getString(Repair_item.TAG_DATE_COMPLETE);
-                            String type_of_repair = c.getString(Repair_item.TAG_TYPE_OF_REPAIR);
-                            String sn = c.getString(Repair_item.TAG_SN);
-                            int imei = c.getInt(Repair_item.TAG_IMEI);
-                            String unique_number = c.getString(Repair_item.TAG_UNIQUE_NUMBER);
-                            String product = c.getString(Repair_item.TAG_PRODUCT);
-                            String date_of_warranty = c.getString(Repair_item.TAG_DATE_OF_WARRANTY);
-                            String appearance = c.getString(Repair_item.TAG_APPEARANCE);
-                            String additional_description = c.getString(Repair_item.TAG_ADDITIONAL_DESCRIPTION);
-                            String malfunction = c.getString(Repair_item.TAG_MALFUNCTION);
-                            String contractor = c.getString(Repair_item.TAG_CONTRACTOR);
-                            String contact_person = c.getString(Repair_item.TAG_CONTACT_PERSON);
-                            String phone = c.getString(Repair_item.TAG_PHONE);
-                            String mail = c.getString(Repair_item.TAG_MAIL);
-                            String adress = c.getString(Repair_item.TAG_ADRESS);
+                        String date_complete = c.getString(Repair_item.TAG_DATE_COMPLETE);
+                        String type_of_repair = c.getString(Repair_item.TAG_TYPE_OF_REPAIR);
+                        String sn = c.getString(Repair_item.TAG_SN);
+                        int imei = c.getInt(Repair_item.TAG_IMEI);
+                        String unique_number = c.getString(Repair_item.TAG_UNIQUE_NUMBER);
+                        String product = c.getString(Repair_item.TAG_PRODUCT);
+                        String date_of_warranty = c.getString(Repair_item.TAG_DATE_OF_WARRANTY);
+                        String appearance = c.getString(Repair_item.TAG_APPEARANCE);
+                        String additional_description = c.getString(Repair_item.TAG_ADDITIONAL_DESCRIPTION);
+                        String malfunction = c.getString(Repair_item.TAG_MALFUNCTION);
+                        String contractor = c.getString(Repair_item.TAG_CONTRACTOR);
+                        String contact_person = c.getString(Repair_item.TAG_CONTACT_PERSON);
+                        String phone = c.getString(Repair_item.TAG_PHONE);
+                        String mail = c.getString(Repair_item.TAG_MAIL);
+                        String adress = c.getString(Repair_item.TAG_ADRESS);
 
 
-                            repair_item = new Repair_item(id, date, status, date_complete, type_of_repair, sn, imei, unique_number, product, date_of_warranty, appearance, additional_description, malfunction, contractor, contact_person, phone, mail, adress);
+                        repair_item = new Repair_item(id, date, status, date_complete, type_of_repair, sn, imei, unique_number, product, date_of_warranty, appearance, additional_description, malfunction, contractor, contact_person, phone, mail, adress);
 
 
                         JSON_array_comment = json.getJSONArray(Comment.TAG_COMMENT);
@@ -270,10 +284,10 @@ public class order_activity extends AppCompatActivity {
                             // Сохраняем каждый json елемент в переменную
                             int id_c = a.getInt(Comment.TAG_ID_COMMENT);
                             String date_c = a.getString(Comment.TAG_DATE_COMMENT);
-                           String comment_c = a.getString(Comment.TAG_COMMENT);
-                           String worker = a.getString(Comment.TAG_WORKER);
+                            String comment_c = a.getString(Comment.TAG_COMMENT);
+                            String worker = a.getString(Comment.TAG_WORKER);
                             // Создаем новый List
-                            comments.add(new Comment (id_c, comment_c, worker, date_c));
+                            comments.add(new Comment(id_c, comment_c, worker, date_c));
                         }
 
                         JSON_array_repair_work = json.getJSONArray(Repair_work.TAG_REPAIR_WORK);
@@ -289,7 +303,7 @@ public class order_activity extends AppCompatActivity {
                             String repair_work = w.getString(Repair_work.TAG_WORK_NAME);
                             String worker_w = w.getString(Repair_work.TAG_WORKER);
                             // Создаем новый List
-                            repair_works.add(new Repair_work (id_w, price_w, time, repair_work, worker_w, date_w ));
+                            repair_works.add(new Repair_work(id_w, price_w, time, repair_work, worker_w, date_w));
                         }
 
 
@@ -307,7 +321,7 @@ public class order_activity extends AppCompatActivity {
                             String pn_p = p.getString(Parts.TAG_PN);
                             String description_p = p.getString(Parts.TAG_DESCRIPTION);
                             // Создаем новый List
-                            parts.add(new Parts (id_p, name_p, date_p, sn_p, pn_p, description_p, cost_p));
+                            parts.add(new Parts(id_p, name_p, date_p, sn_p, pn_p, description_p, cost_p));
                         }
 
                         return Repair_item.TAG_SUCCESS;
@@ -315,13 +329,11 @@ public class order_activity extends AppCompatActivity {
                         // продукт не найден
                         return Repair_item.TAG_NOT_FOUND_REPAIR;
                     }
-                }
-                else {
+                } else {
                     return Repair_item.TAG_ERROR;
                 }
 
-            }
-            catch (JSONException e) {
+            } catch (JSONException e) {
                 e.printStackTrace();
             }
 
@@ -334,16 +346,11 @@ public class order_activity extends AppCompatActivity {
             // закрываем прогресс диалог после получение все продуктов
             pDialog.dismiss();
 
-            if (result == Repair_item.TAG_NOT_FOUND_REPAIR)
-            {
-                Toast.makeText(context,"REPAIR NOT FOUND",Toast.LENGTH_SHORT).show();
-            }
-            else if (result == Repair_item.TAG_ERROR)
-            {
-                Toast.makeText(context,"BAD CONNECT TO SERVER",Toast.LENGTH_SHORT).show();
-            }
-            else if (result == Repair_item.TAG_SUCCESS)
-            {
+            if (result == Repair_item.TAG_NOT_FOUND_REPAIR) {
+                Toast.makeText(context, "REPAIR NOT FOUND", Toast.LENGTH_SHORT).show();
+            } else if (result == Repair_item.TAG_ERROR) {
+                Toast.makeText(context, "BAD CONNECT TO SERVER", Toast.LENGTH_SHORT).show();
+            } else if (result == Repair_item.TAG_SUCCESS) {
                 Tid.setText(String.valueOf(repair_item.getId()));
                 Tdate.setText(repair_item.getDate());
                 Tstatus.setText(repair_item.getStatus());
@@ -366,7 +373,7 @@ public class order_activity extends AppCompatActivity {
                 partsAdapter.notifyDataSetChanged();
                 repairWorkAdapter.notifyDataSetChanged();
                 commentAdapter.notifyDataSetChanged();
-                Toast.makeText(context,"FOUND",Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "FOUND", Toast.LENGTH_SHORT).show();
             }
 
 
@@ -392,15 +399,15 @@ public class order_activity extends AppCompatActivity {
         protected String doInBackground(String... args) {
             Bundle arguments = getIntent().getExtras();
             JSONParser jsonParser = new JSONParser();
-            ContentValues param=new ContentValues();
-            param.put("user","s55111_standart");
-            param.put("pass","5tva3ijjcxjh5w5het");
+            ContentValues param = new ContentValues();
+            param.put("user", "s55111_standart");
+            param.put("pass", "5tva3ijjcxjh5w5het");
             param.put("id_comment", arguments.get("id").toString());
-            param.put("worker","admin");
+            param.put("worker", "admin");
             param.put("comment", Tcomment.getText().toString());
 
             try {
-                JSONObject json = jsonParser.makeHttpRequest("http://s55111.hostru05.fornex.org/db_write_comment.php",JSONParser.POST, param);
+                JSONObject json = jsonParser.makeHttpRequest("http://s55111.hostru05.fornex.org/db_write_comment.php", JSONParser.POST, param);
                 if (!json.has(Repair_item.TAG_ERROR)) {
                     int success = json.getInt(Repair_item.TAG_SUCCESS);
                     if (success == 1) {
@@ -409,8 +416,7 @@ public class order_activity extends AppCompatActivity {
                         // продукт не найден
                         return Repair_item.TAG_NOT_FOUND_REPAIR;
                     }
-                }
-                else {
+                } else {
                     return Repair_item.TAG_ERROR;
                 }
             } catch (JSONException e) {
@@ -424,17 +430,12 @@ public class order_activity extends AppCompatActivity {
             // закрываем прогресс диалог после получение все продуктов
             pDialog.dismiss();
 
-            if (result == Repair_item.TAG_NOT_FOUND_REPAIR)
-            {
-                Toast.makeText(context,"REPAIR NOT FOUND",Toast.LENGTH_SHORT).show();
-            }
-            else if (result == Repair_item.TAG_ERROR)
-            {
-                Toast.makeText(context,"BAD CONNECT TO SERVER",Toast.LENGTH_SHORT).show();
-            }
-            else if (result == Repair_item.TAG_SUCCESS)
-            {
-                Toast.makeText(context,"update",Toast.LENGTH_SHORT).show();
+            if (result == Repair_item.TAG_NOT_FOUND_REPAIR) {
+                Toast.makeText(context, "REPAIR NOT FOUND", Toast.LENGTH_SHORT).show();
+            } else if (result == Repair_item.TAG_ERROR) {
+                Toast.makeText(context, "BAD CONNECT TO SERVER", Toast.LENGTH_SHORT).show();
+            } else if (result == Repair_item.TAG_SUCCESS) {
+                Toast.makeText(context, "update", Toast.LENGTH_SHORT).show();
                 Tcomment.setText("");
                 new LoadAllProducts().execute();
             }
@@ -462,16 +463,16 @@ public class order_activity extends AppCompatActivity {
         protected String doInBackground(String... args) {
             Bundle arguments = getIntent().getExtras();
             JSONParser jsonParser = new JSONParser();
-            ContentValues param=new ContentValues();
-            param.put("user","s55111_standart");
-            param.put("pass","5tva3ijjcxjh5w5het");
+            ContentValues param = new ContentValues();
+            param.put("user", "s55111_standart");
+            param.put("pass", "5tva3ijjcxjh5w5het");
             param.put("id_work", arguments.get("id").toString());
-            param.put("worker_w","admin");
+            param.put("worker_w", "admin");
             param.put("work_name", Twork.getText().toString());
-            param.put("cost","");
+            param.put("cost", "");
 
             try {
-                JSONObject json = jsonParser.makeHttpRequest("http://s55111.hostru05.fornex.org/db_write_work.php",JSONParser.POST, param);
+                JSONObject json = jsonParser.makeHttpRequest("http://s55111.hostru05.fornex.org/db_write_work.php", JSONParser.POST, param);
                 if (!json.has(Repair_item.TAG_ERROR)) {
                     int success = json.getInt(Repair_item.TAG_SUCCESS);
                     if (success == 1) {
@@ -480,8 +481,7 @@ public class order_activity extends AppCompatActivity {
                         // продукт не найден
                         return Repair_item.TAG_NOT_FOUND_REPAIR;
                     }
-                }
-                else {
+                } else {
                     return Repair_item.TAG_ERROR;
                 }
             } catch (JSONException e) {
@@ -495,17 +495,12 @@ public class order_activity extends AppCompatActivity {
             // закрываем прогресс диалог после получение все продуктов
             pDialog.dismiss();
 
-            if (result == Repair_item.TAG_NOT_FOUND_REPAIR)
-            {
-                Toast.makeText(context,"REPAIR NOT FOUND",Toast.LENGTH_SHORT).show();
-            }
-            else if (result == Repair_item.TAG_ERROR)
-            {
-                Toast.makeText(context,"BAD CONNECT TO SERVER",Toast.LENGTH_SHORT).show();
-            }
-            else if (result == Repair_item.TAG_SUCCESS)
-            {
-                Toast.makeText(context,"update",Toast.LENGTH_SHORT).show();
+            if (result == Repair_item.TAG_NOT_FOUND_REPAIR) {
+                Toast.makeText(context, "REPAIR NOT FOUND", Toast.LENGTH_SHORT).show();
+            } else if (result == Repair_item.TAG_ERROR) {
+                Toast.makeText(context, "BAD CONNECT TO SERVER", Toast.LENGTH_SHORT).show();
+            } else if (result == Repair_item.TAG_SUCCESS) {
+                Toast.makeText(context, "update", Toast.LENGTH_SHORT).show();
                 Twork.setText("");
                 new LoadAllProducts().execute();
             }
@@ -533,18 +528,18 @@ public class order_activity extends AppCompatActivity {
         protected String doInBackground(String... args) {
             Bundle arguments = getIntent().getExtras();
             JSONParser jsonParser = new JSONParser();
-            ContentValues param=new ContentValues();
-            param.put("user","s55111_standart");
-            param.put("pass","5tva3ijjcxjh5w5het");
+            ContentValues param = new ContentValues();
+            param.put("user", "s55111_standart");
+            param.put("pass", "5tva3ijjcxjh5w5het");
             param.put("id_part", arguments.get("id").toString());
             param.put("name_p", Tparts.getText().toString());
             param.put("sn_p", "");
-            param.put("pn_p","");
-            param.put("description_p","");
-            param.put("cost_p","");
+            param.put("pn_p", "");
+            param.put("description_p", "");
+            param.put("cost_p", "");
 
             try {
-                JSONObject json = jsonParser.makeHttpRequest("http://s55111.hostru05.fornex.org/db_write_parts.php",JSONParser.POST, param);
+                JSONObject json = jsonParser.makeHttpRequest("http://s55111.hostru05.fornex.org/db_write_parts.php", JSONParser.POST, param);
                 if (!json.has(Repair_item.TAG_ERROR)) {
                     int success = json.getInt(Repair_item.TAG_SUCCESS);
                     if (success == 1) {
@@ -553,8 +548,7 @@ public class order_activity extends AppCompatActivity {
                         // продукт не найден
                         return Repair_item.TAG_NOT_FOUND_REPAIR;
                     }
-                }
-                else {
+                } else {
                     return Repair_item.TAG_ERROR;
                 }
             } catch (JSONException e) {
@@ -568,17 +562,12 @@ public class order_activity extends AppCompatActivity {
             // закрываем прогресс диалог после получение все продуктов
             pDialog.dismiss();
 
-            if (result == Repair_item.TAG_NOT_FOUND_REPAIR)
-            {
-                Toast.makeText(context,"REPAIR NOT FOUND",Toast.LENGTH_SHORT).show();
-            }
-            else if (result == Repair_item.TAG_ERROR)
-            {
-                Toast.makeText(context,"BAD CONNECT TO SERVER",Toast.LENGTH_SHORT).show();
-            }
-            else if (result == Repair_item.TAG_SUCCESS)
-            {
-                Toast.makeText(context,"update",Toast.LENGTH_SHORT).show();
+            if (result == Repair_item.TAG_NOT_FOUND_REPAIR) {
+                Toast.makeText(context, "REPAIR NOT FOUND", Toast.LENGTH_SHORT).show();
+            } else if (result == Repair_item.TAG_ERROR) {
+                Toast.makeText(context, "BAD CONNECT TO SERVER", Toast.LENGTH_SHORT).show();
+            } else if (result == Repair_item.TAG_SUCCESS) {
+                Toast.makeText(context, "update", Toast.LENGTH_SHORT).show();
                 Tparts.setText("");
                 new LoadAllProducts().execute();
             }
@@ -587,8 +576,6 @@ public class order_activity extends AppCompatActivity {
         }
 
     }
-
-
 
 
     class DeleteWork extends AsyncTask<String, String, String> {
@@ -609,26 +596,26 @@ public class order_activity extends AppCompatActivity {
         protected String doInBackground(String... args) {
             Bundle arguments = getIntent().getExtras();
             JSONParser jsonParser = new JSONParser();
-            ContentValues param=new ContentValues();
-            param.put("user","s55111_standart");
-            param.put("pass","5tva3ijjcxjh5w5het");
+            ContentValues param = new ContentValues();
+            param.put("user", "s55111_standart");
+            param.put("pass", "5tva3ijjcxjh5w5het");
 
 
             boolean[] checked = repairWorkAdapter.getChecked();
             String work_d = new String();
-            for (int i = 0; i < checked.length; i++){
+            for (int i = 0; i < checked.length; i++) {
                 if (checked[i] == true)
-                    work_d += ","+ repair_works.get(i).getId_w();
+                    work_d += "," + repair_works.get(i).getId_w();
             }
 
             if (work_d.length() > 0)
-               work_d = work_d.substring(1);
+                work_d = work_d.substring(1);
 
             param.put("id_w", work_d);
 
 
             try {
-                JSONObject json = jsonParser.makeHttpRequest("http://s55111.hostru05.fornex.org/db_delete_work.php",JSONParser.POST, param);
+                JSONObject json = jsonParser.makeHttpRequest("http://s55111.hostru05.fornex.org/db_delete_work.php", JSONParser.POST, param);
                 if (!json.has(Repair_item.TAG_ERROR)) {
                     int success = json.getInt(Repair_item.TAG_SUCCESS);
                     if (success == 1) {
@@ -637,8 +624,7 @@ public class order_activity extends AppCompatActivity {
                         // продукт не найден
                         return Repair_item.TAG_NOT_FOUND_REPAIR;
                     }
-                }
-                else {
+                } else {
                     return Repair_item.TAG_ERROR;
                 }
             } catch (JSONException e) {
@@ -653,17 +639,82 @@ public class order_activity extends AppCompatActivity {
             // закрываем прогресс диалог после получение все продуктов
             pDialog.dismiss();
 
-            if (result == Repair_item.TAG_NOT_FOUND_REPAIR)
-            {
-                Toast.makeText(context,"REPAIR NOT FOUND",Toast.LENGTH_SHORT).show();
+            if (result == Repair_item.TAG_NOT_FOUND_REPAIR) {
+                Toast.makeText(context, "REPAIR NOT FOUND", Toast.LENGTH_SHORT).show();
+            } else if (result == Repair_item.TAG_ERROR) {
+                Toast.makeText(context, "BAD CONNECT TO SERVER", Toast.LENGTH_SHORT).show();
+            } else if (result == Repair_item.TAG_SUCCESS) {
+                Toast.makeText(context, "update", Toast.LENGTH_SHORT).show();
+                new LoadAllProducts().execute();
             }
-            else if (result == Repair_item.TAG_ERROR)
-            {
-                Toast.makeText(context,"BAD CONNECT TO SERVER",Toast.LENGTH_SHORT).show();
+
+        }
+
+    }
+
+    class DeleteParts extends AsyncTask<String, String, String> {
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(context);
+            pDialog.setMessage("Загрузка. Подождите...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(false);
+            pDialog.show();
+        }
+
+
+        @SuppressLint("WrongThread")
+        protected String doInBackground(String... args) {
+            Bundle arguments = getIntent().getExtras();
+            JSONParser jsonParser = new JSONParser();
+            ContentValues param = new ContentValues();
+            param.put("user", "s55111_standart");
+            param.put("pass", "5tva3ijjcxjh5w5het");
+            boolean[] checked = partsAdapter.getChecked();
+            String part_d = new String();
+            for (int i = 0; i < checked.length; i++) {
+                if (checked[i] == true)
+                    part_d += "," + parts.get(i).getId_p();
             }
-            else if (result == Repair_item.TAG_SUCCESS)
-            {
-                Toast.makeText(context,"update",Toast.LENGTH_SHORT).show();
+
+            if (part_d.length() > 0)
+                part_d = part_d.substring(1);
+
+            param.put("id_p", part_d);
+            try {
+                JSONObject json = jsonParser.makeHttpRequest("http://s55111.hostru05.fornex.org/db_delete_parts.php", JSONParser.POST, param);
+                if (!json.has(Repair_item.TAG_ERROR)) {
+                    int success = json.getInt(Repair_item.TAG_SUCCESS);
+                    if (success == 1) {
+                        return Repair_item.TAG_SUCCESS;
+                    } else {
+                        // продукт не найден
+                        return Repair_item.TAG_NOT_FOUND_REPAIR;
+                    }
+                } else {
+                    return Repair_item.TAG_ERROR;
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+
+        protected void onPostExecute(String result) {
+            // закрываем прогресс диалог после получение все продуктов
+            pDialog.dismiss();
+
+            if (result == Repair_item.TAG_NOT_FOUND_REPAIR) {
+                Toast.makeText(context, "REPAIR NOT FOUND", Toast.LENGTH_SHORT).show();
+            } else if (result == Repair_item.TAG_ERROR) {
+                Toast.makeText(context, "BAD CONNECT TO SERVER", Toast.LENGTH_SHORT).show();
+            } else if (result == Repair_item.TAG_SUCCESS) {
+                Toast.makeText(context, "update", Toast.LENGTH_SHORT).show();
                 new LoadAllProducts().execute();
             }
 

@@ -1,9 +1,6 @@
 package com.example.service_base.Repair_item;
 
 
-
-
-
 public class Comment {
 
 

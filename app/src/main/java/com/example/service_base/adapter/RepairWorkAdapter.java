@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.service_base.R;
 import com.example.service_base.Repair_item.Repair_work;
 
@@ -23,15 +24,11 @@ public class RepairWorkAdapter extends RecyclerView.Adapter<RepairWorkAdapter.Re
     boolean[] checked;
 
 
-
-
-
-
     @NonNull
     @Override
     public RepairWorkAdapter.RepairWorkAdapterViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.repair_work_adapter, parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.repair_work_adapter, parent, false);
 
         return new RepairWorkAdapter.RepairWorkAdapterViewHolder(view);
     }
@@ -49,14 +46,13 @@ public class RepairWorkAdapter extends RecyclerView.Adapter<RepairWorkAdapter.Re
     }
 
 
-
     @Override
     public int getItemCount() {
         checked = new boolean[repair_work.size()];
         return repair_work.size();
     }
 
-    public boolean[] getChecked(){
+    public boolean[] getChecked() {
         return checked;
     }
 
@@ -86,8 +82,7 @@ public class RepairWorkAdapter extends RecyclerView.Adapter<RepairWorkAdapter.Re
 
     }
 
-    public RepairWorkAdapter(List<Repair_work> repair_work, Context ctx)
-    {
+    public RepairWorkAdapter(List<Repair_work> repair_work, Context ctx) {
         this.repair_work = repair_work;
         this.ctx = ctx;
 

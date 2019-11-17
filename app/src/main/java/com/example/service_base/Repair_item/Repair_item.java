@@ -29,7 +29,7 @@ public class Repair_item {
     public static final String TAG_ADRESS = "adress";
 
 
-//first data
+    //first data
     private int id;
     private String date;
     private String status;
@@ -51,8 +51,7 @@ public class Repair_item {
     private String mail;
     private String adress;
 
-    public Repair_item(int id, String date, String status)
-    {
+    public Repair_item(int id, String date, String status) {
         this.id = id;
         this.date = date;
         this.status = status;

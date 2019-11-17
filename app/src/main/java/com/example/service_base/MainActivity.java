@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
+
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
@@ -36,14 +37,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
 
 
-        if(savedInstanceState == null)
-        {
+        if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_find()).commit();
             navigationView.setCheckedItem(R.id.find);
         }
 
     }
-
 
 
     @Override
@@ -53,32 +52,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Fragment fragment = null;
         Class fragmentClass;
 
-        switch (item.getItemId())
-        {
+        switch (item.getItemId()) {
             case R.id.find:
-                Toast.makeText(getApplicationContext(),"Поиск",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Поиск", Toast.LENGTH_SHORT).show();
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_find()).commit();
                 break;
             case R.id.news:
-                Toast.makeText(getApplicationContext(),"Новости",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Новости", Toast.LENGTH_SHORT).show();
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_news()).commit();
                 break;
-            case  R.id.scaner:
-                Toast.makeText(getApplicationContext(),"Сканер",Toast.LENGTH_SHORT).show();
+            case R.id.scaner:
+                Toast.makeText(getApplicationContext(), "Сканер", Toast.LENGTH_SHORT).show();
                 break;
-            case  R.id.send_request:
-                Toast.makeText(getApplicationContext(),"Написать заявку",Toast.LENGTH_SHORT).show();
+            case R.id.send_request:
+                Toast.makeText(getApplicationContext(), "Написать заявку", Toast.LENGTH_SHORT).show();
                 break;
-            case  R.id.price:
-                Toast.makeText(getApplicationContext(),"Цены",Toast.LENGTH_SHORT).show();
+            case R.id.price:
+                Toast.makeText(getApplicationContext(), "Цены", Toast.LENGTH_SHORT).show();
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_price()).commit();
                 break;
             case R.id.about_us:
-                Toast.makeText(getApplicationContext(),"О нас",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "О нас", Toast.LENGTH_SHORT).show();
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_about_us()).commit();
                 break;
             case R.id.new_repair:
-                Toast.makeText(getApplicationContext(),"Новый заказ",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Новый заказ", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(this, new_repair.class);
                 this.startActivity(intent);
                 break;
@@ -93,8 +91,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         return true;
     }
-
-
 
 
     @Override
