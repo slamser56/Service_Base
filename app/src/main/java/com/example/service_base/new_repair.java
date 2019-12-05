@@ -58,7 +58,7 @@ public class new_repair extends AppCompatActivity {
         setContentView(R.layout.order_activity_add);
         initAll();
 
-        new ReadMalfunction().execute();
+        new ReadSpinner().execute();
 
         button.setOnClickListener(Onbutton);
 
@@ -68,7 +68,6 @@ public class new_repair extends AppCompatActivity {
     private View.OnClickListener Onbutton = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Toast.makeText(context, "Загрузка", Toast.LENGTH_SHORT).show();
             new AddProduct().execute();
         }
     };
@@ -96,27 +95,19 @@ public class new_repair extends AppCompatActivity {
     }
 
 
-    /**
-     * Фоновый Async Task для загрузки всех продуктов по HTTP запросу
-     */
+
     public class AddProduct extends AsyncTask<String, String, String> {
 
-        /**
-         * Перед началом фонового потока Show Progress Dialog
-         */
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             pDialog = new ProgressDialog(context);
-            pDialog.setMessage("Загрузка продуктов. Подождите...");
+            pDialog.setMessage("Загрузка. Подождите...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(false);
             pDialog.show();
         }
 
-        /**
-         * Получаем все продукт из url
-         */
         @SuppressLint("WrongThread")
         protected String doInBackground(String... args) {
 
@@ -125,8 +116,8 @@ public class new_repair extends AppCompatActivity {
             ContentValues param = new ContentValues();
             param.put("user", "s55111_standart");
             param.put("pass", "5tva3ijjcxjh5w5het");
-            param.put("status", Tstatus.getText().toString());
-            param.put("type_of_repair", Ttype_of_repair.getText().toString());
+            param.put("status_id", "0");
+            param.put("id_malfunction", String.valueOf(malfunction_spinner.getSelectedItemId()));
             param.put("sn", Tsn.getText().toString());
             param.put("imei", Timei.getText().toString());
             param.put("unique_number", Tunique_number.getText().toString());
@@ -134,7 +125,7 @@ public class new_repair extends AppCompatActivity {
             param.put("date_of_warranty", Tdate_of_warranty.getText().toString());
             param.put("appearance", Tappearance.getText().toString());
             param.put("additional_description", Tadditional_description.getText().toString());
-            param.put("malfunction", Tmalfunction.getText().toString());
+            param.put("id_type_of_repair", String.valueOf(type_of_repair_spinner.getSelectedItemId()));
             param.put("contractor", Tcontractor.getText().toString());
             param.put("contact_person", Tcontact_person.getText().toString());
             param.put("phone", Tphone.getText().toString());
@@ -142,7 +133,7 @@ public class new_repair extends AppCompatActivity {
             param.put("adress", Tadress.getText().toString());
 
             try {
-                JSONObject json = jsonParser.makeHttpRequest("http://s55111.hostru05.fornex.org/db_write_order.php", JSONParser.POST, param);
+                JSONObject json = jsonParser.makeHttpRequest("http://s55111.hostru05.fornex.org/db_new_order.php", JSONParser.POST, param);
                 if (!json.has(Repair_item.TAG_ERROR)) {
                     int success = json.getInt(Repair_item.TAG_SUCCESS);
                     if (success == 1) {
@@ -162,9 +153,6 @@ public class new_repair extends AppCompatActivity {
             return null;
         }
 
-        /**
-         * После завершения фоновой задачи закрываем прогрес диалог
-         **/
         protected void onPostExecute(String result) {
             // закрываем прогресс диалог после получение все продуктов
             pDialog.dismiss();
@@ -174,7 +162,7 @@ public class new_repair extends AppCompatActivity {
             } else if (result == Repair_item.TAG_ERROR) {
                 Toast.makeText(context, "BAD CONNECT TO SERVER", Toast.LENGTH_SHORT).show();
             } else if (result == Repair_item.TAG_SUCCESS) {
-                Toast.makeText(context, "FOUND", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "REPAIR CREATE", Toast.LENGTH_SHORT).show();
                 finish();
             }
 
@@ -183,7 +171,7 @@ public class new_repair extends AppCompatActivity {
     }
 
 
-    public class ReadMalfunction extends AsyncTask<String, String, String> {
+    public class ReadSpinner extends AsyncTask<String, String, String> {
 
         String[] type_array;
         String[] malfunction_array;
