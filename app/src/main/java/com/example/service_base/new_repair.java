@@ -120,7 +120,7 @@ public class new_repair extends AppCompatActivity {
             param.put("id_malfunction", String.valueOf(malfunction_spinner.getSelectedItemId()));
             param.put("sn", Tsn.getText().toString());
             param.put("imei", Timei.getText().toString());
-            param.put("unique_number", Tunique_number.getText().toString());
+            param.put("unuque_number", Tunique_number.getText().toString());
             param.put("product", Tproduct.getText().toString());
             param.put("date_of_warranty", Tdate_of_warranty.getText().toString());
             param.put("appearance", Tappearance.getText().toString());

@@ -108,7 +108,7 @@ public class fragment_find extends Fragment {
 
 
             try {
-                JSONObject json = jsonParser.makeHttpRequest("http://s55111.hostru05.fornex.org/db_read_main_list.php", JSONParser.GET, param);
+                JSONObject json = jsonParser.makeHttpRequest("http://s55111.hostru05.fornex.org/db_read_lite_order.php", JSONParser.POST, param);
 
 
                 if (!json.has(Repair_item.TAG_ERROR)) {
@@ -123,7 +123,7 @@ public class fragment_find extends Fragment {
                             JSONObject c = JSON_array_repairs.getJSONObject(i);
 
                             // Сохраняем каждый json елемент в переменную
-                            int id = c.getInt(Repair_item.TAG_ID);
+                            int id = c.getInt(Repair_item.TAG_ID_ORDER);
                             String date = c.getString(Repair_item.TAG_DATE);
                             String status = c.getString(Repair_item.TAG_STATUS);
                             // Создаем новый List

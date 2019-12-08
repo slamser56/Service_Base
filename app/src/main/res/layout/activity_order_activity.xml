@@ -30,14 +30,12 @@
                     android:layout_marginRight="20px"
                     android:text="@string/status" />
 
-                <EditText
+
+                <Spinner
                     android:id="@+id/status"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
-                    android:longClickable="false" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
             </LinearLayout>
 
             <LinearLayout
@@ -117,17 +115,11 @@
                     android:layout_marginRight="20px"
                     android:text="@string/type_of_repair" />
 
-                <EditText
+                <Spinner
                     android:id="@+id/type_of_repair"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
-                    android:inputType="textPersonName"
-                    android:longClickable="false"
-                    android:text="" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
             </LinearLayout>
 
 
@@ -327,17 +319,10 @@
                     android:layout_marginRight="20px"
                     android:text="@string/malfunction" />
 
-                <EditText
+                <Spinner
                     android:id="@+id/malfunction"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
-                    android:inputType="textPersonName"
-                    android:longClickable="false"
-                    android:text="" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
             </LinearLayout>
 
             <LinearLayout
@@ -630,33 +615,7 @@
                 android:orientation="vertical">
 
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
 
-                    <Button
-                        android:id="@+id/button27"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Добавить" />
-
-                    <Button
-                        android:id="@+id/button23"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/edit" />
-
-                    <Button
-                        android:id="@+id/button24"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/delete" />
-
-                </LinearLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/parts_view"

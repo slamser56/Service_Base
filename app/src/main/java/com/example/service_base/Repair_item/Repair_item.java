@@ -10,18 +10,22 @@ public class Repair_item {
 
     //DATA REPAIR
     public static final String TAG_ID = "id";
+    public static final String TAG_ID_ORDER = "id_order";
     public static final String TAG_DATE = "date";
     public static final String TAG_STATUS = "status";
+    public static final String TAG_ID_STATUS = "id_status";
     public static final String TAG_DATE_COMPLETE = "date_complete";
     public static final String TAG_TYPE_OF_REPAIR = "type_of_repair";
+    public static final String TAG_ID_TYPE_OF_REPAIR = "id_type";
     public static final String TAG_SN = "sn";
     public static final String TAG_IMEI = "imei";
-    public static final String TAG_UNIQUE_NUMBER = "unique_number";
+    public static final String TAG_UNUQUE_NUMBER = "unuque_number";
     public static final String TAG_PRODUCT = "product";
     public static final String TAG_DATE_OF_WARRANTY = "date_of_warranty";
     public static final String TAG_APPEARANCE = "appearance";
     public static final String TAG_ADDITIONAL_DESCRIPTION = "additional_description";
     public static final String TAG_MALFUNCTION = "malfunction";
+    public static final String TAG_ID_MALFUNCTION = "id_malfunction";
     public static final String TAG_CONTRACTOR = "contractor";
     public static final String TAG_CONTACT_PERSON = "contact_person";
     public static final String TAG_PHONE = "phone";
@@ -32,11 +36,11 @@ public class Repair_item {
     //first data
     private int id;
     private String date;
-    private String status;
+    private int id_status;
 
     //all data
     private String date_complete;
-    private String type_of_repair;
+    private int id_type_of_repair;
     private String sn;
     private int imei;
     private String unique_number;
@@ -44,12 +48,21 @@ public class Repair_item {
     private String date_of_warranty;
     private String appearance;
     private String additional_description;
-    private String malfunction;
+    private int id_malfunction;
     private String contractor;
     private String contact_person;
     private String phone;
     private String mail;
     private String adress;
+    private String status;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public Repair_item(int id, String date, String status) {
         this.id = id;
@@ -57,12 +70,12 @@ public class Repair_item {
         this.status = status;
     }
 
-    public Repair_item(int id, String date, String status, String date_complete, String type_of_repair, String sn, int imei, String unique_number, String product, String date_of_warranty, String appearance, String additional_description, String malfunction, String contractor, String contact_person, String phone, String mail, String adress) {
+    public Repair_item(int id, String date, int id_status, String date_complete, int id_type_of_repair, String sn, int imei, String unique_number, String product, String date_of_warranty, String appearance, String additional_description, int id_malfunction, String contractor, String contact_person, String phone, String mail, String adress) {
         this.id = id;
         this.date = date;
-        this.status = status;
+        this.id_status = id_status;
         this.date_complete = date_complete;
-        this.type_of_repair = type_of_repair;
+        this.id_type_of_repair = id_type_of_repair;
         this.sn = sn;
         this.imei = imei;
         this.unique_number = unique_number;
@@ -70,7 +83,7 @@ public class Repair_item {
         this.date_of_warranty = date_of_warranty;
         this.appearance = appearance;
         this.additional_description = additional_description;
-        this.malfunction = malfunction;
+        this.id_malfunction = id_malfunction;
         this.contractor = contractor;
         this.contact_person = contact_person;
         this.phone = phone;
@@ -94,13 +107,6 @@ public class Repair_item {
         this.date = date;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
 
     public String getDate_complete() {
         return date_complete;
@@ -108,14 +114,6 @@ public class Repair_item {
 
     public void setDate_complete(String date_complete) {
         this.date_complete = date_complete;
-    }
-
-    public String getType_of_repair() {
-        return type_of_repair;
-    }
-
-    public void setType_of_repair(String type_of_repair) {
-        this.type_of_repair = type_of_repair;
     }
 
     public String getSn() {
@@ -174,12 +172,28 @@ public class Repair_item {
         this.additional_description = additional_description;
     }
 
-    public String getMalfunction() {
-        return malfunction;
+    public int getId_status() {
+        return id_status;
     }
 
-    public void setMalfunction(String malfunction) {
-        this.malfunction = malfunction;
+    public void setId_status(int id_status) {
+        this.id_status = id_status;
+    }
+
+    public int getId_type_of_repair() {
+        return id_type_of_repair;
+    }
+
+    public void setId_type_of_repair(int id_type_of_repair) {
+        this.id_type_of_repair = id_type_of_repair;
+    }
+
+    public int getId_malfunction() {
+        return id_malfunction;
+    }
+
+    public void setId_malfunction(int id_malfunction) {
+        this.id_malfunction = id_malfunction;
     }
 
     public String getContractor() {
