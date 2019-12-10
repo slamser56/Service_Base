@@ -4,13 +4,14 @@ public class Parts {
 
 
     public static final String TAG_PARTS = "parts";
-    public static final String TAG_ID = "id_p";
+    public static final String TAG_ID = "id_parts";
     public static final String TAG_NAME = "name_p";
     public static final String TAG_DATE = "date_p";
     public static final String TAG_SN = "sn_p";
     public static final String TAG_PN = "pn_p";
     public static final String TAG_DESCRIPTION = "description_p";
     public static final String TAG_COST = "cost_p";
+    public static final String TAG_WORKER = "worker_name";
 
 
     private int id_p;
@@ -19,9 +20,10 @@ public class Parts {
     private String sn_p;
     private String pn_p;
     private String description_p;
+    private String worker_p;
     private int cost_p;
 
-    public Parts(int id_p, String name_p, String date_p, String sn_p, String pn_p, String description_p, int cost_p) {
+    public Parts(int id_p, String name_p, String date_p, String sn_p, String pn_p, String description_p, int cost_p, String worker_p) {
         this.id_p = id_p;
         this.name_p = name_p;
         this.date_p = date_p;
@@ -29,6 +31,15 @@ public class Parts {
         this.pn_p = pn_p;
         this.description_p = description_p;
         this.cost_p = cost_p;
+        this.worker_p = worker_p;
+    }
+
+    public String getWorker_p() {
+        return worker_p;
+    }
+
+    public void setWorker_p(String worker_p) {
+        this.worker_p = worker_p;
     }
 
     public int getId_p() {

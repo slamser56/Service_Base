@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,7 +15,6 @@ public class PartsAdapter extends RecyclerView.Adapter<PartsAdapter.PartsAdapter
 
     private List<Parts> parts;
     private Context ctx;
-    boolean[] checked;
 
     public PartsAdapter(List<Parts> parts, Context ctx) {
         this.parts = parts;
@@ -37,24 +35,14 @@ public class PartsAdapter extends RecyclerView.Adapter<PartsAdapter.PartsAdapter
     @Override
     public void onBindViewHolder(@NonNull PartsAdapter.PartsAdapterViewHolder holder, final int position) {
         holder.bind(parts.get(position));
-        holder.checkBox.setChecked(checked[position]);
-        holder.checkBox.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                checked[position] = !checked[position];
-            }
-        });
     }
 
     @Override
     public int getItemCount() {
-        checked = new boolean[parts.size()];
         return parts.size();
     }
 
-    public boolean[] getChecked() {
-        return checked;
-    }
+
 
     class PartsAdapterViewHolder extends RecyclerView.ViewHolder {
 
@@ -69,12 +57,10 @@ public class PartsAdapter extends RecyclerView.Adapter<PartsAdapter.PartsAdapter
         TextView TextRepairWorkId;
         TextView TextRepairWorkDate;
         TextView TextRepairWork;
-        CheckBox checkBox;
 
         public PartsAdapterViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            checkBox = itemView.findViewById(R.id.parts_checkbox);
             TextRepairWorkId = itemView.findViewById(R.id.text_parts_id);
             TextRepairWorkDate = itemView.findViewById(R.id.text__parts_date);
             TextRepairWork = itemView.findViewById(R.id.text_parts);

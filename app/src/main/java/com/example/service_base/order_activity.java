@@ -1,5 +1,6 @@
 package com.example.service_base;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -8,6 +9,7 @@ import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -73,6 +75,8 @@ public class order_activity extends AppCompatActivity {
     Spinner Tmalfunction;
     Spinner Ttype_of_repair;
 
+    Spinner chooseSpinner;
+
 
     private RecyclerView commentView;
     private RecyclerView repairworkView;
@@ -87,6 +91,7 @@ public class order_activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_activity);
         init_all();
+        disable_all();
         commentView = findViewById(R.id.comment_rv);
         repairworkView = findViewById(R.id.repair_view);
         partsView = findViewById(R.id.parts_view);
@@ -136,7 +141,9 @@ public class order_activity extends AppCompatActivity {
     private View.OnClickListener Onbuttonwork = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            new AddWork().execute();
+
+            showChooseworks();
+           // new AddWork().execute();
         }
     };
 
@@ -174,11 +181,34 @@ public class order_activity extends AppCompatActivity {
 
         Tcomment = findViewById(R.id.comments);
         btncomment = findViewById(R.id.comments_button);
-        Twork = findViewById(R.id.work);
         btnwork = findViewById(R.id.button);
         Tparts = findViewById(R.id.part);
         btnworkdelete = findViewById(R.id.button3);
+    }
 
+    void disable_all() {
+        Tid.setEnabled(false);
+        Tdate.setEnabled(false);
+        Tstatus.setEnabled(false);
+        Ttype_of_repair.setEnabled(false);
+        Tsn.setEnabled(false);
+        Timei.setEnabled(false);
+        Tunique_number.setEnabled(false);
+        Tproduct.setEnabled(false);
+        Tdate_of_warranty.setEnabled(false);
+        Tappearance.setEnabled(false);
+        Tadditional_description.setEnabled(false);
+        Tmalfunction.setEnabled(false);
+        Tcontractor.setEnabled(false);
+        Tcontact_person.setEnabled(false);
+        Tphone.setEnabled(false);
+        Tmail.setEnabled(false);
+        Tadress.setEnabled(false);
+
+        Tstatus.setEnabled(false);
+        Tmalfunction.setEnabled(false);
+        Ttype_of_repair.setEnabled(false);
+        btnworkdelete.setEnabled(false);
     }
 
 
@@ -205,11 +235,9 @@ public class order_activity extends AppCompatActivity {
 
         protected String doInBackground(String... args) {
 
-
             comments.clear();
             repair_works.clear();
             parts.clear();
-
 
             Bundle arguments = getIntent().getExtras();
             JSONParser jsonParser = new JSONParser();
@@ -310,8 +338,6 @@ public class order_activity extends AppCompatActivity {
 
                         malfunction_array = mString.toArray(new String[mString.size()]);
 
-
-
                     } else {
                         // продукт не найден
                         return Repair_item.TAG_NOT_FOUND_REPAIR;
@@ -319,9 +345,6 @@ public class order_activity extends AppCompatActivity {
                 } else {
                     return Repair_item.TAG_ERROR;
                 }
-
-
-
 
                 json = jsonParser.makeHttpRequest("http://s55111.hostru05.fornex.org/db_read_type_of_repair.php", JSONParser.POST, param);
                 if (!json.has(Repair_item.TAG_ERROR)) {
@@ -344,10 +367,90 @@ public class order_activity extends AppCompatActivity {
                         type_array = mString_type.toArray(new String[mString_type.size()]);
 
 
-
                     } else {
                         // продукт не найден
                         return Repair_item.TAG_NOT_FOUND_REPAIR;
+                    }
+                } else {
+                    return Repair_item.TAG_ERROR;
+                }
+
+
+                json = jsonParser.makeHttpRequest("http://s55111.hostru05.fornex.org/db_read_comment.php", JSONParser.POST, param);
+                if (!json.has(Repair_item.TAG_ERROR)) {
+                    int success = json.getInt(Repair_item.TAG_SUCCESS);
+                    if (success == 1) {
+
+                        JSON_array = json.getJSONArray("repair_comment");
+
+                        // перебор всех комментов
+                        for (int i = 0; i < JSON_array.length(); i++) {
+                            JSONObject a = JSON_array.getJSONObject(i);
+                            // Сохраняем каждый json елемент в переменную
+                            int id_c = a.getInt(Comment.TAG_ID_COMMENT);
+                            String date_c = a.getString(Comment.TAG_DATE_COMMENT);
+                            String comment_c = a.getString(Comment.TAG_COMMENT);
+                            String worker = a.getString(Comment.TAG_WORKER);
+                            // Создаем новый List
+                            comments.add(new Comment(id_c, comment_c, worker, date_c));
+                        }
+                    } else {
+                        Log.d("COMMENT", "No comment");
+                    }
+                } else {
+                    return Repair_item.TAG_ERROR;
+                }
+
+
+                json = jsonParser.makeHttpRequest("http://s55111.hostru05.fornex.org/db_read_work.php", JSONParser.POST, param);
+                if (!json.has(Repair_item.TAG_ERROR)) {
+                    int success = json.getInt(Repair_item.TAG_SUCCESS);
+                    if (success == 1) {
+                JSON_array = json.getJSONArray(Repair_work.TAG_REPAIR_WORK);
+
+                // перебор всех работ
+                for (int i = 0; i < JSON_array.length(); i++) {
+                    JSONObject w = JSON_array.getJSONObject(i);
+                    // Сохраняем каждый json елемент в переменную
+                    int id_w = w.getInt(Repair_work.TAG_ID);
+                    int price_w = w.getInt(Repair_work.TAG_COST);
+                    String date_w = w.getString(Repair_work.TAG_DATE);
+                    String repair_work = w.getString(Repair_work.TAG_WORK_NAME);
+                    String worker_w = w.getString(Repair_work.TAG_WORKER);
+                    // Создаем новый List
+                    repair_works.add(new Repair_work(id_w, price_w, repair_work, worker_w, date_w));
+                }
+                    } else {
+                        Log.d("WORK", "No work");
+                    }
+                } else {
+                    return Repair_item.TAG_ERROR;
+                }
+
+
+                json = jsonParser.makeHttpRequest("http://s55111.hostru05.fornex.org/db_read_parts.php", JSONParser.POST, param);
+                if (!json.has(Repair_item.TAG_ERROR)) {
+                    int success = json.getInt(Repair_item.TAG_SUCCESS);
+                    if (success == 1) {
+                JSON_array = json.getJSONArray("repair_parts");
+
+                // перебор всех работ
+                for (int i = 0; i < JSON_array.length(); i++) {
+                    JSONObject p = JSON_array.getJSONObject(i);
+                    // Сохраняем каждый json елемент в переменную
+                    int id_p = p.getInt(Parts.TAG_ID);
+                    int cost_p = p.getInt(Parts.TAG_COST);
+                    String name_p = p.getString(Parts.TAG_NAME);
+                    String date_p = p.getString(Parts.TAG_DATE);
+                    String sn_p = p.getString(Parts.TAG_SN);
+                    String pn_p = p.getString(Parts.TAG_PN);
+                    String description_p = p.getString(Parts.TAG_DESCRIPTION);
+                    String worker_p = p.getString(Parts.TAG_WORKER);
+                    // Создаем новый List
+                    parts.add(new Parts(id_p, name_p, date_p, sn_p, pn_p, description_p, cost_p, worker_p));
+                }
+                    } else {
+                        Log.d("PARTS", "No parts");
                     }
                 } else {
                     return Repair_item.TAG_ERROR;
@@ -371,8 +474,10 @@ public class order_activity extends AppCompatActivity {
 
             if (result == Repair_item.TAG_NOT_FOUND_REPAIR) {
                 Toast.makeText(context, "REPAIR NOT FOUND", Toast.LENGTH_SHORT).show();
+                finish();
             } else if (result == Repair_item.TAG_ERROR) {
                 Toast.makeText(context, "BAD CONNECT TO SERVER", Toast.LENGTH_SHORT).show();
+                finish();
             } else if (result == Repair_item.TAG_SUCCESS) {
                 Tid.setText(String.valueOf(repair_item.getId()));
                 Tdate.setText(repair_item.getDate());
@@ -396,8 +501,6 @@ public class order_activity extends AppCompatActivity {
                 //set
                 Tstatus.setAdapter(arrayAdapter);
                 Tstatus.setSelection(repair_item.getId_status());
-                Tstatus.setEnabled(false);
-
 
 
                 ArrayAdapter<String> arrayAdapterMalfunction = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, malfunction_array);
@@ -406,7 +509,7 @@ public class order_activity extends AppCompatActivity {
                 //set
                 Tmalfunction.setAdapter(arrayAdapterMalfunction);
                 Tmalfunction.setSelection(repair_item.getId_malfunction());
-                Tmalfunction.setEnabled(false);
+
 
                 ArrayAdapter<String> arrayAdapterType = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, type_array);
                 // Определяем разметку для использования при выборе элемента
@@ -414,16 +517,13 @@ public class order_activity extends AppCompatActivity {
                 //set
                 Ttype_of_repair.setAdapter(arrayAdapterType);
                 Ttype_of_repair.setSelection(repair_item.getId_type_of_repair());
-                Ttype_of_repair.setEnabled(false);
-
-
 
 
 
                 partsAdapter.notifyDataSetChanged();
                 repairWorkAdapter.notifyDataSetChanged();
                 commentAdapter.notifyDataSetChanged();
-                Toast.makeText(context, "FOUND", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Заказ загружен", Toast.LENGTH_SHORT).show();
             }
 
 
@@ -452,8 +552,8 @@ public class order_activity extends AppCompatActivity {
             ContentValues param = new ContentValues();
             param.put("user", "s55111_standart");
             param.put("pass", "5tva3ijjcxjh5w5het");
-            param.put("id_comment", arguments.get("id").toString());
-            param.put("worker", "admin");
+            param.put("id_order", arguments.get("id").toString());
+            param.put("id_worker", "0");
             param.put("comment", Tcomment.getText().toString());
 
             try {
@@ -516,10 +616,9 @@ public class order_activity extends AppCompatActivity {
             ContentValues param = new ContentValues();
             param.put("user", "s55111_standart");
             param.put("pass", "5tva3ijjcxjh5w5het");
-            param.put("id_work", arguments.get("id").toString());
-            param.put("worker_w", "admin");
-            param.put("work_name", Twork.getText().toString());
-            param.put("cost", "");
+            param.put("id_order", arguments.get("id").toString());
+            param.put("id_worker", "0");
+            param.put("id_works", String.valueOf(chooseSpinner.getSelectedItemId()));
 
             try {
                 JSONObject json = jsonParser.makeHttpRequest("http://s55111.hostru05.fornex.org/db_write_work.php", JSONParser.POST, param);
@@ -550,17 +649,13 @@ public class order_activity extends AppCompatActivity {
             } else if (result == Repair_item.TAG_ERROR) {
                 Toast.makeText(context, "BAD CONNECT TO SERVER", Toast.LENGTH_SHORT).show();
             } else if (result == Repair_item.TAG_SUCCESS) {
-                Toast.makeText(context, "update", Toast.LENGTH_SHORT).show();
-                Twork.setText("");
+                Toast.makeText(context, "Работа добавлена", Toast.LENGTH_SHORT).show();
                 new LoadAllProducts().execute();
             }
-
 
         }
 
     }
-
-
 
 
     class DeleteWork extends AsyncTask<String, String, String> {
@@ -638,60 +733,135 @@ public class order_activity extends AppCompatActivity {
     }
 
 
+
+    public class ReadSpinner extends AsyncTask<String, String, String> {
+
+        String[] works;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(context);
+            pDialog.setMessage("Загрузка. Подождите...");
+
+            pDialog.setCancelable(false);
+            pDialog.show();
+        }
+
+        @SuppressLint("WrongThread")
+        protected String doInBackground(String... args) {
+
+            JSONArray JSON_array = null;
+            JSONParser jsonParser = new JSONParser();
+
+            ContentValues param = new ContentValues();
+            param.put("user", "s55111_standart");
+            param.put("pass", "5tva3ijjcxjh5w5het");
+
+            try {
+                JSONObject json = jsonParser.makeHttpRequest("http://s55111.hostru05.fornex.org/db_read_works.php", JSONParser.POST, param);
+                if (!json.has(Repair_item.TAG_ERROR)) {
+                    int success = json.getInt(Repair_item.TAG_SUCCESS);
+                    if (success == 1) {
+
+                        ArrayList<String> mString = new ArrayList<>();
+                        JSON_array = json.getJSONArray("repair_works");
+                        for (int i = 0; i < JSON_array.length(); i++) {
+                            JSONObject c = JSON_array.getJSONObject(i);
+                            // Сохраняем каждый json елемент в переменную
+                            int id = c.getInt("id_works");
+                            String work_name = c.getString("work_name");
+                            String cost = c.getString("cost");
+
+                            work_name += " ("+cost+"р)";
+                            // Создаем новый List
+                            mString.add(new String(work_name));
+                        }
+
+                        works = mString.toArray(new String[mString.size()]);
+
+
+                        return Repair_item.TAG_SUCCESS;
+                    } else {
+                        // продукт не найден
+                        return Repair_item.TAG_NOT_FOUND_REPAIR;
+                    }
+                } else {
+                    return Repair_item.TAG_ERROR;
+                }
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        protected void onPostExecute(String result) {
+            // закрываем прогресс диалог после получение все продуктов
+            pDialog.dismiss();
+
+            if (result == Repair_item.TAG_NOT_FOUND_REPAIR) {
+                Toast.makeText(context, "BAD CONNECT TO SERVER", Toast.LENGTH_LONG).show();
+                finish();
+            } else if (result == Repair_item.TAG_ERROR) {
+                Toast.makeText(context, "BAD CONNECT TO SERVER", Toast.LENGTH_LONG).show();
+                finish();
+            } else if (result == Repair_item.TAG_SUCCESS) {
+
+
+
+                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, works);
+                // Определяем разметку для использования при выборе элемента
+                arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                //set
+                chooseSpinner.setAdapter(arrayAdapter);
+
+            }
+
+        }
+
+    }
+
+
+/*
+*Modal Dialog
+ */
+
+
+    public void showChooseworks() {
+        final AlertDialog.Builder ChooseDialog = new AlertDialog.Builder(this);
+
+        ChooseDialog.setTitle("Выбор работ");
+
+        View linearlayout = getLayoutInflater().inflate(R.layout.modal_dialog, null);
+        ChooseDialog.setView(linearlayout);
+
+        chooseSpinner = (Spinner) linearlayout.findViewById(R.id.spinner_modal);
+
+        new ReadSpinner().execute();
+
+        ChooseDialog.setPositiveButton("Выбрать",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        new AddWork().execute();
+                        dialog.dismiss();
+                    }
+                })
+
+                .setNegativeButton("Отмена",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+
+                                dialog.cancel();
+                            }
+                        });
+
+        ChooseDialog.create();
+        ChooseDialog.show();
+    }
+
+
 }
 
-
-
-
-                        /*
-                        JSON_array_comment = json.getJSONArray(Comment.TAG_COMMENT);
-
-                        // перебор всех комментов
-                        for (int i = 0; i < JSON_array_comment.length(); i++) {
-                            JSONObject a = JSON_array_comment.getJSONObject(i);
-                            // Сохраняем каждый json елемент в переменную
-                            int id_c = a.getInt(Comment.TAG_ID_COMMENT);
-                            String date_c = a.getString(Comment.TAG_DATE_COMMENT);
-                            String comment_c = a.getString(Comment.TAG_COMMENT);
-                            String worker = a.getString(Comment.TAG_WORKER);
-                            // Создаем новый List
-                            comments.add(new Comment(id_c, comment_c, worker, date_c));
-                        }
-
-                        JSON_array_repair_work = json.getJSONArray(Repair_work.TAG_REPAIR_WORK);
-
-                        // перебор всех работ
-                        for (int i = 0; i < JSON_array_repair_work.length(); i++) {
-                            JSONObject w = JSON_array_repair_work.getJSONObject(i);
-                            // Сохраняем каждый json елемент в переменную
-                            int id_w = w.getInt(Repair_work.TAG_ID);
-                            int price_w = w.getInt(Repair_work.TAG_COST);
-                            int time = w.getInt(Repair_work.TAG_TIME);
-                            String date_w = w.getString(Repair_work.TAG_DATE);
-                            String repair_work = w.getString(Repair_work.TAG_WORK_NAME);
-                            String worker_w = w.getString(Repair_work.TAG_WORKER);
-                            // Создаем новый List
-                            repair_works.add(new Repair_work(id_w, price_w, time, repair_work, worker_w, date_w));
-                        }
-
-
-                        JSON_array_parts = json.getJSONArray(Parts.TAG_PARTS);
-
-                        // перебор всех работ
-                        for (int i = 0; i < JSON_array_parts.length(); i++) {
-                            JSONObject p = JSON_array_parts.getJSONObject(i);
-                            // Сохраняем каждый json елемент в переменную
-                            int id_p = p.getInt(Parts.TAG_ID);
-                            int cost_p = p.getInt(Parts.TAG_COST);
-                            String name_p = p.getString(Parts.TAG_NAME);
-                            String date_p = p.getString(Parts.TAG_DATE);
-                            String sn_p = p.getString(Parts.TAG_SN);
-                            String pn_p = p.getString(Parts.TAG_PN);
-                            String description_p = p.getString(Parts.TAG_DESCRIPTION);
-                            // Создаем новый List
-                            parts.add(new Parts(id_p, name_p, date_p, sn_p, pn_p, description_p, cost_p));
-                        }
-
-
-
-                         */

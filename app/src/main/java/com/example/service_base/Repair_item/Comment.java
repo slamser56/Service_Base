@@ -5,9 +5,9 @@ public class Comment {
 
 
     //DATA COMMENT
-    public static final String TAG_ID_COMMENT = "id_c";
+    public static final String TAG_ID_COMMENT = "id_comment";
     public static final String TAG_COMMENT = "comment";
-    public static final String TAG_WORKER = "worker";
+    public static final String TAG_WORKER = "worker_name";
     public static final String TAG_DATE_COMMENT = "date_c";
 
     //comment data

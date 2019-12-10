@@ -34,7 +34,7 @@
                 <Spinner
                     android:id="@+id/status"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content" />
 
             </LinearLayout>
 
@@ -56,10 +56,7 @@
                     android:id="@+id/date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
-                    android:longClickable="false" />
+                    android:layout_weight="1" />
             </LinearLayout>
 
             <LinearLayout
@@ -81,10 +78,6 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
-                    android:inputType="textPersonName"
-                    android:longClickable="false"
                     android:text="" />
             </LinearLayout>
 
@@ -95,7 +88,7 @@
 
                 <TextView
                     android:id="@+id/textView12"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
@@ -118,7 +111,7 @@
                 <Spinner
                     android:id="@+id/type_of_repair"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content" />
 
             </LinearLayout>
 
@@ -142,10 +135,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
-                    android:inputType="textPersonName"
-                    android:longClickable="false"
+
                     android:text="" />
             </LinearLayout>
 
@@ -168,10 +158,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
+
                     android:inputType="textPersonName"
-                    android:longClickable="false"
+
                     android:text="" />
             </LinearLayout>
 
@@ -194,10 +183,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
+
                     android:inputType="textPersonName"
-                    android:longClickable="false"
+
                     android:text="" />
             </LinearLayout>
 
@@ -220,10 +208,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
+
                     android:inputType="textPersonName"
-                    android:longClickable="false"
+
                     android:text="" />
             </LinearLayout>
 
@@ -246,10 +233,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
+
                     android:inputType="textPersonName"
-                    android:longClickable="false"
+
                     android:text="" />
             </LinearLayout>
 
@@ -273,10 +259,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
+
                     android:inputType="textPersonName"
-                    android:longClickable="false"
+
                     android:text="" />
             </LinearLayout>
 
@@ -299,10 +284,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
+
                     android:inputType="textPersonName"
-                    android:longClickable="false"
+
                     android:text="" />
             </LinearLayout>
 
@@ -322,7 +306,7 @@
                 <Spinner
                     android:id="@+id/malfunction"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
             <LinearLayout
@@ -332,7 +316,7 @@
 
                 <TextView
                     android:id="@+id/textView13"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
@@ -358,10 +342,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
+
                     android:inputType="textPersonName"
-                    android:longClickable="false"
+
                     android:text="" />
             </LinearLayout>
 
@@ -384,10 +367,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
+
                     android:inputType="textPersonName"
-                    android:longClickable="false"
+
                     android:text="" />
             </LinearLayout>
 
@@ -410,10 +392,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
+
                     android:inputType="textPersonName"
-                    android:longClickable="false"
+
                     android:text="" />
             </LinearLayout>
 
@@ -436,10 +417,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
+
                     android:inputType="textPersonName"
-                    android:longClickable="false"
+
                     android:text="" />
             </LinearLayout>
 
@@ -462,10 +442,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
+
                     android:inputType="textPersonName"
-                    android:longClickable="false"
+
                     android:text="" />
             </LinearLayout>
 
@@ -476,7 +455,7 @@
 
                 <TextView
                     android:id="@+id/textView19"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
@@ -523,7 +502,7 @@
 
                 <TextView
                     android:id="@+id/textView20"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
@@ -571,28 +550,6 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/textView21"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20px"
-                    android:layout_marginRight="20px"
-                    android:text="Работа" />
-
-                <EditText
-                    android:id="@+id/work"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="" />
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -601,7 +558,7 @@
 
                 <TextView
                     android:id="@+id/textView22"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
@@ -613,8 +570,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-
-
 
 
                 <androidx.recyclerview.widget.RecyclerView

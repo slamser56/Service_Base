@@ -159,7 +159,6 @@ public class fragment_find extends Fragment {
                 Toast.makeText(getActivity(), "BAD CONNECT TO SERVER", Toast.LENGTH_LONG).show();
             } else if (result == Repair_item.TAG_SUCCESS) {
                 repairAdapter.notifyDataSetChanged();
-                Toast.makeText(getActivity(), "FOUND", Toast.LENGTH_LONG).show();
             }
 
 

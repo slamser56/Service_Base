@@ -64,8 +64,7 @@ public class RepairAdapter extends RecyclerView.Adapter<RepairAdapter.RepairView
             TextViewStatus.setText(repair_item.getStatus().toString());
             Frmlayout.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    String title = "ID" + repair_item.getId();
-                    Toast.makeText(ctx, title, Toast.LENGTH_SHORT).show();
+
                     // on click action here
                     //-- use context to start the new Activity
                     Intent mediaStreamIntent = new Intent(ctx, order_activity.class);
