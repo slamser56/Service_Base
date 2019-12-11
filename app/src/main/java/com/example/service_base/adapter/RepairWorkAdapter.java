@@ -22,7 +22,12 @@ public class RepairWorkAdapter extends RecyclerView.Adapter<RepairWorkAdapter.Re
     private List<Repair_work> repair_work;
     private Context ctx;
     boolean[] checked;
+    boolean hideCheckBox = true;
 
+    public void HideCheckBox(boolean hideCheckBox)
+    {
+        this.hideCheckBox = hideCheckBox;
+    }
 
     @NonNull
     @Override
@@ -36,6 +41,13 @@ public class RepairWorkAdapter extends RecyclerView.Adapter<RepairWorkAdapter.Re
     @Override
     public void onBindViewHolder(@NonNull RepairWorkAdapter.RepairWorkAdapterViewHolder holder, final int position) {
         holder.bind(repair_work.get(position));
+        if (hideCheckBox == true) {
+            holder.checkBox.setEnabled(false);
+        }
+        else
+        {
+            holder.checkBox.setEnabled(true);
+        }
         holder.checkBox.setChecked(checked[position]);
         holder.checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,7 +68,11 @@ public class RepairWorkAdapter extends RecyclerView.Adapter<RepairWorkAdapter.Re
         return checked;
     }
 
+
+
+
     class RepairWorkAdapterViewHolder extends RecyclerView.ViewHolder {
+
 
         public void bind(final Repair_work repair_work) {
 

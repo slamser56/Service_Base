@@ -2,6 +2,7 @@ package com.example.service_base;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,9 +14,11 @@ import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -63,19 +66,30 @@ public class order_activity extends AppCompatActivity {
     EditText Tmail;
     EditText Tadress;
 
+
     EditText Tcomment;
-    EditText Twork;
     EditText Tparts;
+    EditText Tcostwork;
 
     Button btncomment;
     Button btnwork;
     Button btnworkdelete;
+    Button btnworkedit;
 
     Spinner Tstatus;
     Spinner Tmalfunction;
     Spinner Ttype_of_repair;
-
     Spinner chooseSpinner;
+
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.popup_menu, menu);
+        return true;
+    }
+
+
 
 
     private RecyclerView commentView;
@@ -122,6 +136,7 @@ public class order_activity extends AppCompatActivity {
         btncomment.setOnClickListener(Onbutton);
         btnwork.setOnClickListener(Onbuttonwork);
         btnworkdelete.setOnClickListener(Onbuttondeletework);
+        btnworkedit.setOnClickListener(Onbuttoneditwork);
 
 
     }
@@ -152,6 +167,32 @@ public class order_activity extends AppCompatActivity {
         public void onClick(View v) {
 
             new DeleteWork().execute();
+            onedit = false;
+            btnworkdelete.setEnabled(false);
+            repairWorkAdapter.HideCheckBox(true);
+        }
+    };
+
+    boolean onedit = false;
+
+    private View.OnClickListener Onbuttoneditwork = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            onedit = !onedit;
+
+            if (onedit == true)
+            {
+                btnworkdelete.setEnabled(true);
+                repairWorkAdapter.HideCheckBox(false);
+            }
+            else
+            {
+                btnworkdelete.setEnabled(false);
+                repairWorkAdapter.HideCheckBox(true);
+            }
+
+            repairWorkAdapter.notifyDataSetChanged();
+
         }
     };
 
@@ -178,12 +219,14 @@ public class order_activity extends AppCompatActivity {
         Tphone = findViewById(R.id.phone);
         Tmail = findViewById(R.id.mail);
         Tadress = findViewById(R.id.adress);
+        Tcostwork = findViewById(R.id.cost_work);
 
         Tcomment = findViewById(R.id.comments);
         btncomment = findViewById(R.id.comments_button);
         btnwork = findViewById(R.id.button);
         Tparts = findViewById(R.id.part);
         btnworkdelete = findViewById(R.id.button3);
+        btnworkedit = findViewById(R.id.button2);
     }
 
     void disable_all() {
@@ -233,6 +276,7 @@ public class order_activity extends AppCompatActivity {
         }
 
 
+        @SuppressLint("WrongThread")
         protected String doInBackground(String... args) {
 
             comments.clear();
@@ -419,6 +463,11 @@ public class order_activity extends AppCompatActivity {
                     String worker_w = w.getString(Repair_work.TAG_WORKER);
                     // Создаем новый List
                     repair_works.add(new Repair_work(id_w, price_w, repair_work, worker_w, date_w));
+                    int cost = 0;
+                    for (Repair_work r:repair_works) {
+                        cost += r.getPrice_w();
+                    }
+                    Tcostwork.setText(String.valueOf(cost)+"р");
                 }
                     } else {
                         Log.d("WORK", "No work");
@@ -523,6 +572,9 @@ public class order_activity extends AppCompatActivity {
                 partsAdapter.notifyDataSetChanged();
                 repairWorkAdapter.notifyDataSetChanged();
                 commentAdapter.notifyDataSetChanged();
+
+
+
                 Toast.makeText(context, "Заказ загружен", Toast.LENGTH_SHORT).show();
             }
 
@@ -674,7 +726,6 @@ public class order_activity extends AppCompatActivity {
 
         @SuppressLint("WrongThread")
         protected String doInBackground(String... args) {
-            Bundle arguments = getIntent().getExtras();
             JSONParser jsonParser = new JSONParser();
             ContentValues param = new ContentValues();
             param.put("user", "s55111_standart");
