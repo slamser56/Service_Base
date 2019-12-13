@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
+import com.example.service_base.Repair_item.New_parts;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -51,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         Fragment fragment = null;
         Class fragmentClass;
+        Intent intent;
 
         switch (item.getItemId()) {
             case R.id.find:
@@ -76,8 +78,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_about_us()).commit();
                 break;
             case R.id.new_repair:
-                Toast.makeText(getApplicationContext(), "Новый заказ", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(this, new_repair.class);
+                intent = new Intent(this, new_repair.class);
+                this.startActivity(intent);
+                break;
+            case R.id.new_parts:
+                intent = new Intent(this, New_parts.class);
                 this.startActivity(intent);
                 break;
 

@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
@@ -15,10 +16,12 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -38,8 +41,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Array;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 public class order_activity extends AppCompatActivity {
 
@@ -81,12 +88,56 @@ public class order_activity extends AppCompatActivity {
     Spinner Ttype_of_repair;
     Spinner chooseSpinner;
 
+    MenuItem safe;
+    MenuItem edit_order;
+    MenuItem edit_order_false;
+
+
+
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.popup_menu, menu);
+         safe = menu.findItem(R.id.safe);
+         edit_order = menu.findItem(R.id.edit_order);
+         edit_order_false = menu.findItem(R.id.edit_order_false);
+         safe.setEnabled(false);
+         edit_order_false.setVisible(false);
+
         return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch(id){
+            case R.id.edit_order:
+                safe.setEnabled(true);
+                edit_order.setVisible(false);
+                edit_order_false.setVisible(true);
+                enable_all();
+                return true;
+            case R.id.safe:
+                safe.setEnabled(false);
+                edit_order.setVisible(true);
+                disable_all();
+                edit_order_false.setVisible(false);
+                new UpdateAllProducts().execute();
+                return true;
+            case R.id.QR:
+                Toast.makeText(this,"QR",Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.edit_order_false:
+                edit_order_false.setVisible(false);
+                safe.setEnabled(false);
+                edit_order.setVisible(true);
+                disable_all();
+                new LoadAllProducts().execute();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 
@@ -137,9 +188,37 @@ public class order_activity extends AppCompatActivity {
         btnwork.setOnClickListener(Onbuttonwork);
         btnworkdelete.setOnClickListener(Onbuttondeletework);
         btnworkedit.setOnClickListener(Onbuttoneditwork);
-
+        Tdate_of_warranty.setOnClickListener(Date_warranty);
 
     }
+
+
+    //Format date
+    public static String getCurrentDate(Calendar date) {
+        final String DATE_FORMAT = "yyyy-MM-dd";
+        SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+        Date today = date.getTime();
+        return dateFormat.format(today);
+    }
+
+    // установка обработчика выбора даты
+    DatePickerDialog.OnDateSetListener date_of_warranty=new DatePickerDialog.OnDateSetListener() {
+        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+            dateAndTime.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            dateAndTime.set(Calendar.MONTH, monthOfYear);
+            dateAndTime.set(Calendar.YEAR, year);
+            Tdate_of_warranty.setText(getCurrentDate(dateAndTime));
+        }
+    };
+    Calendar dateAndTime=Calendar.getInstance();
+
+    private View.OnClickListener Date_warranty = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            new DatePickerDialog(context,date_of_warranty, dateAndTime.get(Calendar.YEAR), dateAndTime.get(Calendar.MONTH), dateAndTime.get(Calendar.DAY_OF_MONTH)).show();
+        }
+    };
 
     /*
      * Button listener
@@ -252,6 +331,29 @@ public class order_activity extends AppCompatActivity {
         Tmalfunction.setEnabled(false);
         Ttype_of_repair.setEnabled(false);
         btnworkdelete.setEnabled(false);
+    }
+
+    void enable_all() {
+        Tstatus.setEnabled(true);
+        Ttype_of_repair.setEnabled(true);
+        Tsn.setEnabled(true);
+        Timei.setEnabled(true);
+        Tunique_number.setEnabled(true);
+        Tproduct.setEnabled(true);
+        Tdate_of_warranty.setEnabled(true);
+        Tappearance.setEnabled(true);
+        Tadditional_description.setEnabled(true);
+        Tmalfunction.setEnabled(true);
+        Tcontractor.setEnabled(true);
+        Tcontact_person.setEnabled(true);
+        Tphone.setEnabled(true);
+        Tmail.setEnabled(true);
+        Tadress.setEnabled(true);
+
+        Tstatus.setEnabled(true);
+        Tmalfunction.setEnabled(true);
+        Ttype_of_repair.setEnabled(true);
+        btnworkdelete.setEnabled(true);
     }
 
 
@@ -578,6 +680,96 @@ public class order_activity extends AppCompatActivity {
                 Toast.makeText(context, "Заказ загружен", Toast.LENGTH_SHORT).show();
             }
 
+
+        }
+
+    }
+
+    class UpdateAllProducts extends AsyncTask<String, String, String> {
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(context);
+            pDialog.setMessage("Загрузка. Подождите...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(false);
+            pDialog.show();
+        }
+
+
+        @SuppressLint("WrongThread")
+        protected String doInBackground(String... args) {
+
+            comments.clear();
+            repair_works.clear();
+            parts.clear();
+
+            Bundle arguments = getIntent().getExtras();
+            JSONParser jsonParser = new JSONParser();
+
+            ContentValues param = new ContentValues();
+            param.put("user", "s55111_standart");
+            param.put("pass", "5tva3ijjcxjh5w5het");
+            param.put("id_order", arguments.get("id").toString());
+            param.put("status_id", Tstatus.getSelectedItemId());
+            param.put("id_malfunction", Tmalfunction.getSelectedItemId());
+            param.put("sn", Tsn.getText().toString());
+            param.put("imei", Timei.getText().toString());
+            param.put("unuque_number", Tunique_number.getText().toString());
+            param.put("product", Tproduct.getText().toString());
+            param.put("date_of_warranty", Tdate_of_warranty.getText().toString());
+            param.put("appearance", Tappearance.getText().toString());
+            param.put("additional_description", Tadditional_description.getText().toString());
+            param.put("id_type_of_repair", Ttype_of_repair.getSelectedItemId());
+            param.put("contractor", Tcontractor.getText().toString());
+            param.put("contact_person", Tcontact_person.getText().toString());
+            param.put("phone", Tphone.getText().toString());
+            param.put("mail", Tmail.getText().toString());
+            param.put("adress", Tadress.getText().toString());
+
+            try {
+
+                JSONObject json = jsonParser.makeHttpRequest("http://s55111.hostru05.fornex.org/db_update_order.php", JSONParser.POST, param);
+                if (!json.has(Repair_item.TAG_ERROR)) {
+                    int success = json.getInt(Repair_item.TAG_SUCCESS);
+                    if (success == 1) {
+
+                        return Repair_item.TAG_SUCCESS;
+
+                    } else {
+                        // продукт не найден
+                        return Repair_item.TAG_NOT_FOUND_REPAIR;
+                    }
+                } else {
+                    return Repair_item.TAG_ERROR;
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
+            return null;
+        }
+
+
+        protected void onPostExecute(String result) {
+            // закрываем прогресс диалог после получение все продуктов
+            pDialog.dismiss();
+
+            if (result == Repair_item.TAG_NOT_FOUND_REPAIR) {
+                Toast.makeText(context, "REPAIR NOT FOUND", Toast.LENGTH_SHORT).show();
+                finish();
+            } else if (result == Repair_item.TAG_ERROR) {
+                Toast.makeText(context, "BAD CONNECT TO SERVER", Toast.LENGTH_SHORT).show();
+                finish();
+            } else if (result == Repair_item.TAG_SUCCESS) {
+
+                new LoadAllProducts().execute();
+
+            }
 
         }
 

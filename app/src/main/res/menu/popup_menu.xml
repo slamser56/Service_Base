@@ -3,6 +3,13 @@
     <item
         android:id="@+id/edit_order"
         android:title="Редактировать"/>
+    <item
+        android:id="@+id/edit_order_false"
+        android:title="Прекратить редактировать"/>
+    <item
+        android:id="@+id/safe"
+        android:title="Сохранить"
+        />
 
     <item
         android:id="@+id/QR"

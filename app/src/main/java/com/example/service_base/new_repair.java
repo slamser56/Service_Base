@@ -1,29 +1,29 @@
 package com.example.service_base;
 
 import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.service_base.Repair_item.Repair_item;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
 
 public class new_repair extends AppCompatActivity {
 
@@ -60,9 +60,41 @@ public class new_repair extends AppCompatActivity {
 
         new ReadSpinner().execute();
 
+
+        Tdate_of_warranty.setOnClickListener(Date_warranty);
+
         button.setOnClickListener(Onbutton);
 
     }
+
+
+
+    //Format date
+    public static String getCurrentDate(Calendar date) {
+        final String DATE_FORMAT = "yyyy-MM-dd";
+        SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+        Date today = date.getTime();
+        return dateFormat.format(today);
+    }
+
+    // установка обработчика выбора даты
+    DatePickerDialog.OnDateSetListener date_of_warranty=new DatePickerDialog.OnDateSetListener() {
+        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+            dateAndTime.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            dateAndTime.set(Calendar.MONTH, monthOfYear);
+            dateAndTime.set(Calendar.YEAR, year);
+            Tdate_of_warranty.setText(getCurrentDate(dateAndTime));
+        }
+    };
+    Calendar dateAndTime=Calendar.getInstance();
+
+    private View.OnClickListener Date_warranty = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            new DatePickerDialog(context,date_of_warranty, dateAndTime.get(Calendar.YEAR), dateAndTime.get(Calendar.MONTH), dateAndTime.get(Calendar.DAY_OF_MONTH)).show();
+        }
+    };
 
 
     private View.OnClickListener Onbutton = new View.OnClickListener() {
@@ -303,20 +335,6 @@ public class new_repair extends AppCompatActivity {
         }
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

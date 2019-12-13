@@ -25,6 +25,10 @@
             <item
                 android:id="@+id/new_repair"
                 android:title="Добавить заказ" />
+            <item
+                android:id="@+id/new_parts"
+                android:title="Добавить запчасть"
+                />
         </menu>
     </item>
 

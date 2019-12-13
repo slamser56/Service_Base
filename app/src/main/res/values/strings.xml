@@ -6,9 +6,9 @@
     <!--activity_order_activity RUS-->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-<string name="order">Заказ-наряд</string>
+    <string name="order">Заказ-наряд</string>
     <string name="status">Состояние</string>
-<string name="serial_number">Серийный номер</string>
+    <string name="serial_number">Серийный номер</string>
     <string name="imei">IMEI</string>
     <string name="unique_number">Уникальный номер</string>
     <string name="product">Изделие</string>
