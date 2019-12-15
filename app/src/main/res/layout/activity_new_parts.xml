@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Repair_item.New_parts">
+    tools:context=".New_parts">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -43,7 +43,7 @@
                     android:text="Номер заказ наряда" />
 
                 <EditText
-                    android:id="@+id/serial_number"
+                    android:id="@+id/id_order"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -66,7 +66,7 @@
                     android:text="Название" />
 
                 <EditText
-                    android:id="@+id/imei"
+                    android:id="@+id/name_parts"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -89,7 +89,7 @@
                     android:text="Серийный номер" />
 
                 <EditText
-                    android:id="@+id/unique_number"
+                    android:id="@+id/sn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -112,7 +112,7 @@
                     android:text="Парт-номер" />
 
                 <EditText
-                    android:id="@+id/part_number"
+                    android:id="@+id/pn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -135,7 +135,7 @@
                     android:text="Описание" />
 
                 <EditText
-                    android:id="@+id/product"
+                    android:id="@+id/description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -158,12 +158,11 @@
                     android:text="Цена" />
 
                 <EditText
-                    android:id="@+id/date_of_warranty"
+                    android:id="@+id/cost"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:focusable="false"
                     android:inputType="textPersonName"
                     android:text="" />
             </LinearLayout>
@@ -174,7 +173,7 @@
                 android:layout_height="wrap_content">
 
                 <Button
-                    android:id="@+id/btn_order_add"
+                    android:id="@+id/btn_parts_add"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Добавить" />

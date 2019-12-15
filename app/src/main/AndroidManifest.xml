@@ -13,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Repair_item.New_parts"></activity>
+        <activity android:name=".login"></activity>
+        <activity android:name=".New_parts" />
         <activity
             android:name=".order_activity"
             android:theme="@style/AppTheme" />

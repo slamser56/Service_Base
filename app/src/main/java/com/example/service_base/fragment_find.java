@@ -2,6 +2,8 @@ package com.example.service_base;
 
 import android.app.ProgressDialog;
 import android.content.ContentValues;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.service_base.Repair_item.Auth;
 import com.example.service_base.Repair_item.Repair_item;
 import com.example.service_base.adapter.RepairAdapter;
 
@@ -32,6 +35,7 @@ public class fragment_find extends Fragment {
     private List<Repair_item> repair_items = new ArrayList<>();
     private ProgressDialog pDialog;
     private boolean firstVisit;
+    SharedPreferences auth;
 
 
     @Nullable
@@ -39,6 +43,7 @@ public class fragment_find extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_find, container, false);
 
+        auth = this.getActivity().getSharedPreferences(Auth.APP_PREFERENCES, Context.MODE_PRIVATE);
 
         repairView = v.findViewById(R.id.recycleView_repair);
 
@@ -58,6 +63,7 @@ public class fragment_find extends Fragment {
         firstVisit = true;
         return v;
     }
+
 
     @Override
     public void onResume() {
@@ -98,13 +104,14 @@ public class fragment_find extends Fragment {
          */
         protected String doInBackground(String... args) {
 
+
             repair_items.clear();
             JSONParser jsonParser = new JSONParser();
             JSONArray JSON_array_repairs = null;
 
             ContentValues param = new ContentValues();
-            param.put("user", "s55111_standart");
-            param.put("pass", "5tva3ijjcxjh5w5het");
+            param.put("user", auth.getString(Auth.APP_PREFERENCES_LOGIN, "guest"));
+            param.put("pass", auth.getString(Auth.APP_PREFERENCES_PASS,""));
 
 
             try {

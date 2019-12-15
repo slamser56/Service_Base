@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +16,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.service_base.Repair_item.Auth;
 import com.example.service_base.Repair_item.Repair_item;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -50,6 +53,7 @@ public class new_repair extends AppCompatActivity {
     Button button;
     Spinner malfunction_spinner;
     Spinner type_of_repair_spinner;
+    SharedPreferences auth;
 
 
     @Override
@@ -57,6 +61,7 @@ public class new_repair extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.order_activity_add);
         initAll();
+        auth = getSharedPreferences(Auth.APP_PREFERENCES, Context.MODE_PRIVATE);
 
         new ReadSpinner().execute();
 
@@ -146,8 +151,8 @@ public class new_repair extends AppCompatActivity {
             JSONParser jsonParser = new JSONParser();
 
             ContentValues param = new ContentValues();
-            param.put("user", "s55111_standart");
-            param.put("pass", "5tva3ijjcxjh5w5het");
+            param.put("user", auth.getString(Auth.APP_PREFERENCES_LOGIN, "guest"));
+            param.put("pass", auth.getString(Auth.APP_PREFERENCES_PASS, null));
             param.put("status_id", "0");
             param.put("id_malfunction", String.valueOf(malfunction_spinner.getSelectedItemId()));
             param.put("sn", Tsn.getText().toString());
@@ -221,13 +226,15 @@ public class new_repair extends AppCompatActivity {
         @SuppressLint("WrongThread")
         protected String doInBackground(String... args) {
 
+
+
             JSONArray JSON_array_malfunction = null;
             JSONArray JSON_array_type_of_repair = null;
             JSONParser jsonParser = new JSONParser();
 
             ContentValues param = new ContentValues();
-            param.put("user", "s55111_standart");
-            param.put("pass", "5tva3ijjcxjh5w5het");
+            param.put("user", auth.getString(Auth.APP_PREFERENCES_LOGIN, "guest"));
+            param.put("pass", auth.getString(Auth.APP_PREFERENCES_PASS, null));
 
             try {
                 JSONObject json = jsonParser.makeHttpRequest("http://s55111.hostru05.fornex.org/db_read_malfunction.php", JSONParser.POST, param);

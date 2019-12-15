@@ -6,23 +6,72 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
-import com.example.service_base.Repair_item.New_parts;
+import com.example.service_base.Repair_item.Auth;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+
+    MenuItem new_repair;
+    MenuItem logout;
+    MenuItem new_parts;
+    MenuItem login;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        SharedPreferences auth = getSharedPreferences(Auth.APP_PREFERENCES, Context.MODE_PRIVATE);
+        boolean hasAutorized = auth.getBoolean(Auth.APP_PREFERENCES_AUTORIZED, false);
+
+        if (!hasAutorized){
+            new_repair.setVisible(false);
+            logout.setVisible(false);
+            new_parts.setVisible(false);
+            login.setVisible(true);
+        }
+        else{
+            login.setVisible(false);
+            new_repair.setVisible(true);
+            logout.setVisible(true);
+            new_parts.setVisible(true);
+        }
+
+
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.naw_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        Menu menu = navigationView.getMenu();
+
+
+
+
+        new_repair = menu.findItem(R.id.new_repair);
+        logout= menu.findItem(R.id.logout);
+        new_parts = menu.findItem(R.id.new_parts);
+        login = menu.findItem(R.id.login);
+
+
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -34,8 +83,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.naw_view);
-        navigationView.setNavigationItemSelectedListener(this);
+
 
 
         if (savedInstanceState == null) {
@@ -85,7 +133,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 intent = new Intent(this, New_parts.class);
                 this.startActivity(intent);
                 break;
-
+            case R.id.login:
+                intent = new Intent(this, login.class);
+                this.startActivity(intent);
+                break;
+            case R.id.logout:
+                SharedPreferences auth = getSharedPreferences(Auth.APP_PREFERENCES, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = auth.edit();
+                editor.clear().apply();
+                intent = getIntent();
+                finish();
+                startActivity(intent);
+                break;
             default:
                 break;
         }
@@ -93,7 +152,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
-
         return true;
     }
 

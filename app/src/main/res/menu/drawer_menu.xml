@@ -29,6 +29,14 @@
                 android:id="@+id/new_parts"
                 android:title="Добавить запчасть"
                 />
+            <item
+                android:id="@+id/login"
+                android:title="Для сотрудников"
+                />
+            <item
+                android:id="@+id/logout"
+                android:title="Выйти"
+                />
         </menu>
     </item>
 

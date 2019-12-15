@@ -115,6 +115,7 @@
 
 
             <LinearLayout
+                android:id="@+id/orl1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -138,6 +139,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/orl2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -163,6 +165,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/orl3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -239,6 +242,7 @@
 
 
             <LinearLayout
+                android:id="@+id/orl4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -264,6 +268,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/orl5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -308,6 +313,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/orl6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -322,6 +328,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/orl7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -347,6 +354,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/orl8"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -372,6 +380,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/orl9"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -397,6 +406,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/orl10"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -422,6 +432,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/orl11"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -447,6 +458,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/orl12"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -461,6 +473,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/orl13"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -494,6 +507,7 @@
             </LinearLayout>
 
             <LinearLayout
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -514,6 +528,7 @@
 
 
                 <LinearLayout
+                    android:id="@+id/orl14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -610,13 +625,11 @@
                     android:text="@string/cost" />
 
                 <EditText
-                    android:id="@+id/part"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/parts_cost"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="" />
+                    android:enabled="false" />
             </LinearLayout>
 
 

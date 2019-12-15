@@ -12,6 +12,7 @@ import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,6 +28,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.service_base.Repair_item.Auth;
 import com.example.service_base.Repair_item.Comment;
 import com.example.service_base.Repair_item.Parts;
 import com.example.service_base.Repair_item.Repair_item;
@@ -75,8 +77,9 @@ public class order_activity extends AppCompatActivity {
 
 
     EditText Tcomment;
-    EditText Tparts;
+    EditText Tparts_cost;
     EditText Tcostwork;
+
 
     Button btncomment;
     Button btnwork;
@@ -91,28 +94,29 @@ public class order_activity extends AppCompatActivity {
     MenuItem safe;
     MenuItem edit_order;
     MenuItem edit_order_false;
-
-
-
+    SharedPreferences auth;
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.popup_menu, menu);
-         safe = menu.findItem(R.id.safe);
-         edit_order = menu.findItem(R.id.edit_order);
-         edit_order_false = menu.findItem(R.id.edit_order_false);
-         safe.setEnabled(false);
-         edit_order_false.setVisible(false);
-
-        return true;
+        safe = menu.findItem(R.id.safe);
+        edit_order = menu.findItem(R.id.edit_order);
+        edit_order_false = menu.findItem(R.id.edit_order_false);
+        safe.setEnabled(false);
+        edit_order_false.setVisible(false);
+        if (autorized){
+        return true;}
+        else {
+            return false;
+        }
     }
 
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        switch(id){
+        switch (id) {
             case R.id.edit_order:
                 safe.setEnabled(true);
                 edit_order.setVisible(false);
@@ -127,7 +131,7 @@ public class order_activity extends AppCompatActivity {
                 new UpdateAllProducts().execute();
                 return true;
             case R.id.QR:
-                Toast.makeText(this,"QR",Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "QR", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.edit_order_false:
                 edit_order_false.setVisible(false);
@@ -141,33 +145,34 @@ public class order_activity extends AppCompatActivity {
     }
 
 
-
-
     private RecyclerView commentView;
     private RecyclerView repairworkView;
     private RecyclerView partsView;
     private CommentAdapter commentAdapter;
     private RepairWorkAdapter repairWorkAdapter;
     private PartsAdapter partsAdapter;
+    boolean autorized;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_activity);
+        auth = getSharedPreferences(Auth.APP_PREFERENCES, Context.MODE_PRIVATE);
+        autorized = auth.getBoolean(Auth.APP_PREFERENCES_AUTORIZED, false);
         init_all();
         disable_all();
         commentView = findViewById(R.id.comment_rv);
         repairworkView = findViewById(R.id.repair_view);
         partsView = findViewById(R.id.parts_view);
 
-
-        LinearLayoutManager layoutManager = new LinearLayoutManager(context);
-        commentView.setLayoutManager(layoutManager);
-        commentView.setHasFixedSize(true);
-        commentAdapter = new CommentAdapter(comments, context);
-        commentView.setAdapter(commentAdapter);
-
+if (autorized) {
+    LinearLayoutManager layoutManager = new LinearLayoutManager(context);
+    commentView.setLayoutManager(layoutManager);
+    commentView.setHasFixedSize(true);
+    commentAdapter = new CommentAdapter(comments, context);
+    commentView.setAdapter(commentAdapter);
+}
         LinearLayoutManager layoutManagerRepair = new LinearLayoutManager(context);
         repairworkView.setLayoutManager(layoutManagerRepair);
         repairworkView.setHasFixedSize(true);
@@ -181,7 +186,12 @@ public class order_activity extends AppCompatActivity {
         partsView.setAdapter(partsAdapter);
 
 
-        new LoadAllProducts().execute();
+
+
+        if (!autorized) {
+            VisibleForGuest();
+        }
+            new LoadAllProducts().execute();
 
 
         btncomment.setOnClickListener(Onbutton);
@@ -193,6 +203,23 @@ public class order_activity extends AppCompatActivity {
     }
 
 
+    private void VisibleForGuest() {
+        findViewById(R.id.orl1).setVisibility(View.GONE);
+        findViewById(R.id.orl2).setVisibility(View.GONE);
+        findViewById(R.id.orl3).setVisibility(View.GONE);
+        findViewById(R.id.orl4).setVisibility(View.GONE);
+        findViewById(R.id.orl5).setVisibility(View.GONE);
+        findViewById(R.id.orl6).setVisibility(View.GONE);
+        findViewById(R.id.orl7).setVisibility(View.GONE);
+        findViewById(R.id.orl8).setVisibility(View.GONE);
+        findViewById(R.id.orl9).setVisibility(View.GONE);
+        findViewById(R.id.orl10).setVisibility(View.GONE);
+        findViewById(R.id.orl11).setVisibility(View.GONE);
+        findViewById(R.id.orl12).setVisibility(View.GONE);
+        findViewById(R.id.orl13).setVisibility(View.GONE);
+        findViewById(R.id.orl14).setVisibility(View.GONE);
+    }
+
     //Format date
     public static String getCurrentDate(Calendar date) {
         final String DATE_FORMAT = "yyyy-MM-dd";
@@ -203,7 +230,7 @@ public class order_activity extends AppCompatActivity {
     }
 
     // установка обработчика выбора даты
-    DatePickerDialog.OnDateSetListener date_of_warranty=new DatePickerDialog.OnDateSetListener() {
+    DatePickerDialog.OnDateSetListener date_of_warranty = new DatePickerDialog.OnDateSetListener() {
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
             dateAndTime.set(Calendar.DAY_OF_MONTH, dayOfMonth);
             dateAndTime.set(Calendar.MONTH, monthOfYear);
@@ -211,12 +238,12 @@ public class order_activity extends AppCompatActivity {
             Tdate_of_warranty.setText(getCurrentDate(dateAndTime));
         }
     };
-    Calendar dateAndTime=Calendar.getInstance();
+    Calendar dateAndTime = Calendar.getInstance();
 
     private View.OnClickListener Date_warranty = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            new DatePickerDialog(context,date_of_warranty, dateAndTime.get(Calendar.YEAR), dateAndTime.get(Calendar.MONTH), dateAndTime.get(Calendar.DAY_OF_MONTH)).show();
+            new DatePickerDialog(context, date_of_warranty, dateAndTime.get(Calendar.YEAR), dateAndTime.get(Calendar.MONTH), dateAndTime.get(Calendar.DAY_OF_MONTH)).show();
         }
     };
 
@@ -237,7 +264,7 @@ public class order_activity extends AppCompatActivity {
         public void onClick(View v) {
 
             showChooseworks();
-           // new AddWork().execute();
+            // new AddWork().execute();
         }
     };
 
@@ -259,13 +286,10 @@ public class order_activity extends AppCompatActivity {
         public void onClick(View v) {
             onedit = !onedit;
 
-            if (onedit == true)
-            {
+            if (onedit == true) {
                 btnworkdelete.setEnabled(true);
                 repairWorkAdapter.HideCheckBox(false);
-            }
-            else
-            {
+            } else {
                 btnworkdelete.setEnabled(false);
                 repairWorkAdapter.HideCheckBox(true);
             }
@@ -303,7 +327,7 @@ public class order_activity extends AppCompatActivity {
         Tcomment = findViewById(R.id.comments);
         btncomment = findViewById(R.id.comments_button);
         btnwork = findViewById(R.id.button);
-        Tparts = findViewById(R.id.part);
+        Tparts_cost = findViewById(R.id.parts_cost);
         btnworkdelete = findViewById(R.id.button3);
         btnworkedit = findViewById(R.id.button2);
     }
@@ -390,8 +414,8 @@ public class order_activity extends AppCompatActivity {
             JSONArray JSON_array = null;
 
             ContentValues param = new ContentValues();
-            param.put("user", "s55111_standart");
-            param.put("pass", "5tva3ijjcxjh5w5het");
+            param.put("user", auth.getString(Auth.APP_PREFERENCES_LOGIN, "guest"));
+            param.put("pass", auth.getString(Auth.APP_PREFERENCES_PASS, ""));
             param.put("id_order", arguments.get("id").toString());
 
             try {
@@ -521,56 +545,58 @@ public class order_activity extends AppCompatActivity {
                     return Repair_item.TAG_ERROR;
                 }
 
+                if (autorized) {
 
-                json = jsonParser.makeHttpRequest("http://s55111.hostru05.fornex.org/db_read_comment.php", JSONParser.POST, param);
-                if (!json.has(Repair_item.TAG_ERROR)) {
-                    int success = json.getInt(Repair_item.TAG_SUCCESS);
-                    if (success == 1) {
+                    json = jsonParser.makeHttpRequest("http://s55111.hostru05.fornex.org/db_read_comment.php", JSONParser.POST, param);
+                    if (!json.has(Repair_item.TAG_ERROR)) {
+                        int success = json.getInt(Repair_item.TAG_SUCCESS);
+                        if (success == 1) {
 
-                        JSON_array = json.getJSONArray("repair_comment");
+                            JSON_array = json.getJSONArray("repair_comment");
 
-                        // перебор всех комментов
-                        for (int i = 0; i < JSON_array.length(); i++) {
-                            JSONObject a = JSON_array.getJSONObject(i);
-                            // Сохраняем каждый json елемент в переменную
-                            int id_c = a.getInt(Comment.TAG_ID_COMMENT);
-                            String date_c = a.getString(Comment.TAG_DATE_COMMENT);
-                            String comment_c = a.getString(Comment.TAG_COMMENT);
-                            String worker = a.getString(Comment.TAG_WORKER);
-                            // Создаем новый List
-                            comments.add(new Comment(id_c, comment_c, worker, date_c));
+                            // перебор всех комментов
+                            for (int i = 0; i < JSON_array.length(); i++) {
+                                JSONObject a = JSON_array.getJSONObject(i);
+                                // Сохраняем каждый json елемент в переменную
+                                int id_c = a.getInt(Comment.TAG_ID_COMMENT);
+                                String date_c = a.getString(Comment.TAG_DATE_COMMENT);
+                                String comment_c = a.getString(Comment.TAG_COMMENT);
+                                String worker = a.getString(Comment.TAG_WORKER);
+                                // Создаем новый List
+                                comments.add(new Comment(id_c, comment_c, worker, date_c));
+                            }
+                        } else {
+                            Log.d("COMMENT", "No comment");
                         }
                     } else {
-                        Log.d("COMMENT", "No comment");
+                        return Repair_item.TAG_ERROR;
                     }
-                } else {
-                    return Repair_item.TAG_ERROR;
-                }
 
+                }
 
                 json = jsonParser.makeHttpRequest("http://s55111.hostru05.fornex.org/db_read_work.php", JSONParser.POST, param);
                 if (!json.has(Repair_item.TAG_ERROR)) {
                     int success = json.getInt(Repair_item.TAG_SUCCESS);
                     if (success == 1) {
-                JSON_array = json.getJSONArray(Repair_work.TAG_REPAIR_WORK);
+                        JSON_array = json.getJSONArray(Repair_work.TAG_REPAIR_WORK);
 
-                // перебор всех работ
-                for (int i = 0; i < JSON_array.length(); i++) {
-                    JSONObject w = JSON_array.getJSONObject(i);
-                    // Сохраняем каждый json елемент в переменную
-                    int id_w = w.getInt(Repair_work.TAG_ID);
-                    int price_w = w.getInt(Repair_work.TAG_COST);
-                    String date_w = w.getString(Repair_work.TAG_DATE);
-                    String repair_work = w.getString(Repair_work.TAG_WORK_NAME);
-                    String worker_w = w.getString(Repair_work.TAG_WORKER);
-                    // Создаем новый List
-                    repair_works.add(new Repair_work(id_w, price_w, repair_work, worker_w, date_w));
-                    int cost = 0;
-                    for (Repair_work r:repair_works) {
-                        cost += r.getPrice_w();
-                    }
-                    Tcostwork.setText(String.valueOf(cost)+"р");
-                }
+                        // перебор всех работ
+                        for (int i = 0; i < JSON_array.length(); i++) {
+                            JSONObject w = JSON_array.getJSONObject(i);
+                            // Сохраняем каждый json елемент в переменную
+                            int id_w = w.getInt(Repair_work.TAG_ID);
+                            int price_w = w.getInt(Repair_work.TAG_COST);
+                            String date_w = w.getString(Repair_work.TAG_DATE);
+                            String repair_work = w.getString(Repair_work.TAG_WORK_NAME);
+                            String worker_w = w.getString(Repair_work.TAG_WORKER);
+                            // Создаем новый List
+                            repair_works.add(new Repair_work(id_w, price_w, repair_work, worker_w, date_w));
+                        }
+                        int cost = 0;
+                        for (Repair_work r : repair_works) {
+                            cost += r.getPrice_w();
+                        }
+                        Tcostwork.setText(String.valueOf(cost) + "р");
                     } else {
                         Log.d("WORK", "No work");
                     }
@@ -583,23 +609,29 @@ public class order_activity extends AppCompatActivity {
                 if (!json.has(Repair_item.TAG_ERROR)) {
                     int success = json.getInt(Repair_item.TAG_SUCCESS);
                     if (success == 1) {
-                JSON_array = json.getJSONArray("repair_parts");
+                        JSON_array = json.getJSONArray("repair_parts");
 
-                // перебор всех работ
-                for (int i = 0; i < JSON_array.length(); i++) {
-                    JSONObject p = JSON_array.getJSONObject(i);
-                    // Сохраняем каждый json елемент в переменную
-                    int id_p = p.getInt(Parts.TAG_ID);
-                    int cost_p = p.getInt(Parts.TAG_COST);
-                    String name_p = p.getString(Parts.TAG_NAME);
-                    String date_p = p.getString(Parts.TAG_DATE);
-                    String sn_p = p.getString(Parts.TAG_SN);
-                    String pn_p = p.getString(Parts.TAG_PN);
-                    String description_p = p.getString(Parts.TAG_DESCRIPTION);
-                    String worker_p = p.getString(Parts.TAG_WORKER);
-                    // Создаем новый List
-                    parts.add(new Parts(id_p, name_p, date_p, sn_p, pn_p, description_p, cost_p, worker_p));
-                }
+                        // перебор всех работ
+                        for (int i = 0; i < JSON_array.length(); i++) {
+                            JSONObject p = JSON_array.getJSONObject(i);
+                            // Сохраняем каждый json елемент в переменную
+                            int id_p = p.getInt(Parts.TAG_ID);
+                            int cost_p = p.getInt(Parts.TAG_COST);
+                            String name_p = p.getString(Parts.TAG_NAME);
+                            String date_p = p.getString(Parts.TAG_DATE);
+                            String sn_p = p.getString(Parts.TAG_SN);
+                            String pn_p = p.getString(Parts.TAG_PN);
+                            String description_p = p.getString(Parts.TAG_DESCRIPTION);
+                            String worker_p = p.getString(Parts.TAG_WORKER);
+                            // Создаем новый List
+                            parts.add(new Parts(id_p, name_p, date_p, sn_p, pn_p, description_p, cost_p, worker_p));
+                        }
+
+                        int cost = 0;
+                        for (Parts r : parts) {
+                            cost += r.getCost_p();
+                        }
+                        Tparts_cost.setText(String.valueOf(cost)+"р");
                     } else {
                         Log.d("PARTS", "No parts");
                     }
@@ -670,11 +702,11 @@ public class order_activity extends AppCompatActivity {
                 Ttype_of_repair.setSelection(repair_item.getId_type_of_repair());
 
 
-
                 partsAdapter.notifyDataSetChanged();
                 repairWorkAdapter.notifyDataSetChanged();
-                commentAdapter.notifyDataSetChanged();
-
+                if (autorized) {
+                    commentAdapter.notifyDataSetChanged();
+                }
 
 
                 Toast.makeText(context, "Заказ загружен", Toast.LENGTH_SHORT).show();
@@ -710,8 +742,8 @@ public class order_activity extends AppCompatActivity {
             JSONParser jsonParser = new JSONParser();
 
             ContentValues param = new ContentValues();
-            param.put("user", "s55111_standart");
-            param.put("pass", "5tva3ijjcxjh5w5het");
+            param.put("user", auth.getString(Auth.APP_PREFERENCES_LOGIN, "guest"));
+            param.put("pass", auth.getString(Auth.APP_PREFERENCES_PASS, null));
             param.put("id_order", arguments.get("id").toString());
             param.put("status_id", Tstatus.getSelectedItemId());
             param.put("id_malfunction", Tmalfunction.getSelectedItemId());
@@ -794,10 +826,10 @@ public class order_activity extends AppCompatActivity {
             Bundle arguments = getIntent().getExtras();
             JSONParser jsonParser = new JSONParser();
             ContentValues param = new ContentValues();
-            param.put("user", "s55111_standart");
-            param.put("pass", "5tva3ijjcxjh5w5het");
+            param.put("user", auth.getString(Auth.APP_PREFERENCES_LOGIN, "guest"));
+            param.put("pass", auth.getString(Auth.APP_PREFERENCES_PASS, null));
             param.put("id_order", arguments.get("id").toString());
-            param.put("id_worker", "0");
+            param.put("id_worker", auth.getString(Auth.APP_PREFERENCES_ID_WORKER, null));
             param.put("comment", Tcomment.getText().toString());
 
             try {
@@ -858,10 +890,10 @@ public class order_activity extends AppCompatActivity {
             Bundle arguments = getIntent().getExtras();
             JSONParser jsonParser = new JSONParser();
             ContentValues param = new ContentValues();
-            param.put("user", "s55111_standart");
-            param.put("pass", "5tva3ijjcxjh5w5het");
+            param.put("user", auth.getString(Auth.APP_PREFERENCES_LOGIN, "guest"));
+            param.put("pass", auth.getString(Auth.APP_PREFERENCES_PASS, null));
             param.put("id_order", arguments.get("id").toString());
-            param.put("id_worker", "0");
+            param.put("id_worker", auth.getString(Auth.APP_PREFERENCES_ID_WORKER, null));
             param.put("id_works", String.valueOf(chooseSpinner.getSelectedItemId()));
 
             try {
@@ -920,8 +952,8 @@ public class order_activity extends AppCompatActivity {
         protected String doInBackground(String... args) {
             JSONParser jsonParser = new JSONParser();
             ContentValues param = new ContentValues();
-            param.put("user", "s55111_standart");
-            param.put("pass", "5tva3ijjcxjh5w5het");
+            param.put("user", auth.getString(Auth.APP_PREFERENCES_LOGIN, "guest"));
+            param.put("pass", auth.getString(Auth.APP_PREFERENCES_PASS, null));
 
 
             boolean[] checked = repairWorkAdapter.getChecked();
@@ -976,7 +1008,6 @@ public class order_activity extends AppCompatActivity {
     }
 
 
-
     public class ReadSpinner extends AsyncTask<String, String, String> {
 
         String[] works;
@@ -998,8 +1029,8 @@ public class order_activity extends AppCompatActivity {
             JSONParser jsonParser = new JSONParser();
 
             ContentValues param = new ContentValues();
-            param.put("user", "s55111_standart");
-            param.put("pass", "5tva3ijjcxjh5w5het");
+            param.put("user", auth.getString(Auth.APP_PREFERENCES_LOGIN, "guest"));
+            param.put("pass", auth.getString(Auth.APP_PREFERENCES_PASS, null));
 
             try {
                 JSONObject json = jsonParser.makeHttpRequest("http://s55111.hostru05.fornex.org/db_read_works.php", JSONParser.POST, param);
@@ -1016,7 +1047,7 @@ public class order_activity extends AppCompatActivity {
                             String work_name = c.getString("work_name");
                             String cost = c.getString("cost");
 
-                            work_name += " ("+cost+"р)";
+                            work_name += " (" + cost + "р)";
                             // Создаем новый List
                             mString.add(new String(work_name));
                         }
@@ -1053,7 +1084,6 @@ public class order_activity extends AppCompatActivity {
             } else if (result == Repair_item.TAG_SUCCESS) {
 
 
-
                 ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, works);
                 // Определяем разметку для использования при выборе элемента
                 arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -1067,9 +1097,9 @@ public class order_activity extends AppCompatActivity {
     }
 
 
-/*
-*Modal Dialog
- */
+    /*
+     *Modal Dialog
+     */
 
 
     public void showChooseworks() {
