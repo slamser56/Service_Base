@@ -3,6 +3,7 @@ package com.example.service_base;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.PopupMenu;
+import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,9 +13,14 @@ import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,6 +30,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,16 +44,24 @@ import com.example.service_base.adapter.CommentAdapter;
 import com.example.service_base.adapter.PartsAdapter;
 import com.example.service_base.adapter.RepairAdapter;
 import com.example.service_base.adapter.RepairWorkAdapter;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.EncodeHintType;
+import com.journeyapps.barcodescanner.BarcodeEncoder;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.lang.annotation.Target;
 import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.TimeZone;
 
@@ -131,7 +146,7 @@ public class order_activity extends AppCompatActivity {
                 new UpdateAllProducts().execute();
                 return true;
             case R.id.QR:
-                Toast.makeText(this, "QR", Toast.LENGTH_SHORT).show();
+                showQR();
                 return true;
             case R.id.edit_order_false:
                 edit_order_false.setVisible(false);
@@ -1102,6 +1117,46 @@ if (autorized) {
      */
 
 
+    public void showQR() {
+        final AlertDialog.Builder ChooseDialog = new AlertDialog.Builder(this);
+
+
+        ChooseDialog.setTitle("QR код");
+        View linearlayout = getLayoutInflater().inflate(R.layout.qr, null);
+        ChooseDialog.setView(linearlayout);
+        Bitmap bitmap = null;
+
+        try {
+            BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
+            Hashtable hints = new Hashtable();
+            hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
+            bitmap = barcodeEncoder.encodeBitmap("СЦ-"+Tid.getText().toString(), BarcodeFormat.QR_CODE, 400, 400, hints);
+            ImageView imageViewQrCode = (ImageView) linearlayout.findViewById(R.id.qr_image);
+            imageViewQrCode.setImageBitmap(bitmap);
+        } catch(Exception e) {
+
+        }
+
+        final Bitmap finalBitmap = bitmap;
+        ChooseDialog.setPositiveButton("Отправить",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        shareImageUri(saveImage(finalBitmap));
+                    }
+                })
+                .setNegativeButton("Закрыть",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+
+                                dialog.cancel();
+                            }
+                        });
+
+        ChooseDialog.create();
+        ChooseDialog.show();
+    }
+
+
     public void showChooseworks() {
         final AlertDialog.Builder ChooseDialog = new AlertDialog.Builder(this);
 
@@ -1135,6 +1190,42 @@ if (autorized) {
         ChooseDialog.show();
     }
 
+    /**
+     * Saves the image as PNG to the app's cache directory.
+     * @param image Bitmap to save.
+     * @return Uri of the saved file or null
+     */
+    private Uri saveImage(Bitmap image) {
+        //TODO - Should be processed in another thread
+        File imagesFolder = new File(getCacheDir(), "images");
+        Uri uri = null;
+        try {
+            imagesFolder.mkdirs();
+            File file = new File(imagesFolder, "shared_image.png");
+
+            FileOutputStream stream = new FileOutputStream(file);
+            image.compress(Bitmap.CompressFormat.PNG, 90, stream);
+            stream.flush();
+            stream.close();
+            uri = FileProvider.getUriForFile(this, "com.mydomain.fileprovider", file);
+
+        } catch (IOException e) {
+            Log.d("FILE PROVIDER", "IOException while trying to write file for sharing: " + e.getMessage());
+        }
+        return uri;
+    }
+
+    /**
+     * Shares the PNG image from Uri.
+     * @param uri Uri of image to share.
+     */
+    private void shareImageUri(Uri uri){
+        Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+        intent.putExtra(Intent.EXTRA_STREAM, uri);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.setType("image/png");
+        startActivity(intent);
+    }
 
 }
 
