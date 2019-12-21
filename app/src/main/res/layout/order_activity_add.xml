@@ -70,7 +70,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:inputType="textPersonName"
+                    android:inputType="textMultiLine"
                     android:text="" />
             </LinearLayout>
 
@@ -93,6 +93,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
+                    android:singleLine="true"
                     android:inputType="textPersonName"
                     android:text="" />
             </LinearLayout>
@@ -116,7 +117,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:inputType="textPersonName"
+                    android:inputType="textMultiLine"
                     android:text="" />
             </LinearLayout>
 
@@ -139,7 +140,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:inputType="textPersonName"
+                    android:inputType="textMultiLine"
                     android:text="" />
             </LinearLayout>
 
@@ -162,7 +163,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:inputType="textPersonName"
+                    android:inputType="textMultiLine"
                     android:text="" />
             </LinearLayout>
 
@@ -185,6 +186,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
+                    android:singleLine="true"
                     android:inputType="textPersonName"
                     android:text=""
                     android:focusable="false"/>
@@ -228,7 +230,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:inputType="textPersonName"
+                    android:inputType="textMultiLine"
                     android:text="" />
             </LinearLayout>
 
@@ -251,7 +253,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:inputType="textPersonName"
+                    android:inputType="textMultiLine"
                     android:text="" />
             </LinearLayout>
 
@@ -288,6 +290,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
+                    android:singleLine="true"
                     android:inputType="textPersonName"
                     android:text="" />
             </LinearLayout>
@@ -311,7 +314,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:inputType="textPersonName"
+                    android:inputType="textMultiLine"
                     android:text="" />
             </LinearLayout>
 
@@ -334,7 +337,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:inputType="textPersonName"
+                    android:inputType="phone"
                     android:text="" />
             </LinearLayout>
 
@@ -357,7 +360,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:inputType="textPersonName"
+                    android:inputType="textEmailAddress"
                     android:text="" />
             </LinearLayout>
 
@@ -380,7 +383,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:inputType="textPersonName"
+                    android:inputType="textMultiLine"
                     android:text="" />
             </LinearLayout>
 

@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.example.service_base.Repair_item.Auth;
 import com.google.android.material.navigation.NavigationView;
@@ -106,25 +107,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         switch (item.getItemId()) {
             case R.id.find:
-                Toast.makeText(getApplicationContext(), "Поиск", Toast.LENGTH_SHORT).show();
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_find()).commit();
                 break;
             case R.id.news:
-                Toast.makeText(getApplicationContext(), "Новости", Toast.LENGTH_SHORT).show();
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_news()).commit();
                 break;
             case R.id.scaner:
                 new IntentIntegrator(this).initiateScan(); // `this` is the current Activity
                 break;
             case R.id.send_request:
-                Toast.makeText(getApplicationContext(), "Написать заявку", Toast.LENGTH_SHORT).show();
+                intent = new Intent(this, send_request.class);
+                this.startActivity(intent);
                 break;
             case R.id.price:
-                Toast.makeText(getApplicationContext(), "Цены", Toast.LENGTH_SHORT).show();
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_price()).commit();
                 break;
             case R.id.about_us:
-                Toast.makeText(getApplicationContext(), "О нас", Toast.LENGTH_SHORT).show();
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_about_us()).commit();
                 break;
             case R.id.new_repair:
@@ -163,9 +161,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if(result != null) {
             if(result.getContents() == null) {
-                Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Сканер закрыт", Toast.LENGTH_LONG).show();
             } else {
-                Toast.makeText(this, "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
+                String str = result.getContents();
+                int intIndex = str.indexOf("СЦ");
+
+                if(intIndex == - 1) {
+                    Toast.makeText(this, "Просканируйте правильный QR код", Toast.LENGTH_LONG).show();
+                } else {
+
+                    String[] regex = result.getContents().split("(?<=\\D)(?=\\d)");
+                    Intent mediaStreamIntent = new Intent(this, order_activity.class);
+                    mediaStreamIntent.putExtra("id", regex[1]);
+                    this.startActivity(mediaStreamIntent);
+
+                }
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
@@ -181,4 +191,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             super.onBackPressed();
         }
     }
-}
+
+
+    }
+
+
+
