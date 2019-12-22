@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
@@ -15,12 +16,14 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -46,17 +49,34 @@ import com.example.service_base.adapter.RepairAdapter;
 import com.example.service_base.adapter.RepairWorkAdapter;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.TabStop;
+import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.pdf.CMYKColor;
+import com.itextpdf.text.pdf.PdfDocument;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.annotation.Target;
 import java.lang.reflect.Array;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -64,6 +84,8 @@ import java.util.Date;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.TimeZone;
+
+import static android.os.Environment.getExternalStorageDirectory;
 
 public class order_activity extends AppCompatActivity {
 
@@ -120,9 +142,9 @@ public class order_activity extends AppCompatActivity {
         edit_order_false = menu.findItem(R.id.edit_order_false);
         safe.setEnabled(false);
         edit_order_false.setVisible(false);
-        if (autorized){
-        return true;}
-        else {
+        if (autorized) {
+            return true;
+        } else {
             return false;
         }
     }
@@ -181,13 +203,13 @@ public class order_activity extends AppCompatActivity {
         repairworkView = findViewById(R.id.repair_view);
         partsView = findViewById(R.id.parts_view);
 
-if (autorized) {
-    LinearLayoutManager layoutManager = new LinearLayoutManager(context);
-    commentView.setLayoutManager(layoutManager);
-    commentView.setHasFixedSize(true);
-    commentAdapter = new CommentAdapter(comments, context);
-    commentView.setAdapter(commentAdapter);
-}
+        if (autorized) {
+            LinearLayoutManager layoutManager = new LinearLayoutManager(context);
+            commentView.setLayoutManager(layoutManager);
+            commentView.setHasFixedSize(true);
+            commentAdapter = new CommentAdapter(comments, context);
+            commentView.setAdapter(commentAdapter);
+        }
         LinearLayoutManager layoutManagerRepair = new LinearLayoutManager(context);
         repairworkView.setLayoutManager(layoutManagerRepair);
         repairworkView.setHasFixedSize(true);
@@ -201,12 +223,10 @@ if (autorized) {
         partsView.setAdapter(partsAdapter);
 
 
-
-
         if (!autorized) {
             VisibleForGuest();
         }
-            new LoadAllProducts().execute();
+        new LoadAllProducts().execute();
 
 
         btncomment.setOnClickListener(Onbutton);
@@ -646,7 +666,7 @@ if (autorized) {
                         for (Parts r : parts) {
                             cost += r.getCost_p();
                         }
-                        Tparts_cost.setText(String.valueOf(cost)+"р");
+                        Tparts_cost.setText(String.valueOf(cost) + "р");
                     } else {
                         Log.d("PARTS", "No parts");
                     }
@@ -1125,23 +1145,127 @@ if (autorized) {
         View linearlayout = getLayoutInflater().inflate(R.layout.qr, null);
         ChooseDialog.setView(linearlayout);
         Bitmap bitmap = null;
+        File file = new File(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + "/Order.pdf");
 
         try {
             BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
             Hashtable hints = new Hashtable();
             hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
-            bitmap = barcodeEncoder.encodeBitmap("СЦ-"+Tid.getText().toString(), BarcodeFormat.QR_CODE, 400, 400, hints);
+            bitmap = barcodeEncoder.encodeBitmap("СЦ-" + Tid.getText().toString(), BarcodeFormat.QR_CODE, 400, 400, hints);
             ImageView imageViewQrCode = (ImageView) linearlayout.findViewById(R.id.qr_image);
             imageViewQrCode.setImageBitmap(bitmap);
-        } catch(Exception e) {
+
+
+            ByteArrayOutputStream stream3 = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream3);
+
+
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            Document document = new Document();
+
+            FileOutputStream stream = new FileOutputStream(file);
+
+            PdfWriter.getInstance(document, stream);
+            document.open();
+
+            BaseFont baseFont = BaseFont.createFont("/assets/Arial.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+            Font font = new Font(baseFont, 10, Font.BOLD);
+            Font fontnormal = new Font(baseFont, 7, Font.NORMAL);
+
+            Paragraph paragraph = new Paragraph("Частное предприятие \"СЦ компьютерной техники\"", font);
+            paragraph.setAlignment(Paragraph.ALIGN_CENTER);
+            document.add(paragraph);
+            font.setSize(8);
+
+            Image maimg = Image.getInstance(stream3.toByteArray());
+            maimg.setAbsolutePosition(490, 745);
+            maimg.scalePercent(20);
+            document.add(maimg);
+
+            paragraph = new Paragraph("Изделие: ", font);
+            Chunk chunk = new Chunk(Tproduct.getText().toString(), fontnormal);
+            paragraph.add(chunk);
+            chunk = new Chunk("  Серийный номер: ", font);
+            paragraph.add(chunk);
+            chunk = new Chunk(Tsn.getText().toString(), fontnormal);
+            paragraph.add(chunk);
+            document.add(paragraph);
+            paragraph = new Paragraph("Контакты заказчика: ", font);
+            chunk = new Chunk(Tcontact_person.getText().toString() + " Телефон: " + Tphone.getText().toString() + " Email: " + Tmail.getText().toString(), fontnormal);
+            paragraph.add(chunk);
+            document.add(paragraph);
+            paragraph = new Paragraph("Внешний вид: ", font);
+            chunk = new Chunk(Tappearance.getText().toString(), fontnormal);
+            paragraph.add(chunk);
+            document.add(paragraph);
+            paragraph = new Paragraph("Неисправность (со слов заказчика): ", font);
+            chunk = new Chunk(Tmalfunction.getSelectedItem().toString(), fontnormal);
+            paragraph.add(chunk);
+            document.add(paragraph);
+            font.setSize(9);
+            paragraph = new Paragraph("Условия ремонта: ", font);
+            document.add(paragraph);
+            paragraph = new Paragraph("1. Данный заказ-наряд подтверждает прием изделия в сервисный центр для диагностики, а в случае обнаружения дефекта – для ремонта. Получение изделия после ремонта производится только по предъявлении заказ-наряда.", fontnormal);
+            document.add(paragraph);
+            paragraph = new Paragraph("2. Отношения между Заказчиком и Сервисным центром (Исполнителем) (далее СЦ) регулируют данные условия и Условия гарантии (информация на гарантийном талоне). Подписью Заказчик подтверждает, что ознакомлен, согласен и обязуется выполнять указанные Условия и Условия гарантии.", fontnormal);
+            document.add(paragraph);
+            paragraph = new Paragraph("3. СЦ не несет ответственности за целостность данных и программного обеспечения (предустановленных программ), находящихся на носителях, установленных в ноутбук или КПК и др. Рекомендуем перед обращением в СЦ, сделать резервную копию всех данных.", fontnormal);
+            document.add(paragraph);
+            paragraph = new Paragraph("4. СЦ не несет ответственности за неисправности, обнаруженные в ходе ремонта. Принимаемое в ремонт оборудование изначально считается нерабочим.", fontnormal);
+            document.add(paragraph);
+            paragraph = new Paragraph("5. СЦ не отвечает за принадлежности, не указанные в комплектности приемки.", fontnormal);
+            document.add(paragraph);
+            paragraph = new Paragraph("6. При приемке оборудования указываются лишь явные дефекты, которые были замечены администратором СЦ со слов Заказчика. Ответственность за полное отражение состояния устройства в момент его сдачи лежит на Заказчике. СЦ не несет ответственности за внешнее и внутреннее состояние устройства, а Заказчик не может предъявлять по данным пунктам претензии.", fontnormal);
+            document.add(paragraph);
+            paragraph = new Paragraph("7. Ответственность за предоставление исчерпывающей информации в понятной форме о неисправности и данных о себе, несет Заказчик. Информация о заявленной клиентом неисправности, серийный номер оборудования и контактная информация пользователя являются неотъемлемой частью Условий и обязательны для предоставления Заказчиком. В случае неполного или недостоверного предоставления информации, Заказчик не вправе предъявлять к СЦ претензии.", fontnormal);
+            document.add(paragraph);
+            paragraph = new Paragraph("8. Доп. оборудование и аксессуары вместе с ноутбуком, ПК, монитором, принтером, КПК не принимаются. СЦ не несет ответственности за утерю или повреждение доп.оборудования (диски, руководства, кабели и т.п.).", fontnormal);
+            document.add(paragraph);
+            paragraph = new Paragraph("9. Предоставив данные о себе, Заказчик соглашается получать информацию о состоянии своего заказа, а также новости от компании и ее партнеров, на указанный номер телефона и электронный адрес.", fontnormal);
+            document.add(paragraph);
+            paragraph = new Paragraph("10. При отказе предоставить данные о себе Заказчик самостоятельно проверяет готовность оборудования. СЦ вправе выставить счёт Заказчику за хранение отремонтированного оборудования свыше 1 (одного) месяца после ремонта.", fontnormal);
+            document.add(paragraph);
+            paragraph = new Paragraph("11. С согласия заказчика диагностика и ремонт изделия производится без его участия.", fontnormal);
+            document.add(paragraph);
+            paragraph = new Paragraph("12. При проведении гарантийного ремонта, срок гарантии продлевается на период со дня сдачи оборудования в ремонт, до дня окончания ремонта, плюс три дня, необходимых потребителю на получение оборудования из ремонта.", fontnormal);
+            document.add(paragraph);
+            paragraph = new Paragraph("13. Сервисный центр оставляет за собой право по результатам диагностики снять изделие с гарантийного обслуживания, если обнаружены попытки неавторизованного ремонта или нарушение пользователем правил эксплуатации изделия (описано в гар. талоне).", fontnormal);
+            document.add(paragraph);
+            paragraph = new Paragraph("14. В случае утери заказ-наряда, выдача изделия производится при предъявлении паспорта лица, сдавшего аппарат и его письменного заявления.", fontnormal);
+            document.add(paragraph);
+            paragraph = new Paragraph("15. Днем завершения приемки работ признается дата получения Заказчиком изделия из ремонта.", fontnormal);
+            document.add(paragraph);
+
+            PdfPTable table = new PdfPTable(2);
+
+            font.setSize(9);
+            paragraph = new Paragraph("Заказ-наряд заполнен, с перечисленными  выше Условиями ознакомлен и согласен. Подтверждаю передачу оборудования в ремонт: ", font);
+            document.add(paragraph);
+            paragraph = new Paragraph("Подпись ФИО заказчика: ", font);
+            document.add(paragraph);
+            paragraph = new Paragraph("", font);
+            document.add(paragraph);
+            paragraph = new Paragraph("Принял администратор(Подпись): ", font);
+            document.add(paragraph);
+
+            document.close();
+
+            stream.flush();
+            stream.close();
+
+        } catch (Exception e) {
 
         }
 
-        final Bitmap finalBitmap = bitmap;
+        final Uri fileout = FileProvider.getUriForFile(this, "com.mydomain.fileprovider", file);
+
+
         ChooseDialog.setPositiveButton("Отправить",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        shareImageUri(saveImage(finalBitmap));
+                        shareImageUri(fileout);
                     }
                 })
                 .setNegativeButton("Закрыть",
@@ -1190,8 +1314,11 @@ if (autorized) {
         ChooseDialog.show();
     }
 
+
+
     /**
      * Saves the image as PNG to the app's cache directory.
+     *
      * @param image Bitmap to save.
      * @return Uri of the saved file or null
      */
@@ -1217,13 +1344,14 @@ if (autorized) {
 
     /**
      * Shares the PNG image from Uri.
+     *
      * @param uri Uri of image to share.
      */
-    private void shareImageUri(Uri uri){
+    private void shareImageUri(Uri uri) {
         Intent intent = new Intent(android.content.Intent.ACTION_SEND);
         intent.putExtra(Intent.EXTRA_STREAM, uri);
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        intent.setType("image/png");
+        intent.setType("application/pdf");
         startActivity(intent);
     }
 
