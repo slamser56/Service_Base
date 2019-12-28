@@ -1,78 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:fillViewport="true">
 
 
-    <LinearLayout
+    <ScrollView
+        android:layout_width="380dp"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:orientation="vertical"
+        android:scrollbarSize="0px">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    android:text="Авторизованный сервисный центр"
+                    android:textColor="#000"
+                    android:textSize="20dp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="400dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    android:text="Сервисный центр является авторизованным сервисным центром ASUS, Pocketbook, Defender, CDL. Мы осуществляем гарантийный ремонт ASUS, Pocketbook, Defender, CDL, а так же к нам можно обратиться за гарантийным ремонтом Xiaomi, HP, Lenovo (*реализованные компанией OOO «Корпоративный стандарт» или OOO «СДЛ Дистри»)."
+                    android:textColor="#000" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="400dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    android:text="В случае истечении срока гарантийного обслуживания, вы всегда сможете обратиться в наш сервисный центр, на платной основе. Мы гарантируем качественное выполнение ремонта любого уровня сложности для ноутбуков, смартфонов, планшетов, моноблоков, и другой техники. Ремонт вашей техники будет осуществлен на хорошем оборудовании, а для замены вышедших из строя деталей мы используем только качественные, оригинальные запчасти, на работу которых даём гарантию от 3-x до 6-ти месяцев."
+                    android:textColor="#000" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="400dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    android:text="Мы работаем с различными мировыми брендами и производителями, такими как: Acer, Apple, Asus, Defender, Dell, HP, Huawei, Lenovo, LG, MEIZU, Microsoft, Motorola, Samsung, Sony, Xiaomi, ZTE, ZUK, Pocketbook и другие. Вы получите персональное обслуживание и индивидуальный подход настоящих, опытных мастеров. "
+                    android:textColor="#000" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="40dp">
+
+                <TextView
+                    android:layout_width="400dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    android:text="В любой момент вы сможете проверить статус вашего заказа, в режиме онлайн, на страницах нашего сайта. Вы хотите, чтобы к Вашей личной проблеме отнеслись честно, и со всем вниманием и пониманием? Позвоните, приезжайте и лично пообщайтесь с нами, чтобы у вас не осталось сомнений в том, что ваша техника в надежных и опытных руках. Мы же в свою очередь, постараемся сделать так, чтобы вы не разочаровались в своем выборе. Ведь мы хотим, чтобы вы пользовались нашими услугами и рекомендовали нас своим друзьям. Переложите ваши проблемы в надежные и грамотные руки специалистов нашего сервисного центра!"
+                    android:textColor="#000" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
-                android:text="Авторизованный сервисный центр"
-                android:textColor="#000"
-                android:textSize="20dp" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="400dp"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
-                android:text="Сервисный центр является авторизованным сервисным центром ASUS, Pocketbook, Defender, CDL. Мы осуществляем гарантийный ремонт ASUS, Pocketbook, Defender, CDL, а так же к нам можно обратиться за гарантийным ремонтом Xiaomi, HP, Lenovo (*реализованные компанией OOO «Корпоративный стандарт» или OOO «СДЛ Дистри»)."
-                android:textColor="#000" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="400dp"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
-                android:text="В случае истечении срока гарантийного обслуживания, вы всегда сможете обратиться в наш сервисный центр, на платной основе. Мы гарантируем качественное выполнение ремонта любого уровня сложности для ноутбуков, смартфонов, планшетов, моноблоков, и другой техники. Ремонт вашей техники будет осуществлен на хорошем оборудовании, а для замены вышедших из строя деталей мы используем только качественные, оригинальные запчасти, на работу которых даём гарантию от 3-x до 6-ти месяцев."
-                android:textColor="#000" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="400dp"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
-                android:text="Мы работаем с различными мировыми брендами и производителями, такими как: Acer, Apple, Asus, Defender, Dell, HP, Huawei, Lenovo, LG, MEIZU, Microsoft, Motorola, Samsung, Sony, Xiaomi, ZTE, ZUK, Pocketbook и другие. Вы получите персональное обслуживание и индивидуальный подход настоящих, опытных мастеров. "
-                android:textColor="#000" />
-        </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp">
-        <TextView
-            android:layout_width="400dp"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:text="В любой момент вы сможете проверить статус вашего заказа, в режиме онлайн, на страницах нашего сайта. Вы хотите, чтобы к Вашей личной проблеме отнеслись честно, и со всем вниманием и пониманием? Позвоните, приезжайте и лично пообщайтесь с нами, чтобы у вас не осталось сомнений в том, что ваша техника в надежных и опытных руках. Мы же в свою очередь, постараемся сделать так, чтобы вы не разочаровались в своем выборе. Ведь мы хотим, чтобы вы пользовались нашими услугами и рекомендовали нас своим друзьям. Переложите ваши проблемы в надежные и грамотные руки специалистов нашего сервисного центра!"
-            android:textColor="#000" />
-    </RelativeLayout>
-
-    </LinearLayout>
-
-</ScrollView>
+        android:layout_centerInParent="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/background" />
+</RelativeLayout>

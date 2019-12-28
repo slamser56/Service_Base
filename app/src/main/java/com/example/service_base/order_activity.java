@@ -2,13 +2,11 @@ package com.example.service_base;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.PopupMenu;
 import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
@@ -16,26 +14,21 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.service_base.Repair_item.Auth;
@@ -45,22 +38,15 @@ import com.example.service_base.Repair_item.Repair_item;
 import com.example.service_base.Repair_item.Repair_work;
 import com.example.service_base.adapter.CommentAdapter;
 import com.example.service_base.adapter.PartsAdapter;
-import com.example.service_base.adapter.RepairAdapter;
 import com.example.service_base.adapter.RepairWorkAdapter;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Font;
-import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Image;
-import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.TabStop;
 import com.itextpdf.text.pdf.BaseFont;
-import com.itextpdf.text.pdf.CMYKColor;
-import com.itextpdf.text.pdf.PdfDocument;
-import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
@@ -71,12 +57,8 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.lang.annotation.Target;
-import java.lang.reflect.Array;
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -85,7 +67,7 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.TimeZone;
 
-import static android.os.Environment.getExternalStorageDirectory;
+
 
 public class order_activity extends AppCompatActivity {
 
@@ -202,6 +184,11 @@ public class order_activity extends AppCompatActivity {
         commentView = findViewById(R.id.comment_rv);
         repairworkView = findViewById(R.id.repair_view);
         partsView = findViewById(R.id.parts_view);
+
+
+        Bundle arguments = getIntent().getExtras();
+
+        setTitle("Заказ №"+arguments.get("id").toString());
 
         if (autorized) {
             LinearLayoutManager layoutManager = new LinearLayoutManager(context);

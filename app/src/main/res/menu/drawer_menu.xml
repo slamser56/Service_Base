@@ -1,44 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
- <menu xmlns:android="http://schemas.android.com/apk/res/android"
->
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    >
 
 
     <group android:checkableBehavior="single">
         <item android:id="@+id/find"
-            android:title="Поиск заказа"/>
+            android:title="Поиск заказа"
+            android:icon="@drawable/find_icon"/>
         <item android:id="@+id/news"
-            android:title="Новости"/>
+            android:title="Новости"
+            android:icon="@drawable/news_icon"/>
         <item android:id="@+id/price"
-            android:title="Цены"/>
+            android:title="Цены"
+            android:icon="@drawable/cost_icon"/>
         <item android:id="@+id/about_us"
-            android:title="О нас"/>
+            android:title="О нас"
+            android:icon="@drawable/about_us_icon"/>
     </group>
 
-    <item android:title="Функции">
+    <item
+        android:title="Функции"
+        android:visible="true">
         <menu>
             <item
-            android:id="@+id/send_request"
-            android:title="Отправить запрос" />
+                android:id="@+id/send_request"
+                android:icon="@drawable/request_icon"
+                android:title="Отправить запрос" />
             <item
                 android:id="@+id/scaner"
+                android:icon="@drawable/scaner_icon"
                 android:title="Сканер" />
             <item
                 android:id="@+id/new_repair"
+                android:icon="@drawable/new_repair_icon"
                 android:title="Добавить заказ" />
             <item
                 android:id="@+id/new_parts"
-                android:title="Добавить запчасть"
-                />
+                android:icon="@drawable/new_repair_icon"
+                android:title="Добавить запчасть" />
             <item
                 android:id="@+id/login"
-                android:title="Для сотрудников"
-                />
+                android:icon="@drawable/sign_in_icon"
+                android:title="Для сотрудников" />
             <item
                 android:id="@+id/logout"
-                android:title="Выйти"
-                />
+                android:icon="@drawable/logout_icon"
+                android:title="Выйти" />
         </menu>
     </item>
-
 
 </menu>

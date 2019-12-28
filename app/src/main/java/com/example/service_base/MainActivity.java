@@ -6,18 +6,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import com.example.service_base.Repair_item.Auth;
 import com.google.android.material.navigation.NavigationView;
@@ -31,10 +31,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     MenuItem logout;
     MenuItem new_parts;
     MenuItem login;
+    ImageView imageView;
 
     @Override
     protected void onResume() {
         super.onResume();
+
+        setTitle("Поиск");
 
         SharedPreferences auth = getSharedPreferences(Auth.APP_PREFERENCES, Context.MODE_PRIVATE);
         boolean hasAutorized = auth.getBoolean(Auth.APP_PREFERENCES_AUTORIZED, false);
@@ -66,14 +69,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         Menu menu = navigationView.getMenu();
 
+        View headerLayout = navigationView.inflateHeaderView(R.layout.nav_header);
 
-
+        imageView = headerLayout.findViewById(R.id.logo);
 
         new_repair = menu.findItem(R.id.new_repair);
         logout= menu.findItem(R.id.logout);
         new_parts = menu.findItem(R.id.new_parts);
         login = menu.findItem(R.id.login);
 
+        setTitle("Поиск");
 
 
 
@@ -108,9 +113,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (item.getItemId()) {
             case R.id.find:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_find()).commit();
+                imageView.setImageResource(R.drawable.find_logo);
+                setTitle("Поиск");
                 break;
             case R.id.news:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_news()).commit();
+                imageView.setImageResource(R.drawable.news_logo);
+                setTitle("Новости");
                 break;
             case R.id.scaner:
                 new IntentIntegrator(this).initiateScan(); // `this` is the current Activity
@@ -118,12 +127,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.send_request:
                 intent = new Intent(this, send_request.class);
                 this.startActivity(intent);
+                setTitle("Отправить запрос");
                 break;
             case R.id.price:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_price()).commit();
+                imageView.setImageResource(R.drawable.cost_logo);
                 break;
             case R.id.about_us:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_about_us()).commit();
+                imageView.setImageResource(R.drawable.about_us_logo);
                 break;
             case R.id.new_repair:
                 intent = new Intent(this, new_repair.class);

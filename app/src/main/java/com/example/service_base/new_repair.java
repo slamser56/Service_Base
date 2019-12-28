@@ -69,6 +69,7 @@ public class new_repair extends AppCompatActivity {
         Tdate_of_warranty.setOnClickListener(Date_warranty);
 
         button.setOnClickListener(Onbutton);
+        setTitle("Добавить заказ");
 
     }
 

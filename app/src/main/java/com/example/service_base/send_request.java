@@ -10,5 +10,6 @@ public class send_request extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send_request);
+        setTitle("Отправить запрос");
     }
 }

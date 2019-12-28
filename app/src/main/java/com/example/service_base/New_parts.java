@@ -50,6 +50,7 @@ public class New_parts extends AppCompatActivity {
 
         init_all();
         Tparts_add.setOnClickListener(AddParts);
+        setTitle("Добавить запчасть");
     }
 
 

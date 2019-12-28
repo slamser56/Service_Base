@@ -41,7 +41,7 @@ public class login extends AppCompatActivity {
         Tsignup = findViewById(R.id.btnlogin);
 
         Tsignup.setOnClickListener(singin);
-
+        setTitle("Авторизация");
     }
 
 
@@ -54,7 +54,14 @@ public class login extends AppCompatActivity {
             SharedPreferences auth = getSharedPreferences(Auth.APP_PREFERENCES, Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = auth.edit();
             editor.clear().apply();
-            new Login().execute();
+            if (Tlogin.getText().length() == 0 && Tpass.getText().length() == 0)
+            {
+                Toast.makeText(context, "Введите логин или пароль", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                new Login().execute();
+            }
+
         }
     };
 
