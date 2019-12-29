@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:src="@drawable/background"
         android:layout_centerInParent="true"
-        android:scaleType="fitXY"
+        android:scaleType="centerCrop"
         />
 
     <ScrollView
@@ -35,7 +35,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
-                    android:text="@string/description" />
+                    android:textSize="20dp"
+                    android:textColor="#000"
+                    android:text="Описание заказа" />
             </LinearLayout>
 
             <LinearLayout
@@ -49,27 +51,52 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20px"
                     android:layout_marginRight="20px"
+                    android:textColor="@color/Blue"
+                    android:textSize="20dp"
+                    android:layout_weight="1"
                     android:text="@string/type_of_repair" />
 
                 <Spinner
                     android:id="@+id/type_of_repair_spinner"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rectangle_spinner"/>
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="20px"
+                    android:layout_marginRight="20px"
+                    android:textColor="@color/Blue"
+                    android:textSize="20dp"
+                    android:text="@string/malfunction" />
+
+                <Spinner
+                    android:id="@+id/malfunction_spinner"
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rectangle_spinner"/>
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/textView4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20px"
-                    android:layout_marginRight="20px"
-                    android:text="@string/serial_number" />
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/info_icon" />
 
                 <EditText
                     android:id="@+id/serial_number"
@@ -77,6 +104,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
+                    android:hint="Серийный номер"
+                    android:backgroundTint="@color/Blue"
                     android:inputType="textMultiLine"
                     android:text="" />
             </LinearLayout>
@@ -86,13 +115,12 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/textView5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20px"
-                    android:layout_marginRight="20px"
-                    android:text="@string/imei" />
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/info_icon" />
+
 
                 <EditText
                     android:id="@+id/imei"
@@ -100,6 +128,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
+                    android:hint="IMEI"
+                    android:backgroundTint="@color/Blue"
                     android:singleLine="true"
                     android:inputType="textPersonName"
                     android:text="" />
@@ -110,13 +140,12 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/textView6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20px"
-                    android:layout_marginRight="20px"
-                    android:text="@string/unique_number" />
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/info_icon" />
+
 
                 <EditText
                     android:id="@+id/unique_number"
@@ -124,6 +153,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
+                    android:backgroundTint="@color/Blue"
+                    android:hint="Уникальный номер"
                     android:inputType="textMultiLine"
                     android:text="" />
             </LinearLayout>
@@ -133,13 +164,11 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/textView23"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20px"
-                    android:layout_marginRight="20px"
-                    android:text="Парт-номер" />
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/info_icon" />
 
                 <EditText
                     android:id="@+id/part_number"
@@ -147,6 +176,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
+                    android:backgroundTint="@color/Blue"
+                    android:hint="Парт номер"
                     android:inputType="textMultiLine"
                     android:text="" />
             </LinearLayout>
@@ -156,13 +187,11 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/textView7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20px"
-                    android:layout_marginRight="20px"
-                    android:text="@string/product" />
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/info_icon" />
 
                 <EditText
                     android:id="@+id/product"
@@ -170,6 +199,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
+                    android:hint="Изделие"
+                    android:backgroundTint="@color/Blue"
                     android:inputType="textMultiLine"
                     android:text="" />
             </LinearLayout>
@@ -179,13 +210,11 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/textView8"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20px"
-                    android:layout_marginRight="20px"
-                    android:text="@string/data_of_warranty" />
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/info_icon" />
 
                 <EditText
                     android:id="@+id/date_of_warranty"
@@ -194,42 +223,25 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:singleLine="true"
+                    android:hint="Дата гар. талона"
+                    android:backgroundTint="@color/Blue"
                     android:inputType="textPersonName"
                     android:text=""
                     android:focusable="false"/>
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/textView11"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20px"
-                    android:layout_marginRight="20px"
-                    android:text="@string/malfunction" />
-
-                <Spinner
-                    android:id="@+id/malfunction_spinner"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/textView9"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20px"
-                    android:layout_marginRight="20px"
-                    android:text="@string/appearance" />
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/info_icon" />
 
                 <EditText
                     android:id="@+id/appearance"
@@ -237,6 +249,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
+                    android:hint="Внешний вид"
+                    android:backgroundTint="@color/Blue"
                     android:inputType="textMultiLine"
                     android:text="" />
             </LinearLayout>
@@ -246,13 +260,11 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/textView10"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20px"
-                    android:layout_marginRight="20px"
-                    android:text="@string/additional_description" />
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/info_icon" />
 
                 <EditText
                     android:id="@+id/additional_description"
@@ -260,6 +272,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
+                    android:hint="Доп описание"
+                    android:backgroundTint="@color/Blue"
                     android:inputType="textMultiLine"
                     android:text="" />
             </LinearLayout>
@@ -274,6 +288,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textColor="#000"
+                    android:textSize="20dp"
                     android:gravity="center_horizontal"
                     android:text="@string/contact_info" />
             </LinearLayout>
@@ -283,13 +299,11 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/textView14"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20px"
-                    android:layout_marginRight="20px"
-                    android:text="@string/contractor" />
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/log_icon" />
 
                 <EditText
                     android:id="@+id/contractor"
@@ -297,6 +311,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
+                    android:hint="Контрагент"
+                    android:backgroundTint="@color/Blue"
                     android:singleLine="true"
                     android:inputType="textPersonName"
                     android:text="" />
@@ -307,13 +323,11 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/textView15"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20px"
-                    android:layout_marginRight="20px"
-                    android:text="@string/contact_person" />
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/log_icon" />
 
                 <EditText
                     android:id="@+id/contact_person"
@@ -321,6 +335,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
+                    android:hint="Контактное лицо"
+                    android:backgroundTint="@color/Blue"
                     android:inputType="textMultiLine"
                     android:text="" />
             </LinearLayout>
@@ -330,13 +346,11 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/textView16"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20px"
-                    android:layout_marginRight="20px"
-                    android:text="@string/phone" />
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/phone_icon" />
 
                 <EditText
                     android:id="@+id/phone"
@@ -344,6 +358,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
+                    android:hint="Номер телефона"
+                    android:backgroundTint="@color/Blue"
                     android:inputType="phone"
                     android:text="" />
             </LinearLayout>
@@ -353,13 +369,11 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/textView17"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20px"
-                    android:layout_marginRight="20px"
-                    android:text="@string/mail" />
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/email_icon" />
 
                 <EditText
                     android:id="@+id/mail"
@@ -367,6 +381,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
+                    android:hint="E-mail"
+                    android:backgroundTint="@color/Blue"
                     android:inputType="textEmailAddress"
                     android:text="" />
             </LinearLayout>
@@ -376,13 +392,11 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/textView18"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20px"
-                    android:layout_marginRight="20px"
-                    android:text="@string/adress" />
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/adres_icon" />
 
                 <EditText
                     android:id="@+id/adress"
@@ -390,6 +404,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
+                    android:hint="Адрес"
+                    android:backgroundTint="@color/Blue"
                     android:inputType="textMultiLine"
                     android:text="" />
             </LinearLayout>
@@ -402,7 +418,9 @@
                     android:id="@+id/btn_order_add"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Добавить" />
+                    android:text="Добавить"
+                    android:textColor="#FFF"
+                    android:backgroundTint="@color/Blue"/>
             </LinearLayout>
 
 

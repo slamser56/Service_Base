@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.naw_view);
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -98,6 +99,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_find()).commit();
             navigationView.setCheckedItem(R.id.find);
         }
+
 
     }
 

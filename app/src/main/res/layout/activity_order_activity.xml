@@ -9,10 +9,9 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/background"
         android:layout_centerInParent="true"
-        android:scaleType="fitXY"
-        />
+        android:scaleType="centerCrop"
+        android:src="@drawable/background" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -23,26 +22,30 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textView2"
+                    android:id="@+id/textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20px"
-                    android:layout_marginTop="0px"
                     android:layout_marginRight="20px"
-                    android:text="@string/status" />
+                    android:layout_weight="1"
+                    android:text="@string/order"
+                    android:textColor="#000" />
 
-
-                <Spinner
-                    android:id="@+id/status"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
+                <EditText
+                    android:id="@+id/order"
+                    android:layout_width="230dp"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/Blue"
+                    android:ems="10"
+                    android:singleLine="true"
+                    android:text="" />
             </LinearLayout>
 
             <LinearLayout
@@ -57,14 +60,16 @@
                     android:layout_marginLeft="20px"
                     android:layout_marginTop="0px"
                     android:layout_marginRight="20px"
+                    android:layout_weight="1"
                     android:singleLine="true"
-                    android:text="Дата принятия в ремонт" />
+                    android:text="Дата принятия в ремонт"
+                    android:textColor="#000" />
 
                 <EditText
                     android:id="@+id/date"
-                    android:layout_width="wrap_content"
+                    android:layout_width="230dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:backgroundTint="@color/Blue" />
             </LinearLayout>
 
             <LinearLayout
@@ -73,21 +78,22 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textView"
+                    android:id="@+id/textView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20px"
+                    android:layout_marginTop="0px"
                     android:layout_marginRight="20px"
-                    android:text="@string/order" />
-
-                <EditText
-                    android:id="@+id/order"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:ems="10"
-                    android:singleLine="true"
-                    android:text="" />
+                    android:text="Статус"
+                    android:textColor="#000" />
+
+
+                <Spinner
+                    android:id="@+id/status"
+                    android:layout_width="230dp"
+                    android:layout_height="wrap_content" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -101,7 +107,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
-                    android:text="@string/description" />
+                    android:text="Описание заказа"
+                    android:textColor="#000"
+                    android:textSize="20dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -115,11 +123,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20px"
                     android:layout_marginRight="20px"
-                    android:text="@string/type_of_repair" />
+                    android:layout_weight="1"
+                    android:text="@string/type_of_repair"
+                    android:textColor="#000" />
 
                 <Spinner
                     android:id="@+id/type_of_repair"
-                    android:layout_width="match_parent"
+                    android:layout_width="230dp"
                     android:layout_height="wrap_content" />
 
             </LinearLayout>
@@ -137,13 +147,15 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20px"
                     android:layout_marginRight="20px"
-                    android:text="@string/serial_number" />
+                    android:layout_weight="1"
+                    android:text="@string/serial_number"
+                    android:textColor="#000" />
 
                 <EditText
                     android:id="@+id/serial_number"
-                    android:layout_width="wrap_content"
+                    android:layout_width="230dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:backgroundTint="@color/Blue"
                     android:ems="10"
                     android:inputType="textMultiLine"
                     android:text="" />
@@ -161,13 +173,15 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20px"
                     android:layout_marginRight="20px"
-                    android:text="@string/imei" />
+                    android:layout_weight="1"
+                    android:text="@string/imei"
+                    android:textColor="#000" />
 
                 <EditText
                     android:id="@+id/imei"
-                    android:layout_width="wrap_content"
+                    android:layout_width="230dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:backgroundTint="@color/Blue"
                     android:ems="10"
                     android:inputType="textPersonName"
                     android:singleLine="true"
@@ -187,13 +201,15 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20px"
                     android:layout_marginRight="20px"
-                    android:text="@string/unique_number" />
+                    android:layout_weight="1"
+                    android:text="@string/unique_number"
+                    android:textColor="#000" />
 
                 <EditText
                     android:id="@+id/unique_number"
-                    android:layout_width="wrap_content"
+                    android:layout_width="230dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:backgroundTint="@color/Blue"
                     android:ems="10"
                     android:inputType="textMultiLine"
 
@@ -211,13 +227,15 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20px"
                     android:layout_marginRight="20px"
-                    android:text="@string/product" />
+                    android:layout_weight="1"
+                    android:text="@string/product"
+                    android:textColor="#000" />
 
                 <EditText
                     android:id="@+id/product"
-                    android:layout_width="wrap_content"
+                    android:layout_width="230dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:backgroundTint="@color/Blue"
                     android:ems="10"
 
                     android:inputType="textMultiLine"
@@ -236,13 +254,15 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20px"
                     android:layout_marginRight="20px"
-                    android:text="@string/data_of_warranty" />
+                    android:layout_weight="1"
+                    android:text="@string/data_of_warranty"
+                    android:textColor="#000" />
 
                 <EditText
                     android:id="@+id/date_of_warranty"
-                    android:layout_width="wrap_content"
+                    android:layout_width="230dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:backgroundTint="@color/Blue"
                     android:ems="10"
                     android:focusable="false"
                     android:inputType="textMultiLine"
@@ -263,13 +283,15 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20px"
                     android:layout_marginRight="20px"
-                    android:text="@string/appearance" />
+                    android:layout_weight="1"
+                    android:text="@string/appearance"
+                    android:textColor="#000" />
 
                 <EditText
                     android:id="@+id/appearance"
-                    android:layout_width="wrap_content"
+                    android:layout_width="230dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:backgroundTint="@color/Blue"
                     android:ems="10"
 
                     android:inputType="textMultiLine"
@@ -289,13 +311,15 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20px"
                     android:layout_marginRight="20px"
-                    android:text="@string/additional_description" />
+                    android:layout_weight="1"
+                    android:text="@string/additional_description"
+                    android:textColor="#000" />
 
                 <EditText
                     android:id="@+id/additional_description"
-                    android:layout_width="wrap_content"
+                    android:layout_width="230dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:backgroundTint="@color/Blue"
                     android:ems="10"
 
                     android:inputType="textMultiLine"
@@ -314,11 +338,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20px"
                     android:layout_marginRight="20px"
-                    android:text="@string/malfunction" />
+                    android:layout_weight="1"
+                    android:text="@string/malfunction"
+                    android:textColor="#000" />
 
                 <Spinner
                     android:id="@+id/malfunction"
-                    android:layout_width="match_parent"
+                    android:layout_width="230dp"
                     android:layout_height="wrap_content" />
             </LinearLayout>
 
@@ -334,7 +360,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
-                    android:text="@string/contact_info" />
+                    android:text="@string/contact_info"
+                    android:textColor="#000"
+                    android:textSize="20dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -349,13 +377,15 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20px"
                     android:layout_marginRight="20px"
-                    android:text="@string/contractor" />
+                    android:layout_weight="1"
+                    android:text="@string/contractor"
+                    android:textColor="#000" />
 
                 <EditText
                     android:id="@+id/contractor"
-                    android:layout_width="wrap_content"
+                    android:layout_width="230dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:backgroundTint="@color/Blue"
                     android:ems="10"
 
                     android:singleLine="true"
@@ -375,13 +405,15 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20px"
                     android:layout_marginRight="20px"
-                    android:text="@string/contact_person" />
+                    android:layout_weight="1"
+                    android:text="@string/contact_person"
+                    android:textColor="#000" />
 
                 <EditText
                     android:id="@+id/contact_person"
-                    android:layout_width="wrap_content"
+                    android:layout_width="230dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:backgroundTint="@color/Blue"
                     android:ems="10"
 
                     android:inputType="textMultiLine"
@@ -401,13 +433,15 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20px"
                     android:layout_marginRight="20px"
-                    android:text="@string/phone" />
+                    android:layout_weight="1"
+                    android:text="@string/phone"
+                    android:textColor="#000" />
 
                 <EditText
                     android:id="@+id/phone"
-                    android:layout_width="wrap_content"
+                    android:layout_width="230dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:backgroundTint="@color/Blue"
                     android:ems="10"
 
                     android:inputType="phone"
@@ -427,13 +461,15 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20px"
                     android:layout_marginRight="20px"
-                    android:text="@string/mail" />
+                    android:layout_weight="1"
+                    android:text="@string/mail"
+                    android:textColor="#000" />
 
                 <EditText
                     android:id="@+id/mail"
-                    android:layout_width="wrap_content"
+                    android:layout_width="230dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:backgroundTint="@color/Blue"
                     android:ems="10"
 
                     android:inputType="textEmailAddress"
@@ -453,13 +489,15 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20px"
                     android:layout_marginRight="20px"
-                    android:text="@string/adress" />
+                    android:layout_weight="1"
+                    android:text="@string/adress"
+                    android:textColor="#000" />
 
                 <EditText
                     android:id="@+id/adress"
-                    android:layout_width="wrap_content"
+                    android:layout_width="230dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:backgroundTint="@color/Blue"
                     android:ems="10"
 
                     android:inputType="textMultiLine"
@@ -479,7 +517,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
-                    android:text="@string/comments" />
+                    android:text="@string/comments"
+                    android:textColor="#000"
+                    android:textSize="20dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -504,6 +544,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:ems="20"
+                        android:hint="Текст комментария"
                         android:inputType="textMultiLine"
                         android:text="" />
 
@@ -511,7 +552,9 @@
                         android:id="@+id/comments_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="OK" />
+                        android:backgroundTint="@color/Blue"
+                        android:text="Добавить"
+                        android:textColor="#FFF" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -528,7 +571,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
-                    android:text="@string/completed_work" />
+                    android:text="@string/completed_work"
+                    android:textColor="#000"
+                    android:textSize="20dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -548,21 +593,27 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/select_work" />
+                        android:backgroundTint="@color/Blue"
+                        android:text="@string/select_work"
+                        android:textColor="#FFF" />
 
                     <Button
                         android:id="@+id/button2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/edit" />
+                        android:backgroundTint="@color/Blue"
+                        android:text="@string/edit"
+                        android:textColor="#FFF" />
 
                     <Button
                         android:id="@+id/button3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/delete" />
+                        android:backgroundTint="@color/Blue"
+                        android:text="@string/delete"
+                        android:textColor="#FFF" />
 
                 </LinearLayout>
 
@@ -584,13 +635,15 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:gravity="center_horizontal"
-                    android:text="Стоимость работ" />
+                    android:text="Стоимость работ"
+                    android:textColor="#000" />
 
                 <EditText
                     android:id="@+id/cost_work"
+                    android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:backgroundTint="@color/Blue"
                     android:enabled="false" />
             </LinearLayout>
 
@@ -605,7 +658,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
-                    android:text="@string/part" />
+                    android:text="@string/part"
+                    android:textColor="#000"
+                    android:textSize="20dp" />
             </LinearLayout>
 
 
@@ -633,13 +688,16 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20px"
                     android:layout_marginRight="20px"
-                    android:text="@string/cost" />
+                    android:layout_weight="2"
+                    android:text="Стоимость запчастей"
+                    android:textColor="#000" />
 
                 <EditText
                     android:id="@+id/parts_cost"
+                   android:layout_weight="3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:backgroundTint="@color/Blue"
                     android:enabled="false" />
             </LinearLayout>
 

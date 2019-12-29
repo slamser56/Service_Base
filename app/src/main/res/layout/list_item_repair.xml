@@ -4,24 +4,56 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="5dp">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="0dp"
+        android:background="@drawable/line"
+        />
 
     <TextView
         android:id="@+id/text_view_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical|start" />
+        android:layout_gravity="center_vertical|start"
+        android:textColor="#000"/>
+    <View
+        android:layout_width="100dp"
+        android:rotation="90"
+        android:layout_height="2dp"
+        android:layout_marginLeft="-20dp"
+        android:background="@drawable/line_v"
+        />
 
     <TextView
         android:id="@+id/text_view_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical|center" />
+        android:layout_marginLeft="-70dp"
+        android:layout_gravity="center_vertical|center"
+        android:textColor="#000"/>
+
+    <View
+        android:layout_width="100dp"
+        android:rotation="90"
+        android:layout_height="2dp"
+        android:layout_marginLeft="150dp"
+        android:background="@drawable/line_v"
+        />
 
     <TextView
         android:id="@+id/text_view_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical|end" />
+        android:layout_gravity="center_vertical|end"
+        android:textColor="#000"/>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/line"
+        />
 </FrameLayout>

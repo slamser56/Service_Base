@@ -5,7 +5,12 @@
     android:orientation="vertical"
     android:padding="5dp">
 
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="0dp"
+        android:background="@drawable/line"
+        />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,19 +25,28 @@
             android:id="@+id/text_repair_work_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="2.5" />
+            android:layout_weight="2.5"
+            android:textColor="#000"/>
 
         <TextView
             android:id="@+id/text_repair_work"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:textColor="#000"/>
 
         <TextView
             android:id="@+id/text_repair_work_date"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="2" />
+            android:layout_height="40dp"
+            android:layout_weight="2"
+            android:textColor="#000"/>
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/line"
+        />
 </FrameLayout>

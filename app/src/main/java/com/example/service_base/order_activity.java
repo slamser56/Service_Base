@@ -585,7 +585,7 @@ public class order_activity extends AppCompatActivity {
                                 String comment_c = a.getString(Comment.TAG_COMMENT);
                                 String worker = a.getString(Comment.TAG_WORKER);
                                 // Создаем новый List
-                                comments.add(new Comment(id_c, comment_c, worker, date_c));
+                                comments.add(new Comment(i+1, comment_c, worker, date_c));
                             }
                         } else {
                             Log.d("COMMENT", "No comment");
@@ -612,7 +612,7 @@ public class order_activity extends AppCompatActivity {
                             String repair_work = w.getString(Repair_work.TAG_WORK_NAME);
                             String worker_w = w.getString(Repair_work.TAG_WORKER);
                             // Создаем новый List
-                            repair_works.add(new Repair_work(id_w, price_w, repair_work, worker_w, date_w));
+                            repair_works.add(new Repair_work(i+1, price_w, repair_work, worker_w, date_w));
                         }
                         int cost = 0;
                         for (Repair_work r : repair_works) {
@@ -646,7 +646,7 @@ public class order_activity extends AppCompatActivity {
                             String description_p = p.getString(Parts.TAG_DESCRIPTION);
                             String worker_p = p.getString(Parts.TAG_WORKER);
                             // Создаем новый List
-                            parts.add(new Parts(id_p, name_p, date_p, sn_p, pn_p, description_p, cost_p, worker_p));
+                            parts.add(new Parts(i+1, name_p, date_p, sn_p, pn_p, description_p, cost_p, worker_p));
                         }
 
                         int cost = 0;
